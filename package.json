@@ -5,8 +5,7 @@
   "description": "Princess Treatment Webpage for Raj Nandani with Turso DB & Vercel deployment",
   "scripts": {
     "dev": "vercel dev",
-    "start": "python3 -m http.server 3000",
-    "clear-db": "node scripts/clear-db.js"
+    "start": "python3 -m http.server 3000"
   },
   "dependencies": {
     "@libsql/client": "^0.18.0",

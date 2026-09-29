@@ -216,6 +216,130 @@ if (heartCounterContainer) {
   heartCounterContainer.addEventListener('click', incrementHearts);
 }
 
+// --- 3.0. ROYAL GATEKEEPER PASSCODE PROTECTION ---
+const royalGatekeeper = document.getElementById('royalGatekeeper');
+const gatekeeperCard = document.getElementById('gatekeeperCard');
+const gatekeeperForm = document.getElementById('gatekeeperForm');
+const gatekeeperInput = document.getElementById('gatekeeperInput');
+const gatekeeperSubmitBtn = document.getElementById('gatekeeperSubmitBtn');
+const gatekeeperAlert = document.getElementById('gatekeeperAlert');
+const togglePasscodeVisibility = document.getElementById('togglePasscodeVisibility');
+const mainPageContent = document.getElementById('mainPageContent');
+
+function unlockGatekeeper(animate = true) {
+  document.body.classList.remove('gate-locked');
+  if (mainPageContent) {
+    mainPageContent.style.display = 'block';
+    if (animate) mainPageContent.classList.add('fade-in-content');
+  }
+  if (royalGatekeeper) {
+    if (animate) {
+      royalGatekeeper.classList.add('unlocked');
+      setTimeout(() => {
+        royalGatekeeper.style.display = 'none';
+      }, 600);
+    } else {
+      royalGatekeeper.style.display = 'none';
+    }
+  }
+}
+
+// Check session on load so authorized sessions stay open
+if (sessionStorage.getItem('royal_access_key') === '180110') {
+  unlockGatekeeper(false);
+}
+
+if (togglePasscodeVisibility && gatekeeperInput) {
+  togglePasscodeVisibility.addEventListener('click', () => {
+    if (gatekeeperInput.type === 'password') {
+      gatekeeperInput.type = 'text';
+    } else {
+      gatekeeperInput.type = 'password';
+    }
+  });
+}
+
+function handleGatekeeperSubmit(e) {
+  if (e) e.preventDefault();
+  const code = (gatekeeperInput ? gatekeeperInput.value : '').trim().replace(/\s+/g, '');
+
+  if (!code) {
+    if (gatekeeperInput) gatekeeperInput.focus();
+    return;
+  }
+
+  // Code 1: 180110 -> Correct Royal Passcode
+  if (code === '180110') {
+    sessionStorage.setItem('royal_access_key', '180110');
+    if (gatekeeperAlert) {
+      gatekeeperAlert.className = 'gatekeeper-alert alert-success';
+      gatekeeperAlert.innerHTML = `<span>👑 Access Granted • Welcome Her Highness!</span>`;
+      gatekeeperAlert.classList.remove('hidden');
+    }
+    playChime([523.25, 659.25, 783.99, 1046.50]);
+    burstConfetti();
+    setTimeout(burstConfetti, 400);
+
+    setTimeout(() => {
+      unlockGatekeeper(true);
+    }, 700);
+    return;
+  }
+
+  // Code 2: 1415145 -> Decoy / Trap Code
+  if (code === '1415145') {
+    playBoop();
+    if (gatekeeperCard) {
+      gatekeeperCard.classList.remove('shake');
+      void gatekeeperCard.offsetWidth;
+      gatekeeperCard.classList.add('shake');
+    }
+    if (gatekeeperAlert) {
+      gatekeeperAlert.className = 'gatekeeper-alert alert-denied';
+      gatekeeperAlert.innerHTML = `
+        <div class="denied-icon">⛔</div>
+        <div class="denied-heading">This is not for you...</div>
+        <div class="denied-text">This sanctuary is strictly reserved for Her Highness. You do not have permission to view this royal domain.</div>
+      `;
+      gatekeeperAlert.classList.remove('hidden');
+    }
+    if (gatekeeperInput) {
+      gatekeeperInput.value = '';
+      gatekeeperInput.style.borderColor = '#ef4444';
+      setTimeout(() => {
+        if (gatekeeperInput) gatekeeperInput.style.borderColor = '';
+      }, 1500);
+    }
+    return;
+  }
+
+  // Code 3: Any other invalid passcode
+  playBoop();
+  if (gatekeeperCard) {
+    gatekeeperCard.classList.remove('shake');
+    void gatekeeperCard.offsetWidth;
+    gatekeeperCard.classList.add('shake');
+  }
+  if (gatekeeperAlert) {
+    gatekeeperAlert.className = 'gatekeeper-alert alert-error';
+    gatekeeperAlert.innerHTML = `<span>🔒 Invalid Royal Key. Please enter the correct code.</span>`;
+    gatekeeperAlert.classList.remove('hidden');
+  }
+  if (gatekeeperInput) {
+    gatekeeperInput.style.borderColor = '#ef4444';
+    setTimeout(() => {
+      if (gatekeeperInput) gatekeeperInput.style.borderColor = '';
+    }, 1500);
+  }
+}
+
+if (gatekeeperForm) {
+  gatekeeperForm.addEventListener('submit', handleGatekeeperSubmit);
+}
+if (gatekeeperSubmitBtn) {
+  gatekeeperSubmitBtn.addEventListener('click', handleGatekeeperSubmit);
+}
+
 // --- 3.5. CRYPTIC COORDINATES CIPHER ---
 const cipherGlyphs = document.querySelectorAll('.cipher-glyph');
 const cipherGuessInput = document.getElementById('cipherGuessInput');
