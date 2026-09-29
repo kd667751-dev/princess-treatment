@@ -19,7 +19,7 @@ module.exports = async function handler(req, res) {
       const { princess_name, snack_choice, custom_note } = req.body || {};
       fallbackTreats.unshift({
         id: Date.now(),
-        princess_name: princess_name || 'Raj Nandani',
+        princess_name: princess_name || 'Princess',
         snack_choice: snack_choice || 'Dairy Milk Silk 🍫',
         custom_note: custom_note || '',
         created_at: new Date().toISOString()
@@ -44,7 +44,7 @@ module.exports = async function handler(req, res) {
       await db.execute({
         sql: `INSERT INTO treats (princess_name, snack_choice, custom_note) VALUES (?, ?, ?);`,
         args: [
-          princess_name || 'Raj Nandani',
+          princess_name || 'Princess',
           snack_choice,
           (custom_note || '').slice(0, 200)
         ]

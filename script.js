@@ -216,17 +216,48 @@ if (heartCounterContainer) {
   heartCounterContainer.addEventListener('click', incrementHearts);
 }
 
-// --- 3.5. MYSTERY NAME UNVEILING ---
-const unveilNameBtn = document.getElementById('unveilNameBtn');
-const mysteryCipherBox = document.getElementById('mysteryCipherBox');
-const revealedNameContainer = document.getElementById('revealedNameContainer');
+// --- 3.5. INTERACTIVE ROYAL LETTER TILE DECODER ---
+const tiles = document.querySelectorAll('.tile');
+const decodeMagicBtn = document.getElementById('decodeMagicBtn');
+const decodedNotice = document.getElementById('decodedNotice');
+const letterNameFill = document.querySelector('.letter-name-fill');
+let isDecoded = false;
 
-if (unveilNameBtn) {
-  unveilNameBtn.addEventListener('click', () => {
-    playChime([523.25, 659.25, 783.99, 1046.50]);
+function checkAllTilesFlipped() {
+  const allFlipped = Array.from(tiles).every(t => t.classList.contains('flipped'));
+  if (allFlipped && !isDecoded) {
+    isDecoded = true;
+    playChime([523.25, 659.25, 783.99, 1046.50, 1318.51]);
     burstConfetti();
-    mysteryCipherBox.classList.add('hidden');
-    revealedNameContainer.classList.remove('hidden');
+    setTimeout(burstConfetti, 400);
+    if (decodedNotice) decodedNotice.classList.remove('hidden');
+    if (letterNameFill) letterNameFill.textContent = 'Raj Nandani';
+  }
+}
+
+tiles.forEach((tile, index) => {
+  tile.addEventListener('click', () => {
+    if (!tile.classList.contains('flipped')) {
+      tile.classList.add('flipped');
+      const baseFreq = 440 + index * 45;
+      playChime([baseFreq, baseFreq * 1.25], 'sine', 0.4);
+      checkAllTilesFlipped();
+    }
+  });
+});
+
+if (decodeMagicBtn) {
+  decodeMagicBtn.addEventListener('click', () => {
+    tiles.forEach((tile, index) => {
+      setTimeout(() => {
+        tile.classList.add('flipped');
+        const baseFreq = 440 + index * 50;
+        playChime([baseFreq, baseFreq * 1.25], 'sine', 0.35);
+        if (index === tiles.length - 1) {
+          checkAllTilesFlipped();
+        }
+      }, index * 110);
+    });
   });
 }
 
@@ -326,17 +357,17 @@ const moodData = {
   sleepy: {
     iconSvg: `<svg class="mood-large-icon-svg" viewBox="0 0 24 24"><path fill="#6366f1" d="M12.3 2a10 10 0 0 0-1.9 20 10 10 0 0 0 9.8-7.7 1 1 0 0 0-1.2-1.2 8 8 0 0 1-6.7-11.1 1 1 0 0 0-1-1z"/></svg>`,
     title: 'Royal Nap Permission Granted!',
-    text: 'Rest your eyes for 5 minutes, Raj Nandani! If the teacher looks our way, your desk partner stands guard and will make a strategic pencil-drop distraction!'
+    text: 'Rest your eyes for 5 minutes, Your Highness! If the teacher looks our way, your desk partner stands guard and will make a strategic distraction!'
   },
   bored: {
     iconSvg: `<svg class="mood-large-icon-svg" viewBox="0 0 24 24"><path fill="#ec4899" d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29c-.39-.39-1.02-.39-1.41 0L1.29 18.96c-.39.39-.39 1.02 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05c.39-.39.39-1.02 0-1.41l-2.33-2.35z"/></svg>`,
     title: 'Royal Entertainment Deployed!',
-    text: 'Fun Fact: While everyone else is lost in boring lecture slides, Raj Nandani is literally giving main-character energy to this entire room. Never forget you are the coolest person here!'
+    text: 'Fun Fact: While everyone else is lost in boring lecture slides, you are literally giving main-character energy to this entire room. Never forget you are the coolest person here!'
   },
   stressed: {
     iconSvg: `<svg class="mood-large-icon-svg" viewBox="0 0 24 24"><path fill="#ec4899" d="M12 2c-1.5 3-4 6-4 9a4 4 0 0 0 8 0c0-3-2.5-6-4-9zm-6.2 9.5c-.8 2.2-.3 4.8 1.4 6.5A5.5 5.5 0 0 0 11 19.4c-1.2-2.1-2.9-4.2-5.2-7.9zm12.4 0c-2.3 3.7-4 5.8-5.2 7.9a5.5 5.5 0 0 0 3.8-1.4c1.7-1.7 2.2-4.3 1.4-6.5zM12 21a9 9 0 0 1-7-3.4c2.2.4 4.5.3 6.5-.7.4 1.3.5 2.7.5 4.1zm0 0c0-1.4.1-2.8.5-4.1 2 1 4.3 1.1 6.5.7A9 9 0 0 1 12 21z"/></svg>`,
     title: 'Gentle Royal Decree: Breathe!',
-    text: 'Raj Nandani, you are intelligent, capable, and ten times stronger than any test or syllabus. Take a deep, gentle breath—you are going to do amazing!'
+    text: 'You are intelligent, capable, and ten times stronger than any test or syllabus. Take a deep, gentle breath—you are going to do amazing!'
   },
   hungry: {
     iconSvg: `<svg class="mood-large-icon-svg" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2a2 2 0 0 1 2 2c0 .3-.1.6-.2.9A6 6 0 0 1 20 12v1H4v-1a6 6 0 0 1 6.2-7.1c-.1-.3-.2-.6-.2-.9a2 2 0 0 1 2-2zm-6.8 13h13.6l-1.4 6.1a2 2 0 0 1-2 1.9H8.6a2 2 0 0 1-2-1.9L5.2 15z"/></svg>`,
@@ -429,7 +460,7 @@ if (submitTreatBtn) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          princess_name: 'Raj Nandani',
+          princess_name: isDecoded ? 'Raj Nandani' : 'Princess',
           snack_choice: selectedSnack,
           custom_note: customNote
         })
@@ -444,7 +475,7 @@ if (submitTreatBtn) {
 
     treatOrderForm.classList.add('hidden');
     if (confirmedOrderText) {
-      confirmedOrderText.textContent = `Order for ${selectedSnack} has been sealed in the royal vault! Prepared with highest priority for Raj Nandani.`;
+      confirmedOrderText.textContent = `Order for ${selectedSnack} has been sealed in the royal vault! Prepared with highest priority for Her Highness.`;
     }
     celebrationBox.classList.remove('hidden');
   });
@@ -491,7 +522,7 @@ async function fetchNotes() {
     renderMessages([
       {
         sender: 'Someone Nearby',
-        content: 'Welcome to your private royal domain, Raj Nandani! The world is infinitely brighter with you in it.',
+        content: 'Welcome to your private royal domain! The world is infinitely brighter with you in it.',
         created_at: new Date().toISOString()
       }
     ]);
@@ -502,7 +533,7 @@ fetchNotes();
 if (sendNoteBtn) {
   sendNoteBtn.addEventListener('click', async () => {
     const content = noteContentInput.value.trim();
-    const sender = noteSenderInput.value.trim() || 'Raj Nandani';
+    const sender = noteSenderInput.value.trim() || 'Princess 🌸';
 
     if (!content) {
       noteContentInput.focus();

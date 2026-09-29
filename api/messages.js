@@ -27,7 +27,7 @@ module.exports = async function handler(req, res) {
       if (content) {
         const newMsg = {
           id: Date.now(),
-          sender: sender || 'Raj Nandani 🌸',
+          sender: sender || 'Princess 🌸',
           content: content.slice(0, 300),
           created_at: new Date().toISOString()
         };
@@ -52,7 +52,7 @@ module.exports = async function handler(req, res) {
 
       await db.execute({
         sql: `INSERT INTO messages (sender, content) VALUES (?, ?);`,
-        args: [sender || 'Raj Nandani 🌸', content.slice(0, 300)]
+        args: [sender || 'Princess 🌸', content.slice(0, 300)]
       });
     }
 
