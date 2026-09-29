@@ -78,7 +78,7 @@ module.exports = async function handler(req, res) {
 
     // GET Request: Fetch full admin dashboard data
     const visitorsResult = await db.execute(`
-      SELECT id, ip, user_agent, path, code_attempted, status, created_at
+      SELECT id, ip, city, region, country, latitude, longitude, network, user_agent, path, code_attempted, status, created_at
       FROM visitors
       ORDER BY id DESC
       LIMIT 100;

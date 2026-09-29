@@ -56,6 +56,12 @@ async function initSchema() {
       CREATE TABLE IF NOT EXISTS visitors (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         ip TEXT,
+        city TEXT,
+        region TEXT,
+        country TEXT,
+        latitude TEXT,
+        longitude TEXT,
+        network TEXT,
         user_agent TEXT,
         path TEXT,
         code_attempted TEXT,
@@ -63,6 +69,14 @@ async function initSchema() {
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       );
     `);
+
+    // Safely add any missing columns if table already exists
+    const cols = ['city', 'region', 'country', 'latitude', 'longitude', 'network'];
+    for (const col of cols) {
+      try {
+        await db.execute(`ALTER TABLE visitors ADD COLUMN ${col} TEXT;`);
+      } catch (e) {}
+    }
 
     // Ensure initial heart/crown counter exists
     await db.execute({

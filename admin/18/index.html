@@ -623,14 +623,15 @@
             <tr>
               <th>ID</th>
               <th>IP Address</th>
+              <th>Location (City, Country)</th>
               <th>Status</th>
               <th>Code Attempted</th>
-              <th>Device / User Agent</th>
+              <th>Network & Device</th>
               <th>Timestamp</th>
             </tr>
           </thead>
           <tbody id="visitorsTableBody">
-            <tr><td colspan="6" class="empty-state">Loading visitors...</td></tr>
+            <tr><td colspan="7" class="empty-state">Loading visitors...</td></tr>
           </tbody>
         </table>
       </div>
@@ -853,14 +854,22 @@
           }
 
           const time = v.created_at ? new Date(v.created_at).toLocaleString() : 'Recent';
+          const locParts = [v.city, v.region, v.country].filter(Boolean);
+          const locationDisplay = locParts.length > 0 ? locParts.join(', ') : 'Detected via IP';
+          const mapLink = (v.latitude && v.longitude)
+            ? `<a href="https://www.google.com/maps?q=${encodeURIComponent(v.latitude + ',' + v.longitude)}" target="_blank" rel="noopener" style="color: #38bdf8; text-decoration: underline;" title="Open Coordinates in Google Maps">📍 ${escapeHtml(locationDisplay)}</a>`
+            : `<span style="color: #cbd5e1;">📍 ${escapeHtml(locationDisplay)}</span>`;
+
+          const netDevice = [v.network, v.user_agent].filter(Boolean).join(' • ') || 'Unknown Device';
 
           return `
             <tr>
               <td>#${v.id}</td>
               <td><span class="ip-badge">${v.ip || 'Unknown'}</span></td>
+              <td>${mapLink}</td>
               <td><span class="status-badge ${statusClass}">${statusText}</span></td>
               <td>${v.code_attempted ? `<span class="code-badge">${v.code_attempted}</span>` : '—'}</td>
-              <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${v.user_agent || ''}">${v.user_agent || 'Unknown'}</td>
+              <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${escapeHtml(netDevice)}">${escapeHtml(netDevice)}</td>
               <td style="white-space: nowrap; color: var(--text-muted);">${time}</td>
             </tr>
           `;
