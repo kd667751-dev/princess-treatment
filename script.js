@@ -216,48 +216,110 @@ if (heartCounterContainer) {
   heartCounterContainer.addEventListener('click', incrementHearts);
 }
 
-// --- 3.5. INTERACTIVE ROYAL LETTER TILE DECODER ---
-const tiles = document.querySelectorAll('.tile');
-const decodeMagicBtn = document.getElementById('decodeMagicBtn');
+// --- 3.5. CRYPTIC COORDINATES CIPHER & DECODER SLIDER ---
+const cipherGlyphs = document.querySelectorAll('.cipher-glyph');
+const decryptSlider = document.getElementById('decryptSlider');
+const cipherGuessInput = document.getElementById('cipherGuessInput');
+const verifyGuessBtn = document.getElementById('verifyGuessBtn');
+const toggleAlphabetKeyBtn = document.getElementById('toggleAlphabetKeyBtn');
+const alphabetKeyModal = document.getElementById('alphabetKeyModal');
 const decodedNotice = document.getElementById('decodedNotice');
 const letterNameFill = document.querySelector('.letter-name-fill');
+const sealPromptText = document.getElementById('sealPromptText');
+const previewText = document.getElementById('previewText');
+const letterStatusPrompt = document.getElementById('letterStatusPrompt');
+const envelopeCard = document.getElementById('envelopeCard');
+
 let isDecoded = false;
 
-function checkAllTilesFlipped() {
-  const allFlipped = Array.from(tiles).every(t => t.classList.contains('flipped'));
-  if (allFlipped && !isDecoded) {
-    isDecoded = true;
+function triggerFullDecode() {
+  if (isDecoded) return;
+  isDecoded = true;
+
+  if (decryptSlider) decryptSlider.value = 100;
+
+  cipherGlyphs.forEach((glyph, idx) => {
+    setTimeout(() => {
+      glyph.textContent = glyph.getAttribute('data-char');
+      glyph.classList.add('decoded');
+      const baseFreq = 440 + idx * 40;
+      playChime([baseFreq, baseFreq * 1.25], 'sine', 0.25);
+    }, idx * 60);
+  });
+
+  setTimeout(() => {
     playChime([523.25, 659.25, 783.99, 1046.50, 1318.51]);
     burstConfetti();
     setTimeout(burstConfetti, 400);
+
     if (decodedNotice) decodedNotice.classList.remove('hidden');
     if (letterNameFill) letterNameFill.textContent = 'Raj Nandani';
+
+    // Unlock the private letter
+    if (envelopeCard) envelopeCard.classList.remove('locked-envelope');
+    if (sealPromptText) sealPromptText.textContent = 'Tap to Open';
+    if (previewText) previewText.textContent = 'Confidential Royal Letter • For Your Eyes Only';
+    if (letterStatusPrompt) letterStatusPrompt.textContent = '✨ The royal seal is now unlocked! Tap to read:';
+  }, cipherGlyphs.length * 60 + 100);
+}
+
+// Slider live decoding
+if (decryptSlider) {
+  decryptSlider.addEventListener('input', (e) => {
+    const val = Number(e.target.value);
+    const total = cipherGlyphs.length;
+    const threshold = Math.round((val / 100) * total);
+
+    cipherGlyphs.forEach((glyph, idx) => {
+      if (idx < threshold) {
+        glyph.textContent = glyph.getAttribute('data-char');
+        glyph.classList.add('decoded');
+      } else {
+        glyph.textContent = glyph.getAttribute('data-num');
+        glyph.classList.remove('decoded');
+      }
+    });
+
+    if (val >= 100) {
+      triggerFullDecode();
+    } else {
+      isDecoded = false;
+      if (decodedNotice) decodedNotice.classList.add('hidden');
+      if (envelopeCard) envelopeCard.classList.add('locked-envelope');
+      if (sealPromptText) sealPromptText.textContent = 'Locked';
+      if (previewText) previewText.textContent = 'Locked with Coordinate Cipher • Decode to Open';
+      if (letterStatusPrompt) letterStatusPrompt.textContent = 'Decode the coordinates above to break this royal seal:';
+      if (letterNameFill) letterNameFill.textContent = 'Princess';
+    }
+  });
+}
+
+// Direct guess input
+function checkGuess() {
+  const guess = cipherGuessInput ? cipherGuessInput.value.trim().toLowerCase() : '';
+  if (guess.includes('raj') || guess.includes('nandani')) {
+    triggerFullDecode();
+  } else {
+    playBoop();
+    if (cipherGuessInput) {
+      cipherGuessInput.style.borderColor = '#ef4444';
+      setTimeout(() => cipherGuessInput.style.borderColor = '', 1000);
+    }
   }
 }
 
-tiles.forEach((tile, index) => {
-  tile.addEventListener('click', () => {
-    if (!tile.classList.contains('flipped')) {
-      tile.classList.add('flipped');
-      const baseFreq = 440 + index * 45;
-      playChime([baseFreq, baseFreq * 1.25], 'sine', 0.4);
-      checkAllTilesFlipped();
-    }
+if (verifyGuessBtn) verifyGuessBtn.addEventListener('click', checkGuess);
+if (cipherGuessInput) {
+  cipherGuessInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') checkGuess();
   });
-});
+}
 
-if (decodeMagicBtn) {
-  decodeMagicBtn.addEventListener('click', () => {
-    tiles.forEach((tile, index) => {
-      setTimeout(() => {
-        tile.classList.add('flipped');
-        const baseFreq = 440 + index * 50;
-        playChime([baseFreq, baseFreq * 1.25], 'sine', 0.35);
-        if (index === tiles.length - 1) {
-          checkAllTilesFlipped();
-        }
-      }, index * 110);
-    });
+// Toggle Alphabet Key
+if (toggleAlphabetKeyBtn && alphabetKeyModal) {
+  toggleAlphabetKeyBtn.addEventListener('click', () => {
+    alphabetKeyModal.classList.toggle('hidden');
+    playChime([659.25]);
   });
 }
 
@@ -317,11 +379,27 @@ if (crownMeBtn) {
 
 // --- 6. WAX SEAL & PRIVATE LETTER ---
 const waxSeal = document.getElementById('waxSeal');
-const envelopeCard = document.getElementById('envelopeCard');
 const letterModal = document.getElementById('letterModal');
 const closeLetterBtn = document.getElementById('closeLetterBtn');
 
 function openLetter() {
+  if (!isDecoded) {
+    playBoop();
+    if (envelopeCard) {
+      envelopeCard.style.transform = 'translateX(-8px)';
+      setTimeout(() => envelopeCard.style.transform = 'translateX(8px)', 100);
+      setTimeout(() => envelopeCard.style.transform = 'translateX(-5px)', 200);
+      setTimeout(() => envelopeCard.style.transform = '', 300);
+    }
+    const cipherStation = document.querySelector('.cipher-station');
+    if (cipherStation) {
+      cipherStation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      cipherStation.style.borderColor = '#db2777';
+      setTimeout(() => cipherStation.style.borderColor = '', 1500);
+    }
+    return;
+  }
+
   playChime([440, 554.37, 659.25, 880]);
   letterModal.classList.remove('hidden');
   burstConfetti(window.innerWidth / 2, window.innerHeight * 0.4);

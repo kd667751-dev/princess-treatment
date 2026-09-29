@@ -68,49 +68,80 @@
         For The Girl Made of Starlight & Grace
       </h1>
       
-      <!-- INTERACTIVE DECODE BOARD -->
+      <!-- INTERACTIVE CIPHER STATION (NOT DIRECT, DECODEABLE) -->
       <div class="mystery-hero-card">
         <p class="mystery-intro">
           Someone has crafted an entire private realm in your honor... <br/>
-          Can you decode who the stars chose for this kingdom?
+          Can you decode the cryptic royal coordinates below to unlock your identity?
         </p>
 
-        <div class="decoder-container">
-          <span class="decoder-hint">✦ Tap any tile or auto-decode below ✦</span>
-          
-          <div class="decoder-tiles-wrapper" id="decoderTiles">
-            <!-- Word 1: 3 letters -->
-            <div class="tile-word">
-              <div class="tile" data-letter="R"><span class="tile-front">✦</span><span class="tile-back">R</span></div>
-              <div class="tile" data-letter="A"><span class="tile-front">✦</span><span class="tile-back">A</span></div>
-              <div class="tile" data-letter="J"><span class="tile-front">✦</span><span class="tile-back">J</span></div>
+        <div class="cipher-station">
+          <div class="cipher-header">
+            <span class="cipher-badge">✦ Cryptic Royal Coordinates ✦</span>
+            <p class="cipher-instruction">
+              Each coordinate matches an alphabet position (A=1, B=2, C=3...)
+            </p>
+          </div>
+
+          <!-- Cryptic Coordinate Display -->
+          <div class="cipher-display" id="cipherDisplay">
+            <div class="cipher-group">
+              <div class="cipher-glyph" data-num="18" data-char="R">18</div>
+              <div class="cipher-glyph" data-num="01" data-char="A">01</div>
+              <div class="cipher-glyph" data-num="10" data-char="J">10</div>
             </div>
             
-            <div class="tile-divider"></div>
+            <div class="cipher-divider">• • •</div>
 
-            <!-- Word 2: 7 letters -->
-            <div class="tile-word">
-              <div class="tile" data-letter="N"><span class="tile-front">✦</span><span class="tile-back">N</span></div>
-              <div class="tile" data-letter="A"><span class="tile-front">✦</span><span class="tile-back">A</span></div>
-              <div class="tile" data-letter="N"><span class="tile-front">✦</span><span class="tile-back">N</span></div>
-              <div class="tile" data-letter="D"><span class="tile-front">✦</span><span class="tile-back">D</span></div>
-              <div class="tile" data-letter="A"><span class="tile-front">✦</span><span class="tile-back">A</span></div>
-              <div class="tile" data-letter="N"><span class="tile-front">✦</span><span class="tile-back">N</span></div>
-              <div class="tile" data-letter="I"><span class="tile-front">✦</span><span class="tile-back">I</span></div>
+            <div class="cipher-group">
+              <div class="cipher-glyph" data-num="14" data-char="N">14</div>
+              <div class="cipher-glyph" data-num="01" data-char="A">01</div>
+              <div class="cipher-glyph" data-num="14" data-char="N">14</div>
+              <div class="cipher-glyph" data-num="04" data-char="D">04</div>
+              <div class="cipher-glyph" data-num="01" data-char="A">01</div>
+              <div class="cipher-glyph" data-num="14" data-char="N">14</div>
+              <div class="cipher-glyph" data-num="09" data-char="I">09</div>
             </div>
           </div>
 
-          <div class="decoder-actions">
-            <button id="decodeMagicBtn" class="btn-secondary btn-unveil">
-              <svg viewBox="0 0 24 24"><path d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29c-.39-.39-1.02-.39-1.41 0L1.29 18.96c-.39.39-.39 1.02 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05c.39-.39.39-1.02 0-1.41l-2.33-2.35z"/></svg>
-              <span>Tap to Auto-Decode</span>
+          <!-- Decryption Slider -->
+          <div class="cipher-slider-box">
+            <div class="slider-labels">
+              <span>🔒 Encrypted Code</span>
+              <span class="slider-center-tip">Slide to Decrypt 🪄</span>
+              <span>🔓 Decoded</span>
+            </div>
+            <input type="range" id="decryptSlider" min="0" max="100" value="0" class="royal-slider" />
+          </div>
+
+          <!-- Direct Guess Input -->
+          <div class="cipher-guess-box">
+            <input type="text" id="cipherGuessInput" placeholder="Enter decoded name to unlock..." />
+            <button id="verifyGuessBtn" class="btn-royal btn-small">
+              <svg viewBox="0 0 24 24"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6-5c1.71 0 3.1 1.39 3.1 3.1v2H8.9V6.1C8.9 4.39 10.29 3 12 3zm6 17H6V10h12v10z"/></svg>
+              <span>Unlock</span>
             </button>
           </div>
 
+          <!-- Help Key Toggle -->
+          <button type="button" id="toggleAlphabetKeyBtn" class="btn-text-link">
+            <span>Need help? Show A=1 to Z=26 Code Chart</span>
+          </button>
+          <div id="alphabetKeyModal" class="alphabet-key-box hidden">
+            <div class="key-grid">
+              <span><b>1</b>=A</span><span><b>2</b>=B</span><span><b>3</b>=C</span><span><b>4</b>=D</span><span><b>5</b>=E</span>
+              <span><b>6</b>=F</span><span><b>7</b>=G</span><span><b>8</b>=H</span><span><b>9</b>=I</span><span><b>10</b>=J</span>
+              <span><b>11</b>=K</span><span><b>12</b>=L</span><span><b>13</b>=M</span><span><b>14</b>=N</span><span><b>15</b>=O</span>
+              <span><b>16</b>=P</span><span><b>17</b>=Q</span><span><b>18</b>=R</span><span><b>19</b>=S</span><span><b>20</b>=T</span>
+              <span><b>21</b>=U</span><span><b>22</b>=V</span><span><b>23</b>=W</span><span><b>24</b>=X</span><span><b>25</b>=Y</span><span><b>26</b>=Z</span>
+            </div>
+          </div>
+
+          <!-- Decoded Celebration Notice -->
           <div id="decodedNotice" class="decoded-notice hidden">
-            <span class="decoded-tag">✨ Identity Confirmed ✨</span>
+            <span class="decoded-tag">✨ Cipher Solved ✨</span>
             <h2 class="decoded-title">Princess <span id="decodedNameDisplay">Raj Nandani</span></h2>
-            <p class="decoded-sub">Yes, this entire page was crafted just for you.</p>
+            <p class="decoded-sub">Yes, this entire page belongs to you! The secret letter is now unlocked.</p>
           </div>
         </div>
       </div>
@@ -246,19 +277,19 @@
           The Unbroken Seal
         </span>
         <h2>Who Wrote This Realm For You?</h2>
-        <p>Break the royal seal to reveal the identity of the person behind this page:</p>
+        <p id="letterStatusPrompt">Decode the coordinates above to break this royal seal:</p>
       </div>
 
       <div class="envelope-wrapper">
-        <div class="envelope-card" id="envelopeCard">
+        <div class="envelope-card locked-envelope" id="envelopeCard">
           <div class="wax-seal" id="waxSeal">
-            <svg class="seal-icon-svg" viewBox="0 0 24 24">
+            <svg class="seal-icon-svg" id="sealIcon" viewBox="0 0 24 24">
               <path d="M12 2c1.1 2.2 2.5 3.8 4 5 1.5 1.2 3.1 1.7 5 2-2.3 1.2-3.8 2.7-4.5 4.5-.7 1.8-.7 3.9-.5 6.5-1.9-1.7-3.4-3.5-4-5.5-.6 2-2.1 3.8-4 5.5.2-2.6.2-4.7-.5-6.5C6.8 11.7 5.3 10.2 3 9c1.9-.3 3.5-.8 5-2 1.5-1.2 2.9-2.8 4-5z"/>
             </svg>
-            <span class="seal-prompt">Break The Seal</span>
+            <span class="seal-prompt" id="sealPromptText">Locked</span>
           </div>
           <div class="letter-preview">
-            <p class="preview-text">A Private Confession • Unveils The Sender</p>
+            <p class="preview-text" id="previewText">Locked with Coordinate Cipher • Decode to Open</p>
           </div>
         </div>
 
