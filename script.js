@@ -216,22 +216,34 @@ if (heartCounterContainer) {
   heartCounterContainer.addEventListener('click', incrementHearts);
 }
 
-// --- 4. ROYAL COMPLIMENT ORACLE (DEDICATED TO RAJ NANDANI) ---
+// --- 3.5. MYSTERY NAME UNVEILING ---
+const unveilNameBtn = document.getElementById('unveilNameBtn');
+const mysteryCipherBox = document.getElementById('mysteryCipherBox');
+const revealedNameContainer = document.getElementById('revealedNameContainer');
+
+if (unveilNameBtn) {
+  unveilNameBtn.addEventListener('click', () => {
+    playChime([523.25, 659.25, 783.99, 1046.50]);
+    burstConfetti();
+    mysteryCipherBox.classList.add('hidden');
+    revealedNameContainer.classList.remove('hidden');
+  });
+}
+
+// --- 4. THE MIRROR OF TRUTH (POETIC & SUBTLE ADMIRATION) ---
 const compliments = [
-  "Raj Nandani, your presence has this magical aura that turns an ordinary school desk into the finest throne.",
-  "Warning: Excessive elegance detected on Desk #2! Raj Nandani is officially in the room.",
-  "School can get hectic, but seeing Raj Nandani's calm and pretty smile instantly makes the day 100 times better.",
-  "Out of all the benches in this entire school, sitting next to Raj Nandani is the absolute jackpot.",
-  "The teacher is talking about history, but honestly, having Raj Nandani as a desk partner is the main event.",
-  "The quiet grace and kindness Raj Nandani shows every single day is what makes her a real queen.",
-  "Even on dull Monday mornings, Raj Nandani brings a spark of pure sunshine to the entire classroom.",
-  "The cute, serious look on Raj Nandani's face when taking down notes is secretly the most adorable thing ever.",
-  "Raj Nandani's laugh is like a gentle chime in the middle of school chaos.",
-  "If there were grades for being sweet, stylish, and graceful, Raj Nandani would top the whole state.",
-  "Whenever Raj Nandani borrows a pen or asks for notes, it feels like receiving a royal mission ✨",
-  "Raj Nandani doesn't need a golden crown to be royalty—her aura does the job effortlessly.",
-  "The classroom lights are bright, but nothing in this room shines brighter than Raj Nandani's eyes.",
-  "Having Raj Nandani beside me makes 7 hours of school feel like 7 sweet minutes."
+  "You carry a calm, effortless aura that turns the most ordinary place into something extraordinary.",
+  "Someone in the room considers your quiet, spontaneous smile the absolute highlight of their day.",
+  "The world can be noisy and chaotic, but your presence brings a sudden, peaceful quiet.",
+  "You don't need a tiara to be seen as royalty by the person watching you with quiet admiration.",
+  "Even the dullest mornings become something to look forward to, just knowing you'll be sitting nearby.",
+  "The focused, cute expression on your face when you're seriously reading or writing is impossible not to notice.",
+  "Your gentle laughter feels like a soothing melody in the middle of a crowded room.",
+  "If grace, warmth, and quiet charm were graded, you would outshine the entire world.",
+  "Out of all the people in the universe, having you right nearby is someone's luckiest secret.",
+  "There is an unspoken elegance in the simplest things you do—you are truly in a league of your own.",
+  "The hours pass by effortlessly when you are in the room.",
+  "You have this quiet magic that makes someone secretly want every hour to last forever."
 ];
 
 let currentComplimentIdx = 0;
@@ -247,7 +259,7 @@ function showNextCompliment() {
   complimentText.style.opacity = 0;
   setTimeout(() => {
     complimentText.textContent = `"${compliments[currentComplimentIdx]}"`;
-    complimentCounter.textContent = `Royal Truth #${currentComplimentIdx + 1}`;
+    complimentCounter.textContent = `Whisper #${currentComplimentIdx + 1}`;
     complimentText.style.opacity = 1;
   }, 200);
 
@@ -478,8 +490,8 @@ async function fetchNotes() {
     console.log('Using local fallback notes:', err);
     renderMessages([
       {
-        sender: 'Desk Partner',
-        content: 'Welcome to your private royal domain, Raj Nandani! The school bench is infinitely better with you.',
+        sender: 'Someone Nearby',
+        content: 'Welcome to your private royal domain, Raj Nandani! The world is infinitely brighter with you in it.',
         created_at: new Date().toISOString()
       }
     ]);

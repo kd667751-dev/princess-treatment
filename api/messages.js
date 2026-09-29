@@ -3,8 +3,8 @@ const { getDbClient, initSchema } = require('./db');
 let fallbackMessages = [
   {
     id: 1,
-    sender: 'Desk Partner ✨',
-    content: 'Welcome to your private royal domain, Raj Nandani! The school bench is infinitely better with you.',
+    sender: 'Someone Nearby ✨',
+    content: 'Welcome to your private royal domain, Raj Nandani! The world is infinitely brighter with you in it.',
     created_at: new Date().toISOString()
   }
 ];

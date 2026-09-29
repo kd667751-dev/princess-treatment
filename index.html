@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>A Royal Tribute for Raj Nandani</title>
+  <title>An Untold Secret in the Stars ✨</title>
   
   <!-- Google Fonts for Royal & Aesthetic Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,11 +29,10 @@
   </div>
 
   <main class="page-container">
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION: MYSTERIOUS & ENCHANTING -->
     <header class="hero-section">
       <div class="crown-badge floating-crown">
         <div class="crown-svg-wrapper">
-          <!-- Royal Tiara SVG Icon -->
           <svg viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="crownGold" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -48,7 +47,6 @@
             </defs>
             <path d="M12 65L20 28L38 48L50 14L62 48L80 28L88 65H12Z" fill="url(#crownGold)" stroke="#d4af37" stroke-width="2.5" stroke-linejoin="round"/>
             <rect x="10" y="65" width="80" height="10" rx="5" fill="url(#crownGold)"/>
-            <!-- Crown Jewels -->
             <circle cx="50" cy="14" r="5" fill="url(#gemRuby)"/>
             <circle cx="20" cy="28" r="4" fill="url(#gemRuby)"/>
             <circle cx="80" cy="28" r="4" fill="url(#gemRuby)"/>
@@ -62,18 +60,36 @@
       
       <div class="royal-decree-tag">
         <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.2-6.3-4.6-6.3 4.6 2.3-7.2-6-4.6h7.6z"/></svg>
-        <span>Official Royal Decree</span>
+        <span>An Untold Secret Decree</span>
         <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.2-6.3-4.6-6.3 4.6 2.3-7.2-6-4.6h7.6z"/></svg>
       </div>
       
       <h1 class="main-title">
-        The Princess of the Bench Beside Me
+        For The Girl Made of Starlight & Grace
       </h1>
       
-      <div class="royal-name-card">
-        <span class="name-prefix">Dedicated with all reverence to</span>
-        <h2 id="princessNameDisplay" class="princess-name">Princess Raj Nandani</h2>
-        <span class="desk-subtitle">The prettiest reason school is actually worth coming to</span>
+      <div class="mystery-hero-card">
+        <p class="mystery-intro">
+          Someone has crafted an entire private realm in your honor... <br/>
+          They see a quiet royalty in you that words alone can never do justice.
+        </p>
+        
+        <div class="cipher-box" id="mysteryCipherBox">
+          <span class="cipher-label">The One It Is Dedicated To:</span>
+          <div class="cipher-glow-wrapper">
+            <span class="cipher-text" id="cipherText">✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦</span>
+          </div>
+          <button id="unveilNameBtn" class="btn-secondary btn-unveil">
+            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            <span>Touch to Reveal the Chosen One</span>
+          </button>
+        </div>
+
+        <div id="revealedNameContainer" class="revealed-name-box hidden">
+          <span class="name-prefix">Yes, this realm belongs only to you:</span>
+          <h2 class="princess-name">Princess Raj Nandani</h2>
+          <span class="desk-subtitle">You bring warmth and calm everywhere you step</span>
+        </div>
       </div>
 
       <!-- Live Heart Counter with Beating SVG Heart -->
@@ -88,7 +104,7 @@
           <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
         </svg>
         <span id="heartCountNumber">128</span>
-        <span class="pill-label">Royal Crowns & Love Taps for Raj Nandani</span>
+        <span class="pill-label">Love Taps & Royal Blessings</span>
       </div>
 
       <div class="crown-action-box">
@@ -98,71 +114,20 @@
         </button>
         <p id="crownedMessage" class="crowned-message hidden">
           <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          <span>Raj Nandani has officially been crowned as Today's Queen of the Bench!</span>
+          <span>You have officially claimed your crown. But the mystery has only just begun...</span>
         </p>
       </div>
     </header>
 
-    <!-- SECTION: THE SECRET ROYAL LETTER (WAX SEAL ENVELOPE) -->
-    <section class="section-container">
-      <div class="section-header">
-        <span class="section-tag">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          Royal Correspondence
-        </span>
-        <h2>A Private Note for Raj Nandani</h2>
-        <p>A sealed royal parchment meant only for the girl who sits next to me</p>
-      </div>
-
-      <div class="envelope-wrapper">
-        <div class="envelope-card" id="envelopeCard">
-          <div class="wax-seal" id="waxSeal">
-            <svg class="seal-icon-svg" viewBox="0 0 24 24">
-              <path d="M12 2c1.1 2.2 2.5 3.8 4 5 1.5 1.2 3.1 1.7 5 2-2.3 1.2-3.8 2.7-4.5 4.5-.7 1.8-.7 3.9-.5 6.5-1.9-1.7-3.4-3.5-4-5.5-.6 2-2.1 3.8-4 5.5.2-2.6.2-4.7-.5-6.5C6.8 11.7 5.3 10.2 3 9c1.9-.3 3.5-.8 5-2 1.5-1.2 2.9-2.8 4-5z"/>
-            </svg>
-            <span class="seal-prompt">Tap to Open</span>
-          </div>
-          <div class="letter-preview">
-            <p class="preview-text">Confidential Royal Letter • For Raj Nandani's Eyes Only</p>
-          </div>
-        </div>
-
-        <div class="letter-modal hidden" id="letterModal">
-          <div class="parchment-sheet">
-            <button class="close-letter-btn" id="closeLetterBtn">&times;</button>
-            <svg class="royal-crest-small-svg" viewBox="0 0 24 24">
-              <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
-            </svg>
-            <h3 class="letter-greeting">Dearest <span class="letter-name-fill">Raj Nandani</span>,</h3>
-            <div class="letter-body">
-              <p>
-                I don’t know if you realize this, but having you sit beside me makes the most boring school lectures genuinely the best part of every day. Between endless notes, teacher lectures, and classroom noise, your quiet grace and smile turn an ordinary wooden desk into a peaceful sanctuary.
-              </p>
-              <p>
-                Whether it's your gentle laugh, how gracefully you carry yourself, or the cute, determined look when you're busy writing notes—you truly deserve nothing less than complete princess treatment.
-              </p>
-              <p>
-                Consider this little website your permanent royal sanctuary. You are special, deeply admired, and truly the queen of this classroom.
-              </p>
-            </div>
-            <div class="letter-signature">
-              <p>With highest royal admiration,</p>
-              <span class="signature-name">— Your Humble Desk Partner</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: DAILY ROYAL COMPLIMENT ORACLE -->
+    <!-- SECTION 1: THE MYSTERIOUS MIRROR OF TRUTH -->
     <section class="section-container">
       <div class="section-header">
         <span class="section-tag">
           <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.5l7.5 13H4.5L12 5.5z"/></svg>
-          Royal Compliment Oracle
+          The Mirror of Truth
         </span>
-        <h2>The Royal Mirror of Truth</h2>
-        <p>Whenever you need a reminder of how wonderful you are, tap the crystal sphere:</p>
+        <h2>Whispers of Admiration</h2>
+        <p>A few unspoken truths observed by someone who watches you from close by:</p>
       </div>
 
       <div class="compliment-card glass-panel">
@@ -176,117 +141,27 @@
 
         <div class="compliment-display-box">
           <p class="compliment-quote" id="complimentText">
-            "Raj Nandani, your presence has this magical aura that turns an ordinary school desk into the finest throne."
+            "You carry a calm, effortless aura that turns the most ordinary place into something extraordinary."
           </p>
-          <span class="compliment-number" id="complimentCounter">Royal Truth #1</span>
+          <span class="compliment-number" id="complimentCounter">Whisper #1</span>
         </div>
 
         <button id="nextComplimentBtn" class="btn-secondary">
           <svg viewBox="0 0 24 24"><path d="M12 2v4m0 12v4M2 12h4m12 0h4m-3.17-6.83l-2.83 2.83m-8 8l-2.83 2.83m0-13.66l2.83 2.83m8 8l2.83 2.83"/></svg>
-          <span>Bestow Another Compliment</span>
+          <span>Reveal Another Whisper</span>
         </button>
       </div>
     </section>
 
-    <!-- SECTION: PRINCESS EMERGENCY MOOD BOOSTER -->
-    <section class="section-container">
-      <div class="section-header">
-        <span class="section-tag">
-          <svg viewBox="0 0 24 24"><path d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29c-.39-.39-1.02-.39-1.41 0L1.29 18.96c-.39.39-.39 1.02 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05c.39-.39.39-1.02 0-1.41l-2.33-2.35z"/></svg>
-          Mood Magic
-        </span>
-        <h2>Raj Nandani's Emergency Care Kit</h2>
-        <p>School can get exhausting! Tap whatever you need right now for instant royal pampering:</p>
-      </div>
-
-      <div class="emergency-grid">
-        <!-- Sleepy button with Moon SVG -->
-        <button class="emergency-item" data-mood="sleepy">
-          <svg class="emergency-icon-svg" viewBox="0 0 24 24">
-            <defs>
-              <linearGradient id="moonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#818cf8"/>
-                <stop offset="100%" stop-color="#4f46e5"/>
-              </linearGradient>
-            </defs>
-            <path fill="url(#moonGrad)" d="M12.3 2a10 10 0 0 0-1.9 20 10 10 0 0 0 9.8-7.7 1 1 0 0 0-1.2-1.2 8 8 0 0 1-6.7-11.1 1 1 0 0 0-1-1z"/>
-            <circle cx="19" cy="5" r="1.5" fill="#facc15"/>
-            <circle cx="21" cy="9" r="1" fill="#facc15"/>
-          </svg>
-          <span class="emergency-title">Sleepy in Lecture?</span>
-          <span class="emergency-desc">Tap for royal nap defense</span>
-        </button>
-
-        <!-- Bored button with Wand SVG -->
-        <button class="emergency-item" data-mood="bored">
-          <svg class="emergency-icon-svg" viewBox="0 0 24 24">
-            <defs>
-              <linearGradient id="wandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#f472b6"/>
-                <stop offset="100%" stop-color="#db2777"/>
-              </linearGradient>
-            </defs>
-            <path fill="url(#wandGrad)" d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29c-.39-.39-1.02-.39-1.41 0L1.29 18.96c-.39.39-.39 1.02 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05c.39-.39.39-1.02 0-1.41l-2.33-2.35z"/>
-          </svg>
-          <span class="emergency-title">Class Too Boring?</span>
-          <span class="emergency-desc">Summon royal entertainment</span>
-        </button>
-
-        <!-- Stressed button with Blossom SVG -->
-        <button class="emergency-item" data-mood="stressed">
-          <svg class="emergency-icon-svg" viewBox="0 0 24 24">
-            <defs>
-              <linearGradient id="lotusGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#fbcfe8"/>
-                <stop offset="100%" stop-color="#ec4899"/>
-              </linearGradient>
-            </defs>
-            <path fill="url(#lotusGrad)" d="M12 2c-1.5 3-4 6-4 9a4 4 0 0 0 8 0c0-3-2.5-6-4-9zm-6.2 9.5c-.8 2.2-.3 4.8 1.4 6.5A5.5 5.5 0 0 0 11 19.4c-1.2-2.1-2.9-4.2-5.2-7.9zm12.4 0c-2.3 3.7-4 5.8-5.2 7.9a5.5 5.5 0 0 0 3.8-1.4c1.7-1.7 2.2-4.3 1.4-6.5zM12 21a9 9 0 0 1-7-3.4c2.2.4 4.5.3 6.5-.7.4 1.3.5 2.7.5 4.1zm0 0c0-1.4.1-2.8.5-4.1 2 1 4.3 1.1 6.5.7A9 9 0 0 1 12 21z"/>
-          </svg>
-          <span class="emergency-title">Exam Stress?</span>
-          <span class="emergency-desc">A gentle soothing royal decree</span>
-        </button>
-
-        <!-- Hungry button with Cupcake/Treat SVG -->
-        <button class="emergency-item" data-mood="hungry">
-          <svg class="emergency-icon-svg" viewBox="0 0 24 24">
-            <defs>
-              <linearGradient id="treatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#fbbf24"/>
-                <stop offset="100%" stop-color="#d97706"/>
-              </linearGradient>
-            </defs>
-            <path fill="url(#treatGrad)" d="M12 2a2 2 0 0 1 2 2c0 .3-.1.6-.2.9A6 6 0 0 1 20 12v1H4v-1a6 6 0 0 1 6.2-7.1c-.1-.3-.2-.6-.2-.9a2 2 0 0 1 2-2zm-6.8 13h13.6l-1.4 6.1a2 2 0 0 1-2 1.9H8.6a2 2 0 0 1-2-1.9L5.2 15z"/>
-          </svg>
-          <span class="emergency-title">Craving Treats?</span>
-          <span class="emergency-desc">Order royal sweets & treats</span>
-        </button>
-      </div>
-
-      <!-- Mood popup banner -->
-      <div id="moodResponse" class="mood-popup hidden">
-        <div class="mood-popup-content">
-          <div id="moodIconWrapper">
-            <svg class="mood-large-icon-svg" viewBox="0 0 24 24" fill="#ec4899">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            </svg>
-          </div>
-          <h4 id="moodTitle">Royal Care Activated</h4>
-          <p id="moodText">Taking care of Her Highness with utmost urgency!</p>
-          <button id="dismissMoodBtn" class="btn-tiny">Thank You</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: 6 LITTLE THINGS THAT MAKE HER ROYAL -->
+    <!-- SECTION 2: 6 SUBTLE DETAILS NOTICED -->
     <section class="section-container">
       <div class="section-header">
         <span class="section-tag">
           <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          Her Royal Qualities
+          Subtle Observations
         </span>
-        <h2>Why Raj Nandani Deserves Princess Treatment</h2>
-        <p>A few of the countless little reasons noticed from Desk #1:</p>
+        <h2>Things You Do Without Realizing</h2>
+        <p>Little habits and traits that make you truly unforgettable:</p>
       </div>
 
       <div class="reasons-grid">
@@ -294,53 +169,108 @@
           <svg class="reason-icon-svg" viewBox="0 0 24 24" fill="#a855f7">
             <path d="M12 2l2.4 7.2 7.6.3-5.8 4.8 2 7.7-6.2-4.5-6.2 4.5 2-7.7-5.8-4.8 7.6-.3z"/>
           </svg>
-          <h3>That Graceful Aura</h3>
-          <p>You don't even have to try; there's just an effortless charm and calm elegance in the way you exist.</p>
+          <h3>That Graceful Calm</h3>
+          <p>Even when everyone around is restless and noisy, you have this serene, effortless dignity in everything you do.</p>
         </div>
 
         <div class="reason-card glass-panel">
           <svg class="reason-icon-svg" viewBox="0 0 24 24" fill="#f43f5e">
             <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm3.5-9a1.5 1.5 0 1 0-1.5-1.5 1.5 1.5 0 0 0 1.5 1.5zm-7 0A1.5 1.5 0 1 0 7 9.5 1.5 1.5 0 0 0 8.5 11zm3.5 5.5a5 5 0 0 0 4.2-2.3.8.8 0 1 0-1.3-.9 3.5 3.5 0 0 1-5.8 0 .8.8 0 1 0-1.3.9 5 5 0 0 0 4.2 2.3z"/>
           </svg>
-          <h3>The Brightest Smile</h3>
-          <p>Even on the gloomiest Monday mornings with zero motivation, your smile lights up our entire row.</p>
+          <h3>The Spontaneous Smile</h3>
+          <p>That genuine, momentary smile you give—it has a habit of making someone's entire gloomy morning vanish.</p>
         </div>
 
         <div class="reason-card glass-panel">
           <svg class="reason-icon-svg" viewBox="0 0 24 24" fill="#3b82f6">
             <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
           </svg>
-          <h3>The Focused Look</h3>
-          <p>The cute, determined look on your face when you're seriously solving a question or writing notes.</p>
+          <h3>The Focused Expression</h3>
+          <p>The quiet concentration when you're deeply engrossed in writing or reading—it's secretly the most captivating sight.</p>
         </div>
 
         <div class="reason-card glass-panel">
           <svg class="reason-icon-svg" viewBox="0 0 24 24" fill="#ec4899">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
           </svg>
-          <h3>Unmatched Kindness</h3>
-          <p>The gentle, sweet way you speak and treat people around you is the hallmark of a true queen.</p>
+          <h3>Gentle Kindness</h3>
+          <p>The polite, respectful tone you use when talking to anyone. It reflects pure elegance from the inside out.</p>
         </div>
 
         <div class="reason-card glass-panel">
           <svg class="reason-icon-svg" viewBox="0 0 24 24" fill="#eab308">
             <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
           </svg>
-          <h3>Flawless Elegance</h3>
-          <p>From your hair to the way you organize your desk, everything is pretty, neat, and royal-tier.</p>
+          <h3>Impeccable Poise</h3>
+          <p>From the way you arrange your books to the delicate way you carry yourself, everything about you feels royal.</p>
         </div>
 
         <div class="reason-card glass-panel">
           <svg class="reason-icon-svg" viewBox="0 0 24 24" fill="#10b981">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
-          <h3>Bench Partner Privilege</h3>
-          <p>Out of all the desks in the classroom, having you sit right by my side is definitely my biggest flex.</p>
+          <h3>A Familiar Proximity</h3>
+          <p>Of all the places in the universe, being just an arm's distance away from you is someone's luckiest spot.</p>
         </div>
       </div>
     </section>
 
-    <!-- SECTION: THE RECESS TREAT INVITATION (PLAYFUL & SAVED TO VAULT) -->
+    <!-- SECTION 3: THE GRAND REVEAL (LOCKED WAX-SEALED LETTER) -->
+    <section class="section-container" id="revealLetterSection">
+      <div class="section-header">
+        <span class="section-tag">
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          The Unbroken Seal
+        </span>
+        <h2>Who Wrote This Realm For You?</h2>
+        <p>Break the royal seal to reveal the identity of the person behind this page:</p>
+      </div>
+
+      <div class="envelope-wrapper">
+        <div class="envelope-card" id="envelopeCard">
+          <div class="wax-seal" id="waxSeal">
+            <svg class="seal-icon-svg" viewBox="0 0 24 24">
+              <path d="M12 2c1.1 2.2 2.5 3.8 4 5 1.5 1.2 3.1 1.7 5 2-2.3 1.2-3.8 2.7-4.5 4.5-.7 1.8-.7 3.9-.5 6.5-1.9-1.7-3.4-3.5-4-5.5-.6 2-2.1 3.8-4 5.5.2-2.6.2-4.7-.5-6.5C6.8 11.7 5.3 10.2 3 9c1.9-.3 3.5-.8 5-2 1.5-1.2 2.9-2.8 4-5z"/>
+            </svg>
+            <span class="seal-prompt">Break The Seal</span>
+          </div>
+          <div class="letter-preview">
+            <p class="preview-text">A Private Confession • Unveils The Sender</p>
+          </div>
+        </div>
+
+        <div class="letter-modal hidden" id="letterModal">
+          <div class="parchment-sheet">
+            <button class="close-letter-btn" id="closeLetterBtn">&times;</button>
+            <svg class="royal-crest-small-svg" viewBox="0 0 24 24">
+              <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
+            </svg>
+            <h3 class="letter-greeting">Dearest <span class="letter-name-fill">Raj Nandani</span>,</h3>
+            <div class="letter-body">
+              <p>
+                I kept this secret until this exact moment because saying it out loud in the middle of a crowded room could never capture the truth.
+              </p>
+              <p>
+                You probably never noticed, but having you sit right beside me turns the longest, most exhausting lectures into the brightest part of every single day. Between the teacher talking, pages turning, and endless notes—your quiet smile and presence make that simple wooden bench feel like the most peaceful place in the world.
+              </p>
+              <p>
+                You carry yourself with a grace that genuinely deserves nothing less than complete princess treatment.
+              </p>
+              <p class="letter-punchline">
+                So if you're wondering who spent all this time crafting this secret kingdom for you...<br/>
+                <strong>Just look to your side tomorrow morning.</strong>
+              </p>
+            </div>
+            <div class="letter-signature">
+              <p>Yours in quiet admiration,</p>
+              <span class="signature-name">— The Boy Sitting Next To You ✨</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: THE RECESS TREAT INVITATION (PLAYFUL) -->
     <section class="section-container invitation-section">
       <div class="invitation-card glass-panel">
         <svg class="invitation-crown-svg" viewBox="0 0 100 80" fill="none">
@@ -352,11 +282,11 @@
         </svg>
         <span class="section-tag">
           <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.2 1.8 4 4 4h6c2.2 0 4-1.8 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z"/></svg>
-          A Royal Recess Request
+          Now That The Mystery Is Unlocked
         </span>
-        <h2>Will Raj Nandani Do Me the Honor?</h2>
+        <h2>Will Raj Nandani Do Me The Honor?</h2>
         <p class="invitation-text">
-          Would Her Highness bestow the high privilege upon your desk partner to treat you to your favorite canteen snack or chocolate during the next recess break?
+          Would Her Highness allow her bench partner to treat you to your favorite snack or chocolate during recess?
         </p>
 
         <div class="invitation-buttons" id="invitationArea">
@@ -377,7 +307,7 @@
             <svg viewBox="0 0 24 24" fill="#d97706"><path d="M12 2l2.4 7.2 7.6.3-5.8 4.8 2 7.7-6.2-4.5-6.2 4.5 2-7.7-5.8-4.8 7.6-.3z"/></svg>
           </div>
           <h3>Decree Accepted with Joy!</h3>
-          <p>What does Her Highness Raj Nandani crave today? Pick your favorite, and it will be recorded into the Royal Palace Vault:</p>
+          <p>What does Her Highness Raj Nandani crave today? Pick your favorite, and it will be recorded into the Royal Vault:</p>
 
           <div class="snack-selection-chips">
             <button type="button" class="snack-chip active" data-snack="Dairy Milk Silk">
@@ -419,7 +349,7 @@
             <svg viewBox="0 0 24 24" fill="#d97706"><path d="M12 2l2.4 7.2 7.6.3-5.8 4.8 2 7.7-6.2-4.5-6.2 4.5 2-7.7-5.8-4.8 7.6-.3z"/></svg>
           </div>
           <h3>Order Sealed in Royal Vault!</h3>
-          <p id="confirmedOrderText">Your treat request has been permanently saved! Prepared with highest priority for Raj Nandani.</p>
+          <p id="confirmedOrderText">Your treat request has been saved! Prepared with highest priority for Raj Nandani.</p>
           <div class="rec-coupon">
             <svg viewBox="0 0 24 24"><path d="M22 10V6c0-1.11-.9-2-2-2H4c-1.1 0-1.99.89-1.99 2v4c1.1 0 1.99.9 1.99 2s-.89 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2s.9-2 2-2zm-2-1.5c-1.25.78-2 2.17-2 3.5s.75 2.72 2 3.5V18H4v-2.5c1.25-.78 2-2.17 2-3.5s-.75-2.72-2-3.5V6h16v2.5z"/></svg>
             <span>Official Treat Token: Guaranteed Delivery at Recess</span>
@@ -428,42 +358,41 @@
       </div>
     </section>
 
-    <!-- SECTION: SECRET ROYAL MAILBOX -->
+    <!-- SECTION 5: SECRET WHISPER MAILBOX -->
     <section class="section-container">
       <div class="section-header">
         <span class="section-tag">
           <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          Secret Desk Mailbox
+          Secret Whispers
         </span>
-        <h2>Private Notes for Desk #1</h2>
-        <p>A private message board for Her Highness and her desk partner:</p>
+        <h2>Reply Back to Your Desk Partner</h2>
+        <p>Leave a note, reaction, or secret whisper that will be stored in his private vault:</p>
       </div>
 
       <div class="mailbox-card glass-panel">
         <div class="mailbox-form">
           <div class="form-row">
-            <input type="text" id="noteSenderInput" placeholder="Your Name (e.g. Raj Nandani)" value="Raj Nandani" />
+            <input type="text" id="noteSenderInput" placeholder="Your Name / Nickname" value="Raj Nandani" />
           </div>
           <div class="form-row">
-            <textarea id="noteContentInput" rows="3" placeholder="Leave a sweet note, reaction, or message here..."></textarea>
+            <textarea id="noteContentInput" rows="3" placeholder="Leave your secret reply, reaction, or message here..."></textarea>
           </div>
           <button id="sendNoteBtn" class="btn-royal btn-small">
             <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-            <span>Send to Royal Vault</span>
+            <span>Send Private Note</span>
           </button>
         </div>
 
-        <!-- Messages Stream -->
         <div class="notes-stream" id="notesStream">
-          <div class="loading-notes">Loading secret notes...</div>
+          <div class="loading-notes">Loading secret whispers...</div>
         </div>
       </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="royal-footer">
-      <p>Made with eternal admiration for Princess Raj Nandani</p>
-      <small>Forever dedicated to Her Royal Highness • Desk Partner Edition</small>
+      <p>An Untold Mystery Created with Pure Admiration</p>
+      <small>Made with all my heart for Princess Raj Nandani ✨</small>
     </footer>
   </main>
 
