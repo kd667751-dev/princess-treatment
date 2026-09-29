@@ -1,0 +1,1064 @@
+/* ========================================================
+   PRINCESS TREATMENT - ROYAL AESTHETIC STYLESHEET
+   Palette: Rose Quartz, Lavender Mist, Champagne Gold, Pearl
+   Dedicated to Princess Raj Nandani
+   ======================================================== */
+
+:root {
+  --bg-gradient: linear-gradient(135deg, #fff0f5 0%, #fdf2f8 35%, #f5eefb 70%, #fff7ed 100%);
+  --royal-gold: #d4af37;
+  --royal-gold-glow: rgba(212, 175, 55, 0.4);
+  --royal-gold-light: #fbeea4;
+  --pink-primary: #f472b6;
+  --pink-soft: #fbcfe8;
+  --pink-deep: #db2777;
+  --purple-royal: #7e22ce;
+  --purple-soft: #e9d5ff;
+  --text-primary: #3b1d3d;
+  --text-secondary: #704772;
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-shadow: 0 10px 30px rgba(186, 104, 200, 0.15);
+  --font-royal: 'Cinzel Decorative', Georgia, serif;
+  --font-script: 'Dancing Script', cursive;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-gradient);
+  color: var(--text-primary);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Background Sparkle Canvas */
+#sparkle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Sound & Toolbar */
+.sound-control-wrapper {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 999;
+}
+
+.sound-btn {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  backdrop-filter: blur(12px);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
+
+.sound-btn:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+  border-color: var(--royal-gold);
+}
+
+.db-btn {
+  border-color: rgba(168, 85, 247, 0.4);
+  color: var(--purple-royal);
+}
+
+/* Container */
+.page-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 20px 80px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Glass Panel Style */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+  box-shadow: var(--glass-shadow);
+  padding: 35px 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ========================================================
+   HERO SECTION
+   ======================================================== */
+.hero-section {
+  text-align: center;
+  padding: 30px 10px 45px;
+}
+
+.floating-crown {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 12px;
+  animation: floatCrown 4s ease-in-out infinite;
+}
+
+.crown-emoji {
+  font-size: 5rem;
+  filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.6));
+  display: inline-block;
+}
+
+.halo-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(254, 240, 138, 0.7) 0%, rgba(244, 114, 182, 0.25) 60%, transparent 80%);
+  border-radius: 50%;
+  z-index: -1;
+  filter: blur(10px);
+}
+
+@keyframes floatCrown {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
+
+.royal-decree-tag {
+  display: inline-block;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--royal-gold);
+  background: rgba(212, 175, 55, 0.12);
+  padding: 6px 18px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.main-title {
+  font-family: var(--font-royal);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.25;
+  background: linear-gradient(135deg, #7e22ce 0%, #be185d 50%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+}
+
+.royal-name-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(244, 114, 182, 0.35);
+  border-radius: 26px;
+  padding: 26px 32px;
+  max-width: 600px;
+  margin: 0 auto 20px;
+  box-shadow: 0 10px 35px rgba(244, 114, 182, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.royal-name-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  transform: skewX(-25deg);
+  animation: shineCard 6s infinite;
+}
+
+@keyframes shineCard {
+  0% { left: -100%; }
+  25%, 100% { left: 200%; }
+}
+
+.name-prefix {
+  font-size: 0.85rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.princess-name {
+  font-family: var(--font-script);
+  font-size: clamp(2.6rem, 7vw, 4.2rem);
+  font-weight: 700;
+  color: #a21caf;
+  text-shadow: 2px 2px 12px rgba(236, 72, 153, 0.25);
+  margin-bottom: 6px;
+  line-height: 1.1;
+}
+
+.desk-subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  display: block;
+}
+
+/* Turso Heart Counter Pill */
+.heart-counter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(244, 114, 182, 0.4);
+  padding: 8px 20px;
+  border-radius: 999px;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--pink-deep);
+  box-shadow: 0 4px 15px rgba(244, 114, 182, 0.15);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.heart-counter-pill:hover {
+  transform: scale(1.05);
+  border-color: var(--pink-deep);
+}
+
+.pill-sparkle {
+  font-size: 1.2rem;
+  animation: pulseStar 1.8s infinite;
+}
+
+/* Royal Buttons */
+.btn-royal {
+  background: linear-gradient(135deg, #f43f5e 0%, #d946ef 50%, #8b5cf6 100%);
+  color: #ffffff;
+  border: none;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 16px 36px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(217, 70, 239, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-royal:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(217, 70, 239, 0.55);
+}
+
+.btn-royal:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-large {
+  font-size: 1.15rem;
+  padding: 18px 42px;
+}
+
+.btn-small {
+  font-size: 0.9rem;
+  padding: 10px 24px;
+}
+
+.pulse-animation {
+  animation: royalPulse 2.5s infinite;
+}
+
+@keyframes royalPulse {
+  0%, 100% {
+    box-shadow: 0 8px 25px rgba(217, 70, 239, 0.4);
+  }
+  50% {
+    box-shadow: 0 8px 35px rgba(217, 70, 239, 0.75), 0 0 15px rgba(251, 191, 36, 0.5);
+  }
+}
+
+.crowned-message {
+  margin-top: 18px;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #b45309;
+  background: rgba(254, 243, 199, 0.95);
+  display: inline-block;
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  animation: fadeInDown 0.6s ease;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================================================
+   SECTION COMMON
+   ======================================================== */
+.section-container {
+  margin-bottom: 60px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--pink-deep);
+  background: rgba(244, 114, 182, 0.15);
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.section-header h2 {
+  font-family: var(--font-royal);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.section-header p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* ========================================================
+   ENVELOPE & PARCHMENT LETTER
+   ======================================================== */
+.envelope-wrapper {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.envelope-card {
+  background: linear-gradient(145deg, #fff7ed, #fee2e2);
+  border: 2px solid rgba(212, 175, 55, 0.5);
+  border-radius: 24px;
+  padding: 45px 30px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(225, 29, 72, 0.12);
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.envelope-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(225, 29, 72, 0.2);
+  border-color: var(--royal-gold);
+}
+
+.wax-seal {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 16px;
+  background: radial-gradient(circle, #be123c 0%, #881337 80%);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fef08a;
+  box-shadow: 0 6px 18px rgba(136, 19, 55, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.wax-seal:hover {
+  transform: scale(1.08);
+}
+
+.seal-icon {
+  font-size: 1.8rem;
+}
+
+.seal-prompt {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.preview-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: #881337;
+  font-weight: 600;
+}
+
+/* Parchment Letter Modal */
+.letter-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 7, 20, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.parchment-sheet {
+  background: #fefcf7;
+  background-image: 
+    radial-gradient(#ebd5bd 10%, transparent 11%),
+    radial-gradient(#ebd5bd 10%, transparent 11%);
+  background-size: 60px 60px;
+  background-position: 0 0, 30px 30px;
+  border: 1px solid #d4af37;
+  border-radius: 18px;
+  max-width: 620px;
+  width: 100%;
+  padding: 45px 40px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3), inset 0 0 50px rgba(212, 175, 55, 0.15);
+  position: relative;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: openLetter 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes openLetter {
+  from { transform: scale(0.8) translateY(30px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.close-letter-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #78350f;
+  cursor: pointer;
+  line-height: 1;
+  transition: transform 0.2s;
+}
+
+.close-letter-btn:hover {
+  transform: scale(1.2);
+}
+
+.royal-crest-small {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.letter-greeting {
+  font-family: var(--font-script);
+  font-size: 2.4rem;
+  color: #78350f;
+  margin-bottom: 18px;
+}
+
+.letter-body p {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #451a03;
+  margin-bottom: 18px;
+}
+
+.letter-signature {
+  margin-top: 30px;
+  text-align: right;
+  font-family: var(--font-script);
+}
+
+.letter-signature p {
+  font-size: 1.2rem;
+  color: #78350f;
+  margin-bottom: 4px;
+}
+
+.signature-name {
+  font-size: 1.6rem;
+  color: #9d174d;
+  font-weight: 700;
+}
+
+/* ========================================================
+   COMPLIMENT ORACLE
+   ======================================================== */
+.compliment-card {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.crystal-ball-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.crystal-ball {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #f472b6 40%, #7e22ce 85%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 35px rgba(168, 85, 247, 0.4), inset 0 -8px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.crystal-ball:hover {
+  transform: scale(1.08) rotate(5deg);
+  box-shadow: 0 0 50px rgba(236, 72, 153, 0.65);
+}
+
+.orb-star {
+  font-size: 2.6rem;
+  filter: drop-shadow(0 0 8px #fff);
+  animation: pulseStar 2s ease-in-out infinite;
+}
+
+@keyframes pulseStar {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.compliment-display-box {
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.compliment-quote {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  font-style: italic;
+  color: #581c87;
+  max-width: 550px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  transition: opacity 0.3s ease;
+}
+
+.compliment-number {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--royal-gold);
+  text-transform: uppercase;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1.5px solid rgba(212, 175, 55, 0.6);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 12px 28px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+}
+
+.btn-secondary:hover {
+  background: #ffffff;
+  border-color: var(--royal-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.3);
+}
+
+/* ========================================================
+   EMERGENCY MOOD BOOSTER
+   ======================================================== */
+.emergency-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.emergency-item {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(244, 114, 182, 0.3);
+  border-radius: 20px;
+  padding: 24px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(244, 114, 182, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.emergency-item:hover {
+  transform: translateY(-5px);
+  background: #ffffff;
+  border-color: var(--pink-primary);
+  box-shadow: 0 10px 25px rgba(244, 114, 182, 0.3);
+}
+
+.emergency-icon {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+}
+
+.emergency-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.emergency-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* Mood Popup */
+.mood-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 7, 20, 0.5);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.mood-popup-content {
+  background: #ffffff;
+  border: 2px solid var(--pink-soft);
+  border-radius: 24px;
+  padding: 35px 30px;
+  max-width: 440px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(219, 39, 119, 0.25);
+  animation: bounceIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bounceIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.mood-large-icon {
+  font-size: 3.5rem;
+  margin-bottom: 12px;
+  display: inline-block;
+  animation: pulseStar 1.5s infinite;
+}
+
+.mood-popup-content h4 {
+  font-family: var(--font-royal);
+  font-size: 1.4rem;
+  color: var(--pink-deep);
+  margin-bottom: 10px;
+}
+
+.mood-popup-content p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.btn-tiny {
+  background: var(--pink-primary);
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 10px 26px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-tiny:hover {
+  background: var(--pink-deep);
+}
+
+/* ========================================================
+   REASONS GRID
+   ======================================================== */
+.reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.reason-card {
+  padding: 28px 22px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+}
+
+.reason-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 35px rgba(217, 70, 239, 0.22);
+}
+
+.reason-icon {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+}
+
+.reason-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--purple-royal);
+  margin-bottom: 8px;
+}
+
+.reason-card p {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ========================================================
+   INVITATION SECTION & TURSO TREAT ORDER FORM
+   ======================================================== */
+.invitation-card {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 45px 35px;
+  border: 2px dashed rgba(212, 175, 55, 0.6);
+  position: relative;
+}
+
+.invitation-crown {
+  font-size: 3rem;
+  margin-bottom: 8px;
+  animation: floatCrown 3s ease-in-out infinite;
+}
+
+.invitation-text {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  max-width: 480px;
+  margin: 16px auto 30px;
+  line-height: 1.7;
+}
+
+.invitation-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 70px;
+  position: relative;
+}
+
+.btn-runaway {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  background: rgba(255, 255, 255, 0.8);
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+
+/* Snack Selection Chips */
+.treat-order-form {
+  animation: fadeInDown 0.5s ease;
+  margin-top: 15px;
+}
+
+.snack-selection-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.snack-chip {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1.5px solid rgba(244, 114, 182, 0.4);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.snack-chip:hover {
+  border-color: var(--pink-deep);
+  transform: translateY(-2px);
+}
+
+.snack-chip.active {
+  background: var(--pink-primary);
+  color: #ffffff;
+  border-color: var(--pink-deep);
+  box-shadow: 0 4px 15px rgba(244, 114, 182, 0.4);
+}
+
+.custom-note-group {
+  max-width: 420px;
+  margin: 0 auto 20px;
+}
+
+.custom-note-group input {
+  width: 100%;
+  padding: 12px 18px;
+  border: 1.5px solid var(--pink-soft);
+  border-radius: 14px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  outline: none;
+  background: #ffffff;
+  text-align: center;
+}
+
+.celebration-box {
+  animation: fadeInDown 0.6s ease;
+  margin-top: 20px;
+}
+
+.celebration-emojis {
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+  letter-spacing: 6px;
+}
+
+.celebration-box h3 {
+  font-family: var(--font-royal);
+  font-size: 1.6rem;
+  color: #b45309;
+  margin-bottom: 8px;
+}
+
+.celebration-box p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  max-width: 460px;
+  margin: 0 auto 16px;
+}
+
+.rec-coupon {
+  display: inline-block;
+  background: #fef3c7;
+  border: 1px dashed #d97706;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #92400e;
+}
+
+/* ========================================================
+   TURSO SECRET ROYAL MAILBOX
+   ======================================================== */
+.mailbox-card {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.mailbox-form {
+  margin-bottom: 24px;
+}
+
+.mailbox-form .form-row {
+  margin-bottom: 12px;
+}
+
+.mailbox-form input,
+.mailbox-form textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1.5px solid rgba(244, 114, 182, 0.4);
+  border-radius: 16px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  outline: none;
+  background: rgba(255, 255, 255, 0.9);
+  transition: border-color 0.2s ease;
+}
+
+.mailbox-form input:focus,
+.mailbox-form textarea:focus {
+  border-color: var(--pink-deep);
+  background: #ffffff;
+}
+
+.notes-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.note-bubble {
+  background: rgba(255, 255, 255, 0.85);
+  border-left: 4px solid var(--pink-primary);
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+  text-align: left;
+}
+
+.note-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.note-sender {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--purple-royal);
+}
+
+.note-time {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.note-text {
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.loading-notes {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  padding: 15px;
+}
+
+/* ========================================================
+   FOOTER
+   ======================================================== */
+.royal-footer {
+  text-align: center;
+  padding-top: 40px;
+  border-top: 1px solid rgba(244, 114, 182, 0.3);
+}
+
+.royal-footer p {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+
+.royal-footer small {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive Tweaks */
+@media (max-width: 600px) {
+  .page-container {
+    padding: 70px 14px 60px;
+  }
+  .glass-panel {
+    padding: 25px 18px;
+  }
+  .parchment-sheet {
+    padding: 30px 20px;
+  }
+  .sound-control-wrapper {
+    top: 12px;
+    right: 12px;
+  }
+  .sound-btn {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+}

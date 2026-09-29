@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Royal Tribute for Raj Nandani ✨👑</title>
+  
+  <!-- Google Fonts for Royal & Aesthetic Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient Sparkles Canvas -->
+  <canvas id="sparkle-canvas"></canvas>
+
+  <!-- Audio Chime & Action Floating Toolbar -->
+  <div class="sound-control-wrapper">
+    <button id="soundToggleBtn" class="sound-btn" title="Toggle Magical Chimes">
+      <span class="sound-icon">✨</span>
+      <span class="sound-text">Royal Chimes: On</span>
+    </button>
+    <button id="dbStatusBtn" class="sound-btn db-btn" title="Database Sync Status">
+      <span class="sound-icon">⚡</span>
+      <span class="sound-text" id="dbStatusText">Turso: Live</span>
+    </button>
+  </div>
+
+  <main class="page-container">
+    <!-- HERO SECTION -->
+    <header class="hero-section">
+      <div class="crown-badge floating-crown">
+        <span class="crown-emoji">👑</span>
+        <div class="halo-glow"></div>
+      </div>
+      
+      <p class="royal-decree-tag">✨ Official Royal Decree ✨</p>
+      
+      <h1 class="main-title">
+        The Princess of the Bench Beside Me
+      </h1>
+      
+      <div class="royal-name-card">
+        <span class="name-prefix">Dedicated with all reverence to</span>
+        <h2 id="princessNameDisplay" class="princess-name">Princess Raj Nandani</h2>
+        <span class="desk-subtitle">The prettiest reason school is actually worth coming to 🌸</span>
+      </div>
+
+      <!-- Live Turso-Powered Heart Counter -->
+      <div class="heart-counter-pill" id="heartCounterContainer">
+        <span class="pill-sparkle">💖</span>
+        <span id="heartCountNumber">128</span>
+        <span class="pill-label">Royal Crowns & Love Taps for Raj Nandani</span>
+      </div>
+
+      <div class="crown-action-box">
+        <button id="crownMeBtn" class="btn-royal pulse-animation">
+          <span class="btn-sparkle">✨</span>
+          <span>Claim Your Royal Crown</span>
+          <span class="btn-sparkle">👑</span>
+        </button>
+        <p id="crownedMessage" class="crowned-message hidden">
+          🌟 Raj Nandani has officially been crowned as Today's Queen of the Bench! 🌟
+        </p>
+      </div>
+    </header>
+
+    <!-- SECTION: THE SECRET ROYAL LETTER (WAX SEAL ENVELOPE) -->
+    <section class="section-container">
+      <div class="section-header">
+        <span class="section-tag">💌 Royal Correspondence</span>
+        <h2>A Private Note for Raj Nandani</h2>
+        <p>A sealed royal parchment meant only for the girl who sits next to me</p>
+      </div>
+
+      <div class="envelope-wrapper">
+        <div class="envelope-card" id="envelopeCard">
+          <div class="wax-seal" id="waxSeal">
+            <span class="seal-icon">⚜️</span>
+            <span class="seal-prompt">Tap to Open</span>
+          </div>
+          <div class="letter-preview">
+            <p class="preview-text">Confidential Royal Letter • For Raj Nandani's Eyes Only</p>
+          </div>
+        </div>
+
+        <div class="letter-modal hidden" id="letterModal">
+          <div class="parchment-sheet">
+            <button class="close-letter-btn" id="closeLetterBtn">&times;</button>
+            <div class="royal-crest-small">👑</div>
+            <h3 class="letter-greeting">Dearest <span class="letter-name-fill">Raj Nandani</span>,</h3>
+            <div class="letter-body">
+              <p>
+                I don’t know if you realize this, but having you sit beside me makes the most boring school lectures genuinely the best part of every day. Between endless notes, teacher lectures, and classroom noise, your quiet grace and smile turn an ordinary wooden desk into a peaceful sanctuary.
+              </p>
+              <p>
+                Whether it's your gentle laugh, how gracefully you carry yourself, or the cute, determined look when you're busy writing notes—you truly deserve nothing less than complete princess treatment.
+              </p>
+              <p>
+                Consider this little website your permanent royal sanctuary. You are special, deeply admired, and truly the queen of this classroom.
+              </p>
+            </div>
+            <div class="letter-signature">
+              <p>With highest royal admiration,</p>
+              <span class="signature-name">— Your Humble Desk Partner ✨</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: DAILY ROYAL COMPLIMENT ORACLE -->
+    <section class="section-container">
+      <div class="section-header">
+        <span class="section-tag">💎 Royal Compliment Generator</span>
+        <h2>The Royal Mirror of Truth</h2>
+        <p>Whenever you need a reminder of how wonderful you are, tap the crystal ball:</p>
+      </div>
+
+      <div class="compliment-card glass-panel">
+        <div class="crystal-ball-container">
+          <div class="crystal-ball" id="complimentOrb">
+            <div class="crystal-inner">
+              <span class="orb-star">🔮</span>
+            </div>
+            <div class="orb-glow"></div>
+          </div>
+        </div>
+
+        <div class="compliment-display-box">
+          <p class="compliment-quote" id="complimentText">
+            "Raj Nandani, your presence has this magical aura that turns an ordinary school desk into the finest throne."
+          </p>
+          <span class="compliment-number" id="complimentCounter">✨ Royal Truth #1</span>
+        </div>
+
+        <button id="nextComplimentBtn" class="btn-secondary">
+          <span>Bestow Another Compliment ✨</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION: PRINCESS EMERGENCY MOOD BOOSTER -->
+    <section class="section-container">
+      <div class="section-header">
+        <span class="section-tag">🪄 Mood Magic</span>
+        <h2>Raj Nandani's Emergency Care Kit</h2>
+        <p>School can get exhausting! Tap whatever you need right now for instant royal pampering:</p>
+      </div>
+
+      <div class="emergency-grid">
+        <button class="emergency-item" data-mood="sleepy">
+          <span class="emergency-icon">🥱</span>
+          <span class="emergency-title">Sleepy in Lecture?</span>
+          <span class="emergency-desc">Tap for royal nap defense</span>
+        </button>
+
+        <button class="emergency-item" data-mood="bored">
+          <span class="emergency-icon">🪄</span>
+          <span class="emergency-title">Class Too Boring?</span>
+          <span class="emergency-desc">Summon instant royal entertainment</span>
+        </button>
+
+        <button class="emergency-item" data-mood="stressed">
+          <span class="emergency-icon">🌸</span>
+          <span class="emergency-title">Exam Stress?</span>
+          <span class="emergency-desc">A gentle soothing royal decree</span>
+        </button>
+
+        <button class="emergency-item" data-mood="hungry">
+          <span class="emergency-icon">🧁</span>
+          <span class="emergency-title">Craving Treats?</span>
+          <span class="emergency-desc">Order virtual sweets & treats</span>
+        </button>
+      </div>
+
+      <!-- Mood popup banner -->
+      <div id="moodResponse" class="mood-popup hidden">
+        <div class="mood-popup-content">
+          <span id="moodIcon" class="mood-large-icon">💖</span>
+          <h4 id="moodTitle">Royal Care Activated</h4>
+          <p id="moodText">Taking care of Her Highness with utmost urgency!</p>
+          <button id="dismissMoodBtn" class="btn-tiny">Thank You ✨</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: 6 LITTLE THINGS THAT MAKE HER ROYAL -->
+    <section class="section-container">
+      <div class="section-header">
+        <span class="section-tag">🌸 Her Royal Qualities</span>
+        <h2>Why Raj Nandani Deserves Princess Treatment</h2>
+        <p>A few of the countless little reasons noticed from Desk #1:</p>
+      </div>
+
+      <div class="reasons-grid">
+        <div class="reason-card glass-panel">
+          <div class="reason-icon">✨</div>
+          <h3>That Graceful Aura</h3>
+          <p>You don't even have to try; there's just an effortless charm and calm elegance in the way you exist.</p>
+        </div>
+
+        <div class="reason-card glass-panel">
+          <div class="reason-icon">🌸</div>
+          <h3>The Brightest Smile</h3>
+          <p>Even on the gloomiest Monday mornings with zero motivation, your smile lights up our entire row.</p>
+        </div>
+
+        <div class="reason-card glass-panel">
+          <div class="reason-icon">📖</div>
+          <h3>The Focused Look</h3>
+          <p>The cute, determined look on your face when you're seriously solving a question or writing notes.</p>
+        </div>
+
+        <div class="reason-card glass-panel">
+          <div class="reason-icon">☕</div>
+          <h3>Unmatched Kindness</h3>
+          <p>The gentle, sweet way you speak and treat people around you is the hallmark of a true queen.</p>
+        </div>
+
+        <div class="reason-card glass-panel">
+          <div class="reason-icon">🎀</div>
+          <h3>Flawless Elegance</h3>
+          <p>From your hair to the way you organize your desk, everything is pretty, neat, and royal-tier.</p>
+        </div>
+
+        <div class="reason-card glass-panel">
+          <div class="reason-icon">🌷</div>
+          <h3>Bench Partner Privilege</h3>
+          <p>Out of all the desks in the classroom, having you sit right by my side is definitely my biggest flex.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: THE RECESS TREAT INVITATION (PLAYFUL & SAVED TO TURSO DB) -->
+    <section class="section-container invitation-section">
+      <div class="invitation-card glass-panel">
+        <div class="invitation-crown">👑</div>
+        <span class="section-tag">☕ A Royal Recess Request</span>
+        <h2>Will Raj Nandani Do Me the Honor?</h2>
+        <p class="invitation-text">
+          Would Her Highness bestow the high privilege upon your desk partner to treat you to your favorite canteen snack or chocolate during the next recess break?
+        </p>
+
+        <div class="invitation-buttons" id="invitationArea">
+          <button id="yesBtn" class="btn-royal btn-large">
+            <span>Yes, absolutely! 💖👑</span>
+          </button>
+          <button id="noBtn" class="btn-secondary btn-runaway">
+            <span>No way 🙈</span>
+          </button>
+        </div>
+
+        <!-- Treat Customizer Form (Connected to Turso) -->
+        <div id="treatOrderForm" class="treat-order-form hidden">
+          <div class="celebration-emojis">🎉 👑 🍫 ✨</div>
+          <h3>Decree Accepted with Joy!</h3>
+          <p>What does Her Highness Raj Nandani crave today? Pick your favorite, and it will be recorded into the Royal Turso Vault:</p>
+
+          <div class="snack-selection-chips">
+            <button type="button" class="snack-chip active" data-snack="Dairy Milk Silk 🍫">Dairy Milk Silk 🍫</button>
+            <button type="button" class="snack-chip" data-snack="KitKat Chunky 🧇">KitKat 🧇</button>
+            <button type="button" class="snack-chip" data-snack="Cornetto Ice Cream 🍦">Cornetto 🍦</button>
+            <button type="button" class="snack-chip" data-snack="Canteen Cold Coffee ☕">Cold Coffee ☕</button>
+            <button type="button" class="snack-chip" data-snack="Surprise Treat 🎁">Surprise Me! 🎁</button>
+          </div>
+
+          <div class="custom-note-group">
+            <input type="text" id="treatCustomNote" placeholder="Any special flavor or message? (Optional)" />
+          </div>
+
+          <button id="submitTreatBtn" class="btn-royal">
+            <span>Confirm Royal Order 🎟️</span>
+          </button>
+        </div>
+
+        <div id="celebrationBox" class="celebration-box hidden">
+          <div class="celebration-emojis">🥂 👑 🌸 🎉</div>
+          <h3>Order Sealed in Royal Vault!</h3>
+          <p id="confirmedOrderText">Your treat request has been permanently saved! Prepared with highest priority for Raj Nandani.</p>
+          <div class="rec-coupon">
+            <span>🎟️ Official Treat Token: Guaranteed Delivery at Recess</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: TURSO-POWERED SECRET ROYAL MAILBOX -->
+    <section class="section-container">
+      <div class="section-header">
+        <span class="section-tag">📭 Live Desk Mailbox (Turso DB)</span>
+        <h2>Secret Notes for Desk #1</h2>
+        <p>A private royal message board stored securely in Turso cloud database:</p>
+      </div>
+
+      <div class="mailbox-card glass-panel">
+        <div class="mailbox-form">
+          <div class="form-row">
+            <input type="text" id="noteSenderInput" placeholder="Your Name (e.g. Raj Nandani 🌸)" value="Raj Nandani 🌸" />
+          </div>
+          <div class="form-row">
+            <textarea id="noteContentInput" rows="3" placeholder="Leave a sweet note, reaction, or message here... ✨"></textarea>
+          </div>
+          <button id="sendNoteBtn" class="btn-royal btn-small">
+            <span>Send to Royal Vault 🕊️</span>
+          </button>
+        </div>
+
+        <!-- Live Messages Stream -->
+        <div class="notes-stream" id="notesStream">
+          <div class="loading-notes">Loading notes from Turso DB... ✨</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="royal-footer">
+      <p>Made with eternal admiration for Princess Raj Nandani 🌸</p>
+      <small>Powered by Vercel Serverless & Turso Database (libSQL) ✨</small>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

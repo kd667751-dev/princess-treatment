@@ -1,0 +1,544 @@
+/* ========================================================
+   PRINCESS TREATMENT - INTERACTIVE SCRIPTS & TURSO DB CLIENT
+   Dedicated to Princess Raj Nandani
+   ======================================================== */
+
+// --- 1. WEB AUDIO API CHIMES (WORKS ANYWHERE, ZERO ASSETS NEEDED) ---
+let audioCtx = null;
+let soundEnabled = true;
+
+function initAudio() {
+  if (!audioCtx) {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (AudioContext) {
+      audioCtx = new AudioContext();
+    }
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+}
+
+function playChime(freqs = [523.25, 659.25, 783.99, 1046.50], type = 'sine', duration = 0.8) {
+  if (!soundEnabled) return;
+  try {
+    initAudio();
+    if (!audioCtx) return;
+
+    freqs.forEach((freq, index) => {
+      setTimeout(() => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.15, audioCtx.currentTime + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      }, index * 90);
+    });
+  } catch (e) {
+    console.warn("Audio chime prevented:", e);
+  }
+}
+
+function playBoop() {
+  if (!soundEnabled) return;
+  try {
+    initAudio();
+    if (!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(750, audioCtx.currentTime + 0.12);
+    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.15);
+  } catch (e) {}
+}
+
+// --- 2. SPARKLE & FAIRY DUST CANVAS ---
+const canvas = document.getElementById('sparkle-canvas');
+const ctx = canvas.getContext('2d');
+
+let particles = [];
+let mouseParticles = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+class Sparkle {
+  constructor(x, y, isMouse = false) {
+    this.x = x ?? Math.random() * canvas.width;
+    this.y = y ?? Math.random() * canvas.height;
+    this.size = isMouse ? Math.random() * 5 + 3 : Math.random() * 3 + 1.5;
+    this.speedX = isMouse ? (Math.random() - 0.5) * 3 : (Math.random() - 0.5) * 0.8;
+    this.speedY = isMouse ? (Math.random() - 0.5) * 3 : Math.random() * -1 - 0.3;
+    this.alpha = 1;
+    this.decay = isMouse ? 0.025 : 0.005;
+    this.isHeart = Math.random() > 0.65;
+    this.color = ['#f472b6', '#fbbf24', '#c084fc', '#fde047', '#ff8fab'][Math.floor(Math.random() * 5)];
+  }
+
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.alpha -= this.decay;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = Math.max(this.alpha, 0);
+    ctx.fillStyle = this.color;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = this.color;
+
+    if (this.isHeart) {
+      const hSize = this.size * 1.4;
+      ctx.beginPath();
+      ctx.translate(this.x, this.y);
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(-hSize / 2, -hSize / 2, -hSize, hSize / 3, 0, hSize);
+      ctx.bezierCurveTo(hSize, hSize / 3, hSize / 2, -hSize / 2, 0, 0);
+      ctx.fill();
+    } else {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+}
+
+for (let i = 0; i < 40; i++) {
+  particles.push(new Sparkle());
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach((p, index) => {
+    p.update();
+    p.draw();
+    if (p.alpha <= 0 || p.y < -10) {
+      particles[index] = new Sparkle(Math.random() * canvas.width, canvas.height + 10);
+    }
+  });
+
+  for (let i = mouseParticles.length - 1; i >= 0; i--) {
+    const mp = mouseParticles[i];
+    mp.update();
+    mp.draw();
+    if (mp.alpha <= 0) {
+      mouseParticles.splice(i, 1);
+    }
+  }
+
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+function spawnFairyDust(x, y) {
+  for (let i = 0; i < 2; i++) {
+    mouseParticles.push(new Sparkle(x, y, true));
+  }
+}
+
+window.addEventListener('mousemove', (e) => spawnFairyDust(e.clientX, e.clientY));
+window.addEventListener('touchmove', (e) => {
+  if (e.touches[0]) spawnFairyDust(e.touches[0].clientX, e.touches[0].clientY);
+});
+
+function burstConfetti(originX = window.innerWidth / 2, originY = window.innerHeight / 2) {
+  for (let i = 0; i < 60; i++) {
+    const p = new Sparkle(originX, originY, true);
+    p.speedX = (Math.random() - 0.5) * 12;
+    p.speedY = (Math.random() - 0.7) * 14;
+    p.decay = 0.012;
+    p.size = Math.random() * 6 + 4;
+    mouseParticles.push(p);
+  }
+}
+
+// --- 3. TURSO-POWERED LIVE HEARTS / TAPS ---
+const heartCountNumber = document.getElementById('heartCountNumber');
+const heartCounterContainer = document.getElementById('heartCounterContainer');
+const dbStatusText = document.getElementById('dbStatusText');
+
+async function fetchHearts() {
+  try {
+    const res = await fetch('/api/hearts');
+    if (res.ok) {
+      const data = await res.json();
+      if (data.hearts && heartCountNumber) {
+        heartCountNumber.textContent = data.hearts;
+      }
+      if (dbStatusText) {
+        dbStatusText.textContent = data.tursoConnected === false ? 'Local Fallback' : 'Turso: Synced ⚡';
+      }
+    }
+  } catch (err) {
+    console.log('Using local fallback for stats:', err);
+  }
+}
+fetchHearts();
+
+async function incrementHearts() {
+  playChime([659.25, 830.61, 987.77]);
+  burstConfetti();
+  try {
+    const res = await fetch('/api/hearts', { method: 'POST' });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.hearts && heartCountNumber) {
+        heartCountNumber.textContent = data.hearts;
+      }
+    }
+  } catch (e) {
+    if (heartCountNumber) {
+      heartCountNumber.textContent = Number(heartCountNumber.textContent || 0) + 1;
+    }
+  }
+}
+
+if (heartCounterContainer) {
+  heartCounterContainer.addEventListener('click', incrementHearts);
+}
+
+// --- 4. ROYAL COMPLIMENT ORACLE (TAILORED FOR RAJ NANDANI) ---
+const compliments = [
+  "Raj Nandani, your presence has this magical aura that turns an ordinary school desk into the finest throne.",
+  "Warning: Excessive elegance detected on Desk #2! Raj Nandani is officially in the room.",
+  "School can get hectic, but seeing Raj Nandani's calm and pretty smile instantly makes the day 100 times better.",
+  "Out of all the benches in this entire school, sitting next to Raj Nandani is the absolute jackpot.",
+  "The teacher is talking about history, but honestly, having Raj Nandani as a desk partner is the main event.",
+  "The quiet grace and kindness Raj Nandani shows every single day is what makes her a real queen.",
+  "Even on dull Monday mornings, Raj Nandani brings a spark of pure sunshine to the entire classroom.",
+  "The cute, serious look on Raj Nandani's face when taking down notes is secretly the most adorable thing ever.",
+  "Raj Nandani's laugh is like a gentle chime in the middle of school chaos.",
+  "If there were grades for being sweet, stylish, and graceful, Raj Nandani would top the whole state.",
+  "Whenever Raj Nandani borrows a pen or asks for notes, it feels like receiving a royal mission ✨",
+  "Raj Nandani doesn't need a golden crown to be royalty—her aura does the job effortlessly.",
+  "The classroom lights are bright, but nothing in this room shines brighter than Raj Nandani's eyes.",
+  "Having Raj Nandani beside me makes 7 hours of school feel like 7 sweet minutes."
+];
+
+let currentComplimentIdx = 0;
+const complimentText = document.getElementById('complimentText');
+const complimentCounter = document.getElementById('complimentCounter');
+const nextComplimentBtn = document.getElementById('nextComplimentBtn');
+const complimentOrb = document.getElementById('complimentOrb');
+
+function showNextCompliment() {
+  playChime([659.25, 830.61, 987.77, 1318.51]);
+  currentComplimentIdx = (currentComplimentIdx + 1) % compliments.length;
+
+  complimentText.style.opacity = 0;
+  setTimeout(() => {
+    complimentText.textContent = `"${compliments[currentComplimentIdx]}"`;
+    complimentCounter.textContent = `✨ Royal Truth #${currentComplimentIdx + 1}`;
+    complimentText.style.opacity = 1;
+  }, 200);
+
+  burstConfetti(window.innerWidth / 2, window.innerHeight / 2);
+}
+
+if (nextComplimentBtn) nextComplimentBtn.addEventListener('click', showNextCompliment);
+if (complimentOrb) complimentOrb.addEventListener('click', showNextCompliment);
+
+// --- 5. CROWN CEREMONY ---
+const crownMeBtn = document.getElementById('crownMeBtn');
+const crownedMessage = document.getElementById('crownedMessage');
+
+if (crownMeBtn) {
+  crownMeBtn.addEventListener('click', (e) => {
+    playChime([523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98]);
+    const rect = crownMeBtn.getBoundingClientRect();
+    burstConfetti(rect.left + rect.width / 2, rect.top);
+    crownedMessage.classList.remove('hidden');
+    crownMeBtn.innerHTML = `<span>👑 Crowned & Glorious ✨</span>`;
+    incrementHearts();
+  });
+}
+
+// --- 6. WAX SEAL & PRIVATE LETTER ---
+const waxSeal = document.getElementById('waxSeal');
+const envelopeCard = document.getElementById('envelopeCard');
+const letterModal = document.getElementById('letterModal');
+const closeLetterBtn = document.getElementById('closeLetterBtn');
+
+function openLetter() {
+  playChime([440, 554.37, 659.25, 880]);
+  letterModal.classList.remove('hidden');
+  burstConfetti(window.innerWidth / 2, window.innerHeight * 0.4);
+}
+
+function closeLetter() {
+  letterModal.classList.add('hidden');
+}
+
+if (waxSeal) waxSeal.addEventListener('click', openLetter);
+if (envelopeCard) envelopeCard.addEventListener('click', openLetter);
+if (closeLetterBtn) {
+  closeLetterBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeLetter();
+  });
+}
+if (letterModal) {
+  letterModal.addEventListener('click', (e) => {
+    if (e.target === letterModal) closeLetter();
+  });
+}
+
+// --- 7. EMERGENCY MOOD BOOSTER ---
+const emergencyItems = document.querySelectorAll('.emergency-item');
+const moodResponse = document.getElementById('moodResponse');
+const moodIcon = document.getElementById('moodIcon');
+const moodTitle = document.getElementById('moodTitle');
+const moodText = document.getElementById('moodText');
+const dismissMoodBtn = document.getElementById('dismissMoodBtn');
+
+const moodData = {
+  sleepy: {
+    icon: '😴',
+    title: 'Royal Nap Permission Granted!',
+    text: 'Rest your eyes for 5 minutes, Raj Nandani! If the teacher looks our way, your desk partner stands guard and will make a strategic pencil-drop distraction! 🛡️'
+  },
+  bored: {
+    icon: '🪄',
+    title: 'Royal Entertainment Deployed!',
+    text: 'Fun Fact: While everyone else is lost in boring lecture slides, Raj Nandani is literally giving main-character energy to this entire room. Never forget you are the coolest person here! ✨'
+  },
+  stressed: {
+    icon: '🌸',
+    title: 'Gentle Royal Decree: Breathe!',
+    text: 'Raj Nandani, you are intelligent, capable, and ten times stronger than any test or syllabus. Take a deep, gentle breath—you are going to do amazing! 💖'
+  },
+  hungry: {
+    icon: '🥐',
+    title: 'Sweet Treats Dispatched!',
+    text: 'Virtual chocolates, warm pastries, and ice-creams are en route to Desk #1! Just hang tight until recess bell rings! 🍫🧁'
+  }
+};
+
+emergencyItems.forEach(item => {
+  item.addEventListener('click', () => {
+    const mood = item.getAttribute('data-mood');
+    const data = moodData[mood];
+    if (data) {
+      playChime([587.33, 739.99, 880, 1174.66]);
+      moodIcon.textContent = data.icon;
+      moodTitle.textContent = data.title;
+      moodText.textContent = data.text;
+      moodResponse.classList.remove('hidden');
+    }
+  });
+});
+
+if (dismissMoodBtn) {
+  dismissMoodBtn.addEventListener('click', () => {
+    moodResponse.classList.add('hidden');
+  });
+}
+if (moodResponse) {
+  moodResponse.addEventListener('click', (e) => {
+    if (e.target === moodResponse) moodResponse.classList.add('hidden');
+  });
+}
+
+// --- 8. RUNAWAY 'NO' BUTTON & TURSO TREAT ORDER ---
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const invitationArea = document.getElementById('invitationArea');
+const treatOrderForm = document.getElementById('treatOrderForm');
+const snackChips = document.querySelectorAll('.snack-chip');
+const treatCustomNote = document.getElementById('treatCustomNote');
+const submitTreatBtn = document.getElementById('submitTreatBtn');
+const celebrationBox = document.getElementById('celebrationBox');
+const confirmedOrderText = document.getElementById('confirmedOrderText');
+
+let selectedSnack = 'Dairy Milk Silk 🍫';
+
+function dodgeButton() {
+  playBoop();
+  const maxX = 120;
+  const maxY = 60;
+  const randomX = (Math.random() - 0.5) * maxX * 2;
+  const randomY = (Math.random() - 0.5) * maxY * 2;
+  noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+}
+
+if (noBtn) {
+  noBtn.addEventListener('mouseenter', dodgeButton);
+  noBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    dodgeButton();
+  });
+}
+
+if (yesBtn) {
+  yesBtn.addEventListener('click', () => {
+    playChime([523.25, 659.25, 783.99, 1046.50]);
+    burstConfetti();
+    invitationArea.style.display = 'none';
+    treatOrderForm.classList.remove('hidden');
+  });
+}
+
+// Snack chip selection
+snackChips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    playChime([783.99]);
+    snackChips.forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    selectedSnack = chip.getAttribute('data-snack');
+  });
+});
+
+// Submit treat selection to Turso DB
+if (submitTreatBtn) {
+  submitTreatBtn.addEventListener('click', async () => {
+    const customNote = treatCustomNote ? treatCustomNote.value.trim() : '';
+    submitTreatBtn.disabled = true;
+    submitTreatBtn.innerHTML = `<span>Saving to Turso Vault... ⏳</span>`;
+
+    try {
+      await fetch('/api/treat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          princess_name: 'Raj Nandani',
+          snack_choice: selectedSnack,
+          custom_note: customNote
+        })
+      });
+    } catch (e) {
+      console.log('Treat order fallback:', e);
+    }
+
+    playChime([523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98]);
+    burstConfetti();
+    setTimeout(burstConfetti, 300);
+
+    treatOrderForm.classList.add('hidden');
+    if (confirmedOrderText) {
+      confirmedOrderText.textContent = `Order for ${selectedSnack} has been recorded in the royal database! Prepared with highest priority for Raj Nandani.`;
+    }
+    celebrationBox.classList.remove('hidden');
+  });
+}
+
+// --- 9. TURSO-POWERED SECRET MAILBOX & NOTES STREAM ---
+const notesStream = document.getElementById('notesStream');
+const noteSenderInput = document.getElementById('noteSenderInput');
+const noteContentInput = document.getElementById('noteContentInput');
+const sendNoteBtn = document.getElementById('sendNoteBtn');
+
+function renderMessages(messages) {
+  if (!notesStream) return;
+  if (!messages || messages.length === 0) {
+    notesStream.innerHTML = `<div class="loading-notes">No notes yet. Be the first to leave one! ✨</div>`;
+    return;
+  }
+
+  notesStream.innerHTML = messages.map(msg => `
+    <div class="note-bubble">
+      <div class="note-header">
+        <span class="note-sender">${escapeHtml(msg.sender)}</span>
+        <span class="note-time">${new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+      </div>
+      <p class="note-text">${escapeHtml(msg.content)}</p>
+    </div>
+  `).join('');
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+async function fetchNotes() {
+  try {
+    const res = await fetch('/api/messages');
+    if (res.ok) {
+      const data = await res.json();
+      renderMessages(data.messages);
+    }
+  } catch (err) {
+    console.log('Using local fallback notes:', err);
+    renderMessages([
+      {
+        sender: 'Desk Partner ✨',
+        content: 'Welcome to your private royal domain, Raj Nandani! The school bench is infinitely better with you.',
+        created_at: new Date().toISOString()
+      }
+    ]);
+  }
+}
+fetchNotes();
+
+if (sendNoteBtn) {
+  sendNoteBtn.addEventListener('click', async () => {
+    const content = noteContentInput.value.trim();
+    const sender = noteSenderInput.value.trim() || 'Raj Nandani 🌸';
+
+    if (!content) {
+      noteContentInput.focus();
+      return;
+    }
+
+    sendNoteBtn.disabled = true;
+    sendNoteBtn.innerHTML = `<span>Sending... ✨</span>`;
+
+    try {
+      const res = await fetch('/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sender, content })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        renderMessages(data.messages);
+      }
+    } catch (e) {
+      console.log('Fallback note insert:', e);
+    }
+
+    playChime([523.25, 659.25, 783.99, 1046.50]);
+    burstConfetti();
+    noteContentInput.value = '';
+    sendNoteBtn.disabled = false;
+    sendNoteBtn.innerHTML = `<span>Send to Royal Vault 🕊️</span>`;
+  });
+}
+
+// Sound toggle button
+const soundToggleBtn = document.getElementById('soundToggleBtn');
+if (soundToggleBtn) {
+  soundToggleBtn.addEventListener('click', () => {
+    soundEnabled = !soundEnabled;
+    const textSpan = soundToggleBtn.querySelector('.sound-text');
+    if (textSpan) {
+      textSpan.textContent = soundEnabled ? 'Royal Chimes: On' : 'Royal Chimes: Off';
+    }
+    if (soundEnabled) {
+      playChime([523.25, 659.25]);
+    }
+  });
+}
