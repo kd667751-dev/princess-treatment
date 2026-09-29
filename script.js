@@ -1,5 +1,5 @@
 /* ========================================================
-   PRINCESS TREATMENT - INTERACTIVE SCRIPTS & TURSO DB CLIENT
+   PRINCESS TREATMENT - INTERACTIVE SCRIPTS & PALACE VAULT
    Dedicated to Princess Raj Nandani
    ======================================================== */
 
@@ -175,10 +175,9 @@ function burstConfetti(originX = window.innerWidth / 2, originY = window.innerHe
   }
 }
 
-// --- 3. TURSO-POWERED LIVE HEARTS / TAPS ---
+// --- 3. LIVE PALACE HEARTS & TAPS ---
 const heartCountNumber = document.getElementById('heartCountNumber');
 const heartCounterContainer = document.getElementById('heartCounterContainer');
-const dbStatusText = document.getElementById('dbStatusText');
 
 async function fetchHearts() {
   try {
@@ -188,12 +187,9 @@ async function fetchHearts() {
       if (data.hearts && heartCountNumber) {
         heartCountNumber.textContent = data.hearts;
       }
-      if (dbStatusText) {
-        dbStatusText.textContent = data.tursoConnected === false ? 'Local Fallback' : 'Turso: Synced ⚡';
-      }
     }
   } catch (err) {
-    console.log('Using local fallback for stats:', err);
+    console.log('Using local state for stats');
   }
 }
 fetchHearts();
@@ -220,7 +216,7 @@ if (heartCounterContainer) {
   heartCounterContainer.addEventListener('click', incrementHearts);
 }
 
-// --- 4. ROYAL COMPLIMENT ORACLE (TAILORED FOR RAJ NANDANI) ---
+// --- 4. ROYAL COMPLIMENT ORACLE (DEDICATED TO RAJ NANDANI) ---
 const compliments = [
   "Raj Nandani, your presence has this magical aura that turns an ordinary school desk into the finest throne.",
   "Warning: Excessive elegance detected on Desk #2! Raj Nandani is officially in the room.",
@@ -251,7 +247,7 @@ function showNextCompliment() {
   complimentText.style.opacity = 0;
   setTimeout(() => {
     complimentText.textContent = `"${compliments[currentComplimentIdx]}"`;
-    complimentCounter.textContent = `✨ Royal Truth #${currentComplimentIdx + 1}`;
+    complimentCounter.textContent = `Royal Truth #${currentComplimentIdx + 1}`;
     complimentText.style.opacity = 1;
   }, 200);
 
@@ -271,7 +267,7 @@ if (crownMeBtn) {
     const rect = crownMeBtn.getBoundingClientRect();
     burstConfetti(rect.left + rect.width / 2, rect.top);
     crownedMessage.classList.remove('hidden');
-    crownMeBtn.innerHTML = `<span>👑 Crowned & Glorious ✨</span>`;
+    crownMeBtn.innerHTML = `<span>Crowned & Glorious Queen</span>`;
     incrementHearts();
   });
 }
@@ -309,31 +305,31 @@ if (letterModal) {
 // --- 7. EMERGENCY MOOD BOOSTER ---
 const emergencyItems = document.querySelectorAll('.emergency-item');
 const moodResponse = document.getElementById('moodResponse');
-const moodIcon = document.getElementById('moodIcon');
+const moodIconWrapper = document.getElementById('moodIconWrapper');
 const moodTitle = document.getElementById('moodTitle');
 const moodText = document.getElementById('moodText');
 const dismissMoodBtn = document.getElementById('dismissMoodBtn');
 
 const moodData = {
   sleepy: {
-    icon: '😴',
+    iconSvg: `<svg class="mood-large-icon-svg" viewBox="0 0 24 24"><path fill="#6366f1" d="M12.3 2a10 10 0 0 0-1.9 20 10 10 0 0 0 9.8-7.7 1 1 0 0 0-1.2-1.2 8 8 0 0 1-6.7-11.1 1 1 0 0 0-1-1z"/></svg>`,
     title: 'Royal Nap Permission Granted!',
-    text: 'Rest your eyes for 5 minutes, Raj Nandani! If the teacher looks our way, your desk partner stands guard and will make a strategic pencil-drop distraction! 🛡️'
+    text: 'Rest your eyes for 5 minutes, Raj Nandani! If the teacher looks our way, your desk partner stands guard and will make a strategic pencil-drop distraction!'
   },
   bored: {
-    icon: '🪄',
+    iconSvg: `<svg class="mood-large-icon-svg" viewBox="0 0 24 24"><path fill="#ec4899" d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29c-.39-.39-1.02-.39-1.41 0L1.29 18.96c-.39.39-.39 1.02 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05c.39-.39.39-1.02 0-1.41l-2.33-2.35z"/></svg>`,
     title: 'Royal Entertainment Deployed!',
-    text: 'Fun Fact: While everyone else is lost in boring lecture slides, Raj Nandani is literally giving main-character energy to this entire room. Never forget you are the coolest person here! ✨'
+    text: 'Fun Fact: While everyone else is lost in boring lecture slides, Raj Nandani is literally giving main-character energy to this entire room. Never forget you are the coolest person here!'
   },
   stressed: {
-    icon: '🌸',
+    iconSvg: `<svg class="mood-large-icon-svg" viewBox="0 0 24 24"><path fill="#ec4899" d="M12 2c-1.5 3-4 6-4 9a4 4 0 0 0 8 0c0-3-2.5-6-4-9zm-6.2 9.5c-.8 2.2-.3 4.8 1.4 6.5A5.5 5.5 0 0 0 11 19.4c-1.2-2.1-2.9-4.2-5.2-7.9zm12.4 0c-2.3 3.7-4 5.8-5.2 7.9a5.5 5.5 0 0 0 3.8-1.4c1.7-1.7 2.2-4.3 1.4-6.5zM12 21a9 9 0 0 1-7-3.4c2.2.4 4.5.3 6.5-.7.4 1.3.5 2.7.5 4.1zm0 0c0-1.4.1-2.8.5-4.1 2 1 4.3 1.1 6.5.7A9 9 0 0 1 12 21z"/></svg>`,
     title: 'Gentle Royal Decree: Breathe!',
-    text: 'Raj Nandani, you are intelligent, capable, and ten times stronger than any test or syllabus. Take a deep, gentle breath—you are going to do amazing! 💖'
+    text: 'Raj Nandani, you are intelligent, capable, and ten times stronger than any test or syllabus. Take a deep, gentle breath—you are going to do amazing!'
   },
   hungry: {
-    icon: '🥐',
+    iconSvg: `<svg class="mood-large-icon-svg" viewBox="0 0 24 24"><path fill="#f59e0b" d="M12 2a2 2 0 0 1 2 2c0 .3-.1.6-.2.9A6 6 0 0 1 20 12v1H4v-1a6 6 0 0 1 6.2-7.1c-.1-.3-.2-.6-.2-.9a2 2 0 0 1 2-2zm-6.8 13h13.6l-1.4 6.1a2 2 0 0 1-2 1.9H8.6a2 2 0 0 1-2-1.9L5.2 15z"/></svg>`,
     title: 'Sweet Treats Dispatched!',
-    text: 'Virtual chocolates, warm pastries, and ice-creams are en route to Desk #1! Just hang tight until recess bell rings! 🍫🧁'
+    text: 'Chocolates, warm pastries, and ice-creams are en route to Desk #1! Just hang tight until recess bell rings!'
   }
 };
 
@@ -343,7 +339,7 @@ emergencyItems.forEach(item => {
     const data = moodData[mood];
     if (data) {
       playChime([587.33, 739.99, 880, 1174.66]);
-      moodIcon.textContent = data.icon;
+      if (moodIconWrapper) moodIconWrapper.innerHTML = data.iconSvg;
       moodTitle.textContent = data.title;
       moodText.textContent = data.text;
       moodResponse.classList.remove('hidden');
@@ -362,7 +358,7 @@ if (moodResponse) {
   });
 }
 
-// --- 8. RUNAWAY 'NO' BUTTON & TURSO TREAT ORDER ---
+// --- 8. RUNAWAY 'NO' BUTTON & TREAT ORDER ---
 const noBtn = document.getElementById('noBtn');
 const yesBtn = document.getElementById('yesBtn');
 const invitationArea = document.getElementById('invitationArea');
@@ -373,7 +369,7 @@ const submitTreatBtn = document.getElementById('submitTreatBtn');
 const celebrationBox = document.getElementById('celebrationBox');
 const confirmedOrderText = document.getElementById('confirmedOrderText');
 
-let selectedSnack = 'Dairy Milk Silk 🍫';
+let selectedSnack = 'Dairy Milk Silk';
 
 function dodgeButton() {
   playBoop();
@@ -401,7 +397,6 @@ if (yesBtn) {
   });
 }
 
-// Snack chip selection
 snackChips.forEach(chip => {
   chip.addEventListener('click', () => {
     playChime([783.99]);
@@ -411,12 +406,11 @@ snackChips.forEach(chip => {
   });
 });
 
-// Submit treat selection to Turso DB
 if (submitTreatBtn) {
   submitTreatBtn.addEventListener('click', async () => {
     const customNote = treatCustomNote ? treatCustomNote.value.trim() : '';
     submitTreatBtn.disabled = true;
-    submitTreatBtn.innerHTML = `<span>Saving to Turso Vault... ⏳</span>`;
+    submitTreatBtn.innerHTML = `<span>Sealing Royal Order...</span>`;
 
     try {
       await fetch('/api/treat', {
@@ -438,13 +432,13 @@ if (submitTreatBtn) {
 
     treatOrderForm.classList.add('hidden');
     if (confirmedOrderText) {
-      confirmedOrderText.textContent = `Order for ${selectedSnack} has been recorded in the royal database! Prepared with highest priority for Raj Nandani.`;
+      confirmedOrderText.textContent = `Order for ${selectedSnack} has been sealed in the royal vault! Prepared with highest priority for Raj Nandani.`;
     }
     celebrationBox.classList.remove('hidden');
   });
 }
 
-// --- 9. TURSO-POWERED SECRET MAILBOX & NOTES STREAM ---
+// --- 9. SECRET MAILBOX & NOTES STREAM ---
 const notesStream = document.getElementById('notesStream');
 const noteSenderInput = document.getElementById('noteSenderInput');
 const noteContentInput = document.getElementById('noteContentInput');
@@ -453,7 +447,7 @@ const sendNoteBtn = document.getElementById('sendNoteBtn');
 function renderMessages(messages) {
   if (!notesStream) return;
   if (!messages || messages.length === 0) {
-    notesStream.innerHTML = `<div class="loading-notes">No notes yet. Be the first to leave one! ✨</div>`;
+    notesStream.innerHTML = `<div class="loading-notes">No notes yet. Be the first to leave one!</div>`;
     return;
   }
 
@@ -484,7 +478,7 @@ async function fetchNotes() {
     console.log('Using local fallback notes:', err);
     renderMessages([
       {
-        sender: 'Desk Partner ✨',
+        sender: 'Desk Partner',
         content: 'Welcome to your private royal domain, Raj Nandani! The school bench is infinitely better with you.',
         created_at: new Date().toISOString()
       }
@@ -496,7 +490,7 @@ fetchNotes();
 if (sendNoteBtn) {
   sendNoteBtn.addEventListener('click', async () => {
     const content = noteContentInput.value.trim();
-    const sender = noteSenderInput.value.trim() || 'Raj Nandani 🌸';
+    const sender = noteSenderInput.value.trim() || 'Raj Nandani';
 
     if (!content) {
       noteContentInput.focus();
@@ -504,7 +498,7 @@ if (sendNoteBtn) {
     }
 
     sendNoteBtn.disabled = true;
-    sendNoteBtn.innerHTML = `<span>Sending... ✨</span>`;
+    sendNoteBtn.innerHTML = `<span>Sending...</span>`;
 
     try {
       const res = await fetch('/api/messages', {
@@ -524,7 +518,7 @@ if (sendNoteBtn) {
     burstConfetti();
     noteContentInput.value = '';
     sendNoteBtn.disabled = false;
-    sendNoteBtn.innerHTML = `<span>Send to Royal Vault 🕊️</span>`;
+    sendNoteBtn.innerHTML = `<span>Send to Royal Vault</span>`;
   });
 }
 

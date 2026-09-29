@@ -16,8 +16,8 @@
   --purple-soft: #e9d5ff;
   --text-primary: #3b1d3d;
   --text-secondary: #704772;
-  --glass-bg: rgba(255, 255, 255, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.88);
   --glass-shadow: 0 10px 30px rgba(186, 104, 200, 0.15);
   --font-royal: 'Cinzel Decorative', Georgia, serif;
   --font-script: 'Dancing Script', cursive;
@@ -25,10 +25,37 @@
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
-* {
+/* ========================================================
+   DISABLE BLUE RECTANGLE / TAP HIGHLIGHT & CALLOUT
+   ======================================================== */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  outline: none !important;
+}
+
+html, body, button, a, div, span, p, h1, h2, h3, h4, section, header, footer, svg, img {
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+/* Allow text input only where typing is necessary */
+input, textarea {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+button:focus, button:active, input:focus, textarea:focus {
+  outline: none !important;
 }
 
 html {
@@ -56,7 +83,7 @@ body {
   z-index: 1;
 }
 
-/* Sound & Toolbar */
+/* Toolbar */
 .sound-control-wrapper {
   position: fixed;
   top: 20px;
@@ -67,10 +94,10 @@ body {
 }
 
 .sound-btn {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(212, 175, 55, 0.4);
   backdrop-filter: blur(12px);
-  padding: 8px 16px;
+  padding: 8px 18px;
   border-radius: 999px;
   font-family: var(--font-sans);
   font-size: 0.85rem;
@@ -80,7 +107,7 @@ body {
   box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   transition: all 0.3s ease;
 }
 
@@ -91,9 +118,11 @@ body {
   border-color: var(--royal-gold);
 }
 
-.db-btn {
-  border-color: rgba(168, 85, 247, 0.4);
-  color: var(--purple-royal);
+.sound-btn svg {
+  width: 16px;
+  height: 16px;
+  color: var(--pink-deep);
+  fill: currentColor;
 }
 
 /* Container */
@@ -118,8 +147,14 @@ body {
 }
 
 /* ========================================================
-   HERO SECTION
+   SVG ICON UTILITIES & HERO
    ======================================================== */
+.svg-icon {
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 0.2s ease;
+}
+
 .hero-section {
   text-align: center;
   padding: 30px 10px 45px;
@@ -128,14 +163,22 @@ body {
 .floating-crown {
   position: relative;
   display: inline-block;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   animation: floatCrown 4s ease-in-out infinite;
 }
 
-.crown-emoji {
-  font-size: 5rem;
-  filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.6));
-  display: inline-block;
+.crown-svg-wrapper {
+  width: 96px;
+  height: 96px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.65));
+}
+
+.crown-svg-wrapper svg {
+  width: 100%;
+  height: 100%;
 }
 
 .halo-glow {
@@ -143,9 +186,9 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(254, 240, 138, 0.7) 0%, rgba(244, 114, 182, 0.25) 60%, transparent 80%);
+  width: 130px;
+  height: 130px;
+  background: radial-gradient(circle, rgba(254, 240, 138, 0.75) 0%, rgba(244, 114, 182, 0.28) 60%, transparent 80%);
   border-radius: 50%;
   z-index: -1;
   filter: blur(10px);
@@ -157,18 +200,26 @@ body {
 }
 
 .royal-decree-tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-sans);
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 2.5px;
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--royal-gold);
   background: rgba(212, 175, 55, 0.12);
-  padding: 6px 18px;
+  padding: 6px 20px;
   border-radius: 999px;
   margin-bottom: 16px;
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.royal-decree-tag svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--royal-gold);
 }
 
 .main-title {
@@ -184,14 +235,14 @@ body {
 }
 
 .royal-name-card {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(14px);
-  border: 1.5px solid rgba(244, 114, 182, 0.35);
+  border: 1.5px solid rgba(244, 114, 182, 0.38);
   border-radius: 26px;
   padding: 26px 32px;
   max-width: 600px;
   margin: 0 auto 20px;
-  box-shadow: 0 10px 35px rgba(244, 114, 182, 0.18);
+  box-shadow: 0 10px 35px rgba(244, 114, 182, 0.2);
   position: relative;
   overflow: hidden;
 }
@@ -241,22 +292,22 @@ body {
   display: block;
 }
 
-/* Turso Heart Counter Pill */
+/* Heart Counter Pill with Beating SVG Heart */
 .heart-counter-pill {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(244, 114, 182, 0.4);
-  padding: 8px 20px;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1.5px solid rgba(244, 114, 182, 0.45);
+  padding: 8px 22px;
   border-radius: 999px;
   margin-bottom: 24px;
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--pink-deep);
-  box-shadow: 0 4px 15px rgba(244, 114, 182, 0.15);
+  box-shadow: 0 4px 18px rgba(244, 114, 182, 0.18);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .heart-counter-pill:hover {
@@ -264,9 +315,17 @@ body {
   border-color: var(--pink-deep);
 }
 
-.pill-sparkle {
-  font-size: 1.2rem;
-  animation: pulseStar 1.8s infinite;
+.heart-svg-icon {
+  width: 22px;
+  height: 22px;
+  animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.22); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.15); }
 }
 
 /* Royal Buttons */
@@ -286,6 +345,12 @@ body {
   justify-content: center;
   gap: 10px;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-royal svg {
+  width: 20px;
+  height: 20px;
+  fill: #ffffff;
 }
 
 .btn-royal:hover {
@@ -327,11 +392,19 @@ body {
   font-weight: 600;
   color: #b45309;
   background: rgba(254, 243, 199, 0.95);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding: 10px 24px;
   border-radius: 999px;
   border: 1px solid rgba(212, 175, 55, 0.5);
   animation: fadeInDown 0.6s ease;
+}
+
+.crowned-message svg {
+  width: 18px;
+  height: 18px;
+  fill: #d97706;
 }
 
 @keyframes fadeInDown {
@@ -352,7 +425,9 @@ body {
 }
 
 .section-tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -362,6 +437,12 @@ body {
   padding: 4px 14px;
   border-radius: 999px;
   margin-bottom: 8px;
+}
+
+.section-tag svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
 }
 
 .section-header h2 {
@@ -403,8 +484,8 @@ body {
 }
 
 .wax-seal {
-  width: 90px;
-  height: 90px;
+  width: 95px;
+  height: 95px;
   margin: 0 auto 16px;
   background: radial-gradient(circle, #be123c 0%, #881337 80%);
   border-radius: 50%;
@@ -413,7 +494,7 @@ body {
   align-items: center;
   justify-content: center;
   color: #fef08a;
-  box-shadow: 0 6px 18px rgba(136, 19, 55, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 20px rgba(136, 19, 55, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.4);
   position: relative;
   transition: transform 0.3s ease;
 }
@@ -422,8 +503,10 @@ body {
   transform: scale(1.08);
 }
 
-.seal-icon {
-  font-size: 1.8rem;
+.seal-icon-svg {
+  width: 32px;
+  height: 32px;
+  fill: #fef08a;
 }
 
 .seal-prompt {
@@ -431,7 +514,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .preview-text {
@@ -449,7 +532,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(15, 7, 20, 0.6);
+  background: rgba(15, 7, 20, 0.65);
   backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
@@ -500,10 +583,12 @@ body {
   transform: scale(1.2);
 }
 
-.royal-crest-small {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 10px;
+.royal-crest-small-svg {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 12px;
+  display: block;
+  fill: #d4af37;
 }
 
 .letter-greeting {
@@ -555,14 +640,14 @@ body {
 }
 
 .crystal-ball {
-  width: 100px;
-  height: 100px;
+  width: 105px;
+  height: 105px;
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, #ffffff 0%, #f472b6 40%, #7e22ce 85%);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 35px rgba(168, 85, 247, 0.4), inset 0 -8px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 35px rgba(168, 85, 247, 0.45), inset 0 -8px 15px rgba(0, 0, 0, 0.25);
   cursor: pointer;
   position: relative;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
@@ -570,12 +655,14 @@ body {
 
 .crystal-ball:hover {
   transform: scale(1.08) rotate(5deg);
-  box-shadow: 0 0 50px rgba(236, 72, 153, 0.65);
+  box-shadow: 0 0 50px rgba(236, 72, 153, 0.7);
 }
 
-.orb-star {
-  font-size: 2.6rem;
-  filter: drop-shadow(0 0 8px #fff);
+.orb-star-svg {
+  width: 44px;
+  height: 44px;
+  fill: #ffffff;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
   animation: pulseStar 2s ease-in-out infinite;
 }
 
@@ -614,7 +701,7 @@ body {
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   border: 1.5px solid rgba(212, 175, 55, 0.6);
   color: var(--text-primary);
   font-family: var(--font-sans);
@@ -625,6 +712,9 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .btn-secondary:hover {
@@ -632,6 +722,12 @@ body {
   border-color: var(--royal-gold);
   transform: translateY(-2px);
   box-shadow: 0 8px 22px rgba(212, 175, 55, 0.3);
+}
+
+.btn-secondary svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--royal-gold);
 }
 
 /* ========================================================
@@ -646,7 +742,7 @@ body {
 }
 
 .emergency-item {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.75);
   border: 1px solid rgba(244, 114, 182, 0.3);
   border-radius: 20px;
   padding: 24px 16px;
@@ -666,9 +762,15 @@ body {
   box-shadow: 0 10px 25px rgba(244, 114, 182, 0.3);
 }
 
-.emergency-icon {
-  font-size: 2.4rem;
-  margin-bottom: 10px;
+.emergency-icon-svg {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 12px;
+  transition: transform 0.3s ease;
+}
+
+.emergency-item:hover .emergency-icon-svg {
+  transform: scale(1.15);
 }
 
 .emergency-title {
@@ -690,7 +792,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(15, 7, 20, 0.5);
+  background: rgba(15, 7, 20, 0.55);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
@@ -716,10 +818,11 @@ body {
   to { transform: scale(1); opacity: 1; }
 }
 
-.mood-large-icon {
-  font-size: 3.5rem;
-  margin-bottom: 12px;
-  display: inline-block;
+.mood-large-icon-svg {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 12px;
+  display: block;
   animation: pulseStar 1.5s infinite;
 }
 
@@ -774,8 +877,9 @@ body {
   box-shadow: 0 14px 35px rgba(217, 70, 239, 0.22);
 }
 
-.reason-icon {
-  font-size: 2.2rem;
+.reason-icon-svg {
+  width: 36px;
+  height: 36px;
   margin-bottom: 12px;
 }
 
@@ -793,7 +897,7 @@ body {
 }
 
 /* ========================================================
-   INVITATION SECTION & TURSO TREAT ORDER FORM
+   INVITATION SECTION & PALACE TREAT FORM
    ======================================================== */
 .invitation-card {
   text-align: center;
@@ -804,9 +908,11 @@ body {
   position: relative;
 }
 
-.invitation-crown {
-  font-size: 3rem;
-  margin-bottom: 8px;
+.invitation-crown-svg {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 12px;
+  display: block;
   animation: floatCrown 3s ease-in-out infinite;
 }
 
@@ -842,6 +948,19 @@ body {
   margin-top: 15px;
 }
 
+.celebration-icon-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.celebration-icon-banner svg {
+  width: 28px;
+  height: 28px;
+}
+
 .snack-selection-chips {
   display: flex;
   flex-wrap: wrap;
@@ -851,7 +970,7 @@ body {
 }
 
 .snack-chip {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.9);
   border: 1.5px solid rgba(244, 114, 182, 0.4);
   padding: 10px 18px;
   border-radius: 999px;
@@ -860,6 +979,15 @@ body {
   color: var(--text-primary);
   cursor: pointer;
   transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.snack-chip svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
 }
 
 .snack-chip:hover {
@@ -875,7 +1003,7 @@ body {
 }
 
 .custom-note-group {
-  max-width: 420px;
+  max-width: 440px;
   margin: 0 auto 20px;
 }
 
@@ -886,7 +1014,6 @@ body {
   border-radius: 14px;
   font-family: var(--font-sans);
   font-size: 0.95rem;
-  outline: none;
   background: #ffffff;
   text-align: center;
 }
@@ -894,12 +1021,6 @@ body {
 .celebration-box {
   animation: fadeInDown 0.6s ease;
   margin-top: 20px;
-}
-
-.celebration-emojis {
-  font-size: 2.4rem;
-  margin-bottom: 12px;
-  letter-spacing: 6px;
 }
 
 .celebration-box h3 {
@@ -917,7 +1038,9 @@ body {
 }
 
 .rec-coupon {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: #fef3c7;
   border: 1px dashed #d97706;
   padding: 10px 20px;
@@ -927,8 +1050,14 @@ body {
   color: #92400e;
 }
 
+.rec-coupon svg {
+  width: 18px;
+  height: 18px;
+  fill: #d97706;
+}
+
 /* ========================================================
-   TURSO SECRET ROYAL MAILBOX
+   SECRET ROYAL MAILBOX
    ======================================================== */
 .mailbox-card {
   max-width: 680px;
@@ -951,7 +1080,6 @@ body {
   border-radius: 16px;
   font-family: var(--font-sans);
   font-size: 0.95rem;
-  outline: none;
   background: rgba(255, 255, 255, 0.9);
   transition: border-color 0.2s ease;
 }
@@ -972,7 +1100,7 @@ body {
 }
 
 .note-bubble {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   border-left: 4px solid var(--pink-primary);
   border-radius: 14px;
   padding: 14px 18px;
@@ -1058,7 +1186,7 @@ body {
     right: 12px;
   }
   .sound-btn {
-    padding: 6px 12px;
-    font-size: 0.75rem;
+    padding: 6px 14px;
+    font-size: 0.78rem;
   }
 }
