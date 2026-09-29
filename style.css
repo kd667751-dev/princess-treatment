@@ -350,51 +350,12 @@ body {
   font-size: 1.25rem;
 }
 
-/* Slider */
-.cipher-slider-box {
+/* Quick Actions */
+.cipher-quick-actions {
+  display: flex;
+  justify-content: center;
   width: 100%;
   max-width: 360px;
-}
-
-.slider-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-}
-
-.slider-center-tip {
-  color: var(--pink-deep);
-}
-
-.royal-slider {
-  width: 100%;
-  -webkit-appearance: none;
-  appearance: none;
-  height: 8px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #fbcfe8 0%, #d946ef 100%);
-  outline: none;
-  cursor: pointer;
-}
-
-.royal-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 2px solid var(--pink-deep);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.royal-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
 }
 
 /* Direct Guess Input */

@@ -216,9 +216,8 @@ if (heartCounterContainer) {
   heartCounterContainer.addEventListener('click', incrementHearts);
 }
 
-// --- 3.5. CRYPTIC COORDINATES CIPHER & DECODER SLIDER ---
+// --- 3.5. CRYPTIC COORDINATES CIPHER ---
 const cipherGlyphs = document.querySelectorAll('.cipher-glyph');
-const decryptSlider = document.getElementById('decryptSlider');
 const cipherGuessInput = document.getElementById('cipherGuessInput');
 const verifyGuessBtn = document.getElementById('verifyGuessBtn');
 const toggleAlphabetKeyBtn = document.getElementById('toggleAlphabetKeyBtn');
@@ -235,8 +234,6 @@ let isDecoded = false;
 function triggerFullDecode() {
   if (isDecoded) return;
   isDecoded = true;
-
-  if (decryptSlider) decryptSlider.value = 100;
 
   cipherGlyphs.forEach((glyph, idx) => {
     setTimeout(() => {
@@ -263,35 +260,10 @@ function triggerFullDecode() {
   }, cipherGlyphs.length * 60 + 100);
 }
 
-// Slider live decoding
-if (decryptSlider) {
-  decryptSlider.addEventListener('input', (e) => {
-    const val = Number(e.target.value);
-    const total = cipherGlyphs.length;
-    const threshold = Math.round((val / 100) * total);
-
-    cipherGlyphs.forEach((glyph, idx) => {
-      if (idx < threshold) {
-        glyph.textContent = glyph.getAttribute('data-char');
-        glyph.classList.add('decoded');
-      } else {
-        glyph.textContent = glyph.getAttribute('data-num');
-        glyph.classList.remove('decoded');
-      }
-    });
-
-    if (val >= 100) {
-      triggerFullDecode();
-    } else {
-      isDecoded = false;
-      if (decodedNotice) decodedNotice.classList.add('hidden');
-      if (envelopeCard) envelopeCard.classList.add('locked-envelope');
-      if (sealPromptText) sealPromptText.textContent = 'Locked';
-      if (previewText) previewText.textContent = 'Locked with Coordinate Cipher • Decode to Open';
-      if (letterStatusPrompt) letterStatusPrompt.textContent = 'Decode the coordinates above to break this royal seal:';
-      if (letterNameFill) letterNameFill.textContent = 'Princess';
-    }
-  });
+// Auto-decode button
+const autoDecodeBtn = document.getElementById('autoDecodeBtn');
+if (autoDecodeBtn) {
+  autoDecodeBtn.addEventListener('click', triggerFullDecode);
 }
 
 // Direct guess input
@@ -561,7 +533,6 @@ if (submitTreatBtn) {
 
 // --- 9. SECRET MAILBOX & NOTES STREAM ---
 const notesStream = document.getElementById('notesStream');
-const noteSenderInput = document.getElementById('noteSenderInput');
 const noteContentInput = document.getElementById('noteContentInput');
 const sendNoteBtn = document.getElementById('sendNoteBtn');
 
@@ -611,7 +582,7 @@ fetchNotes();
 if (sendNoteBtn) {
   sendNoteBtn.addEventListener('click', async () => {
     const content = noteContentInput.value.trim();
-    const sender = noteSenderInput.value.trim() || 'Princess 🌸';
+    const sender = isDecoded ? 'Princess Raj Nandani 🌸' : 'Secret Princess 🌸';
 
     if (!content) {
       noteContentInput.focus();
