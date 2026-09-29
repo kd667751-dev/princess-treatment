@@ -216,7 +216,7 @@ if (heartCounterContainer) {
   heartCounterContainer.addEventListener('click', incrementHearts);
 }
 
-// --- 3.0. ROYAL GATEKEEPER PASSCODE PROTECTION ---
+// --- 3.0. ROYAL GATEKEEPER PASSCODE PROTECTION & 5-MIN SESSION TIMER ---
 const royalGatekeeper = document.getElementById('royalGatekeeper');
 const gatekeeperCard = document.getElementById('gatekeeperCard');
 const gatekeeperForm = document.getElementById('gatekeeperForm');
@@ -225,6 +225,71 @@ const gatekeeperSubmitBtn = document.getElementById('gatekeeperSubmitBtn');
 const gatekeeperAlert = document.getElementById('gatekeeperAlert');
 const togglePasscodeVisibility = document.getElementById('togglePasscodeVisibility');
 const mainPageContent = document.getElementById('mainPageContent');
+const sessionTimerBadge = document.getElementById('sessionTimerBadge');
+const sessionTimerText = document.getElementById('sessionTimerText');
+
+const SESSION_DURATION_MS = 5 * 60 * 1000; // 5 minutes
+let sessionInterval = null;
+
+function trackVisitor(status = 'visit', codeAttempted = '') {
+  try {
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        path: window.location.pathname || '/',
+        code_attempted: codeAttempted,
+        status: status
+      })
+    }).catch(() => {});
+  } catch (e) {}
+}
+
+// Track initial page load
+trackVisitor('visit', '');
+
+function lockGatekeeper(reason = 'expired') {
+  if (sessionInterval) clearInterval(sessionInterval);
+  sessionStorage.removeItem('royal_access_key');
+  sessionStorage.removeItem('royal_session_expiry');
+
+  document.body.classList.add('gate-locked');
+  if (mainPageContent) mainPageContent.style.display = 'none';
+  if (sessionTimerBadge) sessionTimerBadge.classList.add('hidden');
+
+  if (royalGatekeeper) {
+    royalGatekeeper.style.display = 'flex';
+    royalGatekeeper.classList.remove('unlocked');
+  }
+
+  if (reason === 'expired' && gatekeeperAlert) {
+    gatekeeperAlert.className = 'gatekeeper-alert alert-error';
+    gatekeeperAlert.innerHTML = `<span>⏳ Your 5-minute royal session has expired. Please enter the passcode to re-enter.</span>`;
+    gatekeeperAlert.classList.remove('hidden');
+    playBoop();
+  }
+}
+
+function startSessionTimer(expiryTime) {
+  if (sessionInterval) clearInterval(sessionInterval);
+
+  function update() {
+    const remaining = Math.max(0, Math.floor((expiryTime - Date.now()) / 1000));
+    const mins = String(Math.floor(remaining / 60)).padStart(2, '0');
+    const secs = String(remaining % 60).padStart(2, '0');
+
+    if (sessionTimerText) sessionTimerText.textContent = `${mins}:${secs}`;
+    if (sessionTimerBadge) sessionTimerBadge.classList.remove('hidden');
+
+    if (remaining <= 0) {
+      clearInterval(sessionInterval);
+      lockGatekeeper('expired');
+    }
+  }
+
+  update();
+  sessionInterval = setInterval(update, 1000);
+}
 
 function unlockGatekeeper(animate = true) {
   document.body.classList.remove('gate-locked');
@@ -232,6 +297,15 @@ function unlockGatekeeper(animate = true) {
     mainPageContent.style.display = 'block';
     if (animate) mainPageContent.classList.add('fade-in-content');
   }
+
+  let expiry = Number(sessionStorage.getItem('royal_session_expiry') || 0);
+  if (!expiry || Date.now() >= expiry) {
+    expiry = Date.now() + SESSION_DURATION_MS;
+    sessionStorage.setItem('royal_session_expiry', expiry);
+  }
+
+  startSessionTimer(expiry);
+
   if (royalGatekeeper) {
     if (animate) {
       royalGatekeeper.classList.add('unlocked');
@@ -244,9 +318,15 @@ function unlockGatekeeper(animate = true) {
   }
 }
 
-// Check session on load so authorized sessions stay open
-if (sessionStorage.getItem('royal_access_key') === '180110') {
+// Check session on load
+const storedKey = sessionStorage.getItem('royal_access_key');
+const storedExpiry = Number(sessionStorage.getItem('royal_session_expiry') || 0);
+
+if (storedKey === '180110' && storedExpiry && Date.now() < storedExpiry) {
   unlockGatekeeper(false);
+} else {
+  sessionStorage.removeItem('royal_access_key');
+  sessionStorage.removeItem('royal_session_expiry');
 }
 
 if (togglePasscodeVisibility && gatekeeperInput) {
@@ -271,6 +351,9 @@ function handleGatekeeperSubmit(e) {
   // Code 1: 180110 -> Correct Royal Passcode
   if (code === '180110') {
     sessionStorage.setItem('royal_access_key', '180110');
+    sessionStorage.setItem('royal_session_expiry', Date.now() + SESSION_DURATION_MS);
+    trackVisitor('granted', '180110');
+
     if (gatekeeperAlert) {
       gatekeeperAlert.className = 'gatekeeper-alert alert-success';
       gatekeeperAlert.innerHTML = `<span>👑 Access Granted • Welcome Her Highness!</span>`;
@@ -288,6 +371,7 @@ function handleGatekeeperSubmit(e) {
 
   // Code 2: 1415145 -> Decoy / Trap Code
   if (code === '1415145') {
+    trackVisitor('trap', '1415145');
     playBoop();
     if (gatekeeperCard) {
       gatekeeperCard.classList.remove('shake');
@@ -314,6 +398,7 @@ function handleGatekeeperSubmit(e) {
   }
 
   // Code 3: Any other invalid passcode
+  trackVisitor('denied', code);
   playBoop();
   if (gatekeeperCard) {
     gatekeeperCard.classList.remove('shake');

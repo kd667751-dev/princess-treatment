@@ -83,14 +83,44 @@ body {
   z-index: 1;
 }
 
-/* Toolbar */
 .sound-control-wrapper {
   position: fixed;
   top: 20px;
   right: 20px;
   display: flex;
+  align-items: center;
   gap: 10px;
   z-index: 999;
+}
+
+.session-timer-badge {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(219, 39, 119, 0.35);
+  backdrop-filter: blur(12px);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--pink-deep);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 4px 14px rgba(219, 39, 119, 0.15);
+  user-select: none;
+}
+
+.timer-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: timerPulse 1.5s infinite;
+}
+
+@keyframes timerPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.75); }
 }
 
 .sound-btn {

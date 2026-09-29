@@ -52,6 +52,18 @@ async function initSchema() {
       );
     `);
 
+    await db.execute(`
+      CREATE TABLE IF NOT EXISTS visitors (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ip TEXT,
+        user_agent TEXT,
+        path TEXT,
+        code_attempted TEXT,
+        status TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
     // Ensure initial heart/crown counter exists
     await db.execute({
       sql: `INSERT OR IGNORE INTO stats (key, value) VALUES ('hearts', 108);`,

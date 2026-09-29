@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Palace Command Center • Admin 18 ✨</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #0f0a14;
+      --card-bg: rgba(26, 16, 37, 0.75);
+      --card-border: rgba(212, 175, 55, 0.25);
+      --gold: #d4af37;
+      --gold-light: #fbeea4;
+      --pink: #ec4899;
+      --text: #f3e8f8;
+      --text-muted: #a78bba;
+      --danger: #ef4444;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --blue: #38bdf8;
+      --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-royal: 'Cinzel Decorative', Georgia, serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent !important;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 10%, #251233 0%, #0d0614 70%, #050208 100%);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* GATEKEEPER OVERLAY */
+    #adminGatekeeper {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: rgba(10, 5, 16, 0.96);
+      backdrop-filter: blur(25px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .admin-gate-card {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(26, 16, 37, 0.9);
+      border: 1.5px solid rgba(212, 175, 55, 0.4);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.15);
+      border-radius: 24px;
+      padding: 36px 28px;
+      text-align: center;
+    }
+
+    .gate-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(236, 72, 153, 0.2));
+      border: 1.5px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 1.8rem;
+    }
+
+    .gate-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .gate-title {
+      font-family: var(--font-royal);
+      font-size: 1.4rem;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .gate-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+    }
+
+    .gate-input {
+      width: 100%;
+      padding: 13px 18px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(212, 175, 55, 0.4);
+      background: rgba(15, 10, 20, 0.9);
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 4px;
+      margin-bottom: 16px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .gate-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+    }
+
+    .btn-gate {
+      width: 100%;
+      padding: 13px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, #d4af37 0%, #ec4899 100%);
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-gate:hover { opacity: 0.9; }
+
+    .gate-alert {
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .gate-alert.error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid var(--danger);
+      color: #fca5a5;
+    }
+
+    /* MAIN ADMIN DASHBOARD */
+    #adminDashboard {
+      display: none;
+      padding: 24px 20px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* TOP HEADER */
+    .admin-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      margin-bottom: 24px;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-crown {
+      font-size: 2rem;
+    }
+
+    .brand-title {
+      font-family: var(--font-royal);
+      font-size: 1.35rem;
+      color: var(--gold-light);
+    }
+
+    .brand-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .session-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(236, 72, 153, 0.15);
+      border: 1px solid rgba(236, 72, 153, 0.4);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #f472b6;
+    }
+
+    .session-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.8); }
+    }
+
+    .btn-action {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-action:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
+
+    /* STATS OVERVIEW CARDS */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--pink));
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .stat-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* SECTION TABS */
+    .tab-bar {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: rgba(212, 175, 55, 0.5);
+      color: var(--gold-light);
+    }
+
+    /* CARD PANELS */
+    .panel {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      margin-bottom: 24px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .panel-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* TABLE */
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    th {
+      text-align: left;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    td {
+      padding: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text);
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .ip-badge {
+      font-family: monospace;
+      font-weight: 700;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      display: inline-block;
+    }
+
+    .status-badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-granted {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+    .status-trap {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .status-denied {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .status-visit {
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+    }
+
+    .code-badge {
+      font-family: monospace;
+      font-weight: 800;
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* MESSAGES STREAM CARDS */
+    .msg-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .msg-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .msg-sender {
+      font-weight: 700;
+      color: var(--pink);
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .msg-content {
+      font-size: 0.92rem;
+      color: #ffffff;
+      line-height: 1.5;
+    }
+
+    .msg-time {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .btn-delete-small {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .btn-delete-small:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
+
+    /* SHAKE ANIMATION */
+    .shake {
+      animation: shakeCard 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+    @keyframes shakeCard {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-9px); }
+      40%, 80% { transform: translateX(9px); }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ADMIN PASSCODE LOCK SCREEN (REQUIRED CODE: 94918) -->
+  <div id="adminGatekeeper">
+    <div class="admin-gate-card" id="adminGateCard">
+      <div class="gate-icon">👑</div>
+      <div class="gate-badge">Restricted Command Center</div>
+      <h1 class="gate-title">Palace Vault 18</h1>
+      <p class="gate-desc">Enter the Master Admin Passcode (94918) to access live tracking and database records:</p>
+
+      <form id="adminLoginForm" onsubmit="return false;">
+        <input
+          type="password"
+          id="adminPassInput"
+          class="gate-input"
+          placeholder="•••••"
+          maxlength="8"
+          inputmode="numeric"
+          autocomplete="off"
+          autofocus
+        />
+        <button type="submit" id="adminLoginBtn" class="btn-gate">Enter Vault</button>
+      </form>
+
+      <div id="adminGateAlert" class="gate-alert error" style="display: none;"></div>
+    </div>
+  </div>
+
+  <!-- MAIN ADMIN DASHBOARD -->
+  <main id="adminDashboard">
+    <!-- Top Header -->
+    <header class="admin-header">
+      <div class="brand-box">
+        <div class="brand-crown">👑</div>
+        <div>
+          <h1 class="brand-title">Palace Command Center</h1>
+          <div class="brand-sub">Live Visitor IP Tracking & Royal Vault Management</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="session-badge">
+          <span class="session-dot"></span>
+          <span>Session: <b id="adminSessionTimer">05:00</b></span>
+        </div>
+        <button type="button" id="btnRefresh" class="btn-action">🔄 Refresh</button>
+        <button type="button" id="btnLogout" class="btn-action btn-danger">🚪 Logout</button>
+      </div>
+    </header>
+
+    <!-- Overview Stats -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">Total Visits</span>
+        <span class="stat-num" id="statTotalVisits">0</span>
+        <span class="stat-desc">Page impressions tracked</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-label">Access Granted (180110)</span>
+        <span class="stat-num" id="statGranted" style="color: #4ade80;">0</span>
+        <span class="stat-desc">Correct passcode unlocks</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-label">Trap Triggered (1415145)</span>
+        <span class="stat-num" id="statTraps" style="color: #f87171;">0</span>
+        <span class="stat-desc">"Not for you" trap hits</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-label">Messages / Treats</span>
+        <span class="stat-num" id="statMessages">0</span>
+        <span class="stat-desc">Secret notes from Her Highness</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-label">Royal Hearts</span>
+        <span class="stat-num" id="statHearts" style="color: #f472b6;">108</span>
+        <span class="stat-desc">Counter clicks saved in Turso</span>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="visitorsTab">🌐 Visitor IPs & Code Attempts</button>
+      <button class="tab-btn" data-tab="messagesTab">💌 Secret Notes Mailbox</button>
+      <button class="tab-btn" data-tab="treatsTab">🍫 Snack & Treat Orders</button>
+      <button class="tab-btn" data-tab="actionsTab">⚙️ Database Controls</button>
+    </div>
+
+    <!-- TAB 1: VISITOR TRACKING & IP TABLE -->
+    <section id="visitorsTab" class="panel tab-content">
+      <div class="panel-header">
+        <h2 class="panel-title">🌐 Live Visitors & IP Addresses</h2>
+        <button type="button" id="btnClearVisitors" class="btn-action btn-danger">Clear Visitor Logs</button>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>IP Address</th>
+              <th>Status</th>
+              <th>Code Attempted</th>
+              <th>Device / User Agent</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody id="visitorsTableBody">
+            <tr><td colspan="6" class="empty-state">Loading visitors...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 2: SECRET MESSAGES -->
+    <section id="messagesTab" class="panel tab-content" style="display: none;">
+      <div class="panel-header">
+        <h2 class="panel-title">💌 Secret Notes from Her Highness</h2>
+        <button type="button" id="btnClearMessages" class="btn-action btn-danger">Clear All Messages</button>
+      </div>
+
+      <div id="messagesList" class="msg-list">
+        <div class="empty-state">Loading secret notes...</div>
+      </div>
+    </section>
+
+    <!-- TAB 3: TREATS -->
+    <section id="treatsTab" class="panel tab-content" style="display: none;">
+      <div class="panel-header">
+        <h2 class="panel-title">🍫 Princess Snack Selections</h2>
+        <button type="button" id="btnClearTreats" class="btn-action btn-danger">Clear All Treats</button>
+      </div>
+
+      <div id="treatsList" class="msg-list">
+        <div class="empty-state">Loading snack selections...</div>
+      </div>
+    </section>
+
+    <!-- TAB 4: DATABASE ACTIONS -->
+    <section id="actionsTab" class="panel tab-content" style="display: none;">
+      <div class="panel-header">
+        <h2 class="panel-title">⚙️ Whole Database Controls</h2>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 600px;">
+        <div style="background: rgba(255,255,255,0.03); padding: 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+          <h3 style="font-size: 1rem; margin-bottom: 6px; color: var(--gold-light);">Reset Hearts Counter</h3>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px;">Reset the royal hearts counter back to default 108 in Turso DB.</p>
+          <button type="button" id="btnResetHearts" class="btn-action">Reset Hearts to 108</button>
+        </div>
+
+        <div style="background: rgba(239,68,68,0.08); padding: 18px; border-radius: 12px; border: 1px solid rgba(239,68,68,0.25);">
+          <h3 style="font-size: 1rem; margin-bottom: 6px; color: #fca5a5;">Purge All Test Records</h3>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px;">Wipe all messages and treat records while keeping table structure intact.</p>
+          <button type="button" id="btnPurgeAll" class="btn-action btn-danger">Purge Messages & Treats</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const ADMIN_KEY = '94918';
+    const SESSION_MS = 5 * 60 * 1000; // 5 minutes session
+
+    const adminGatekeeper = document.getElementById('adminGatekeeper');
+    const adminGateCard = document.getElementById('adminGateCard');
+    const adminPassInput = document.getElementById('adminPassInput');
+    const adminLoginForm = document.getElementById('adminLoginForm');
+    const adminGateAlert = document.getElementById('adminGateAlert');
+    const adminDashboard = document.getElementById('adminDashboard');
+    const adminSessionTimer = document.getElementById('adminSessionTimer');
+    const btnLogout = document.getElementById('btnLogout');
+    const btnRefresh = document.getElementById('btnRefresh');
+
+    let sessionTimerInterval = null;
+
+    // Check if session is already active
+    function checkActiveSession() {
+      const storedKey = sessionStorage.getItem('admin_session_key');
+      const expiry = Number(sessionStorage.getItem('admin_session_expiry') || 0);
+
+      if (storedKey === ADMIN_KEY && expiry && Date.now() < expiry) {
+        unlockDashboard(expiry);
+      } else {
+        lockDashboard();
+      }
+    }
+
+    function lockDashboard(expiredMsg = false) {
+      if (sessionTimerInterval) clearInterval(sessionTimerInterval);
+      sessionStorage.removeItem('admin_session_key');
+      sessionStorage.removeItem('admin_session_expiry');
+
+      adminDashboard.style.display = 'none';
+      adminGatekeeper.style.display = 'flex';
+      adminPassInput.value = '';
+
+      if (expiredMsg) {
+        adminGateAlert.textContent = '⏳ Your 5-minute admin session has expired. Re-enter code 94918 to access.';
+        adminGateAlert.style.display = 'block';
+      }
+    }
+
+    function unlockDashboard(expiryTime) {
+      adminGatekeeper.style.display = 'none';
+      adminDashboard.style.display = 'block';
+
+      // Start 5-minute countdown
+      if (sessionTimerInterval) clearInterval(sessionTimerInterval);
+
+      function updateTimer() {
+        const remaining = Math.max(0, Math.floor((expiryTime - Date.now()) / 1000));
+        const mins = String(Math.floor(remaining / 60)).padStart(2, '0');
+        const secs = String(remaining % 60).padStart(2, '0');
+        adminSessionTimer.textContent = `${mins}:${secs}`;
+
+        if (remaining <= 0) {
+          clearInterval(sessionTimerInterval);
+          lockDashboard(true);
+        }
+      }
+
+      updateTimer();
+      sessionTimerInterval = setInterval(updateTimer, 1000);
+
+      loadAdminData();
+    }
+
+    function handleAdminLogin() {
+      const pass = adminPassInput.value.trim();
+
+      if (pass === ADMIN_KEY) {
+        adminGateAlert.style.display = 'none';
+        const expiry = Date.now() + SESSION_MS;
+        sessionStorage.setItem('admin_session_key', ADMIN_KEY);
+        sessionStorage.setItem('admin_session_expiry', expiry);
+        unlockDashboard(expiry);
+      } else {
+        adminGateCard.classList.remove('shake');
+        void adminGateCard.offsetWidth;
+        adminGateCard.classList.add('shake');
+        adminGateAlert.textContent = '⛔ Invalid Master Passcode. Access Denied.';
+        adminGateAlert.style.display = 'block';
+        adminPassInput.value = '';
+        adminPassInput.focus();
+      }
+    }
+
+    adminLoginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleAdminLogin();
+    });
+
+    btnLogout.addEventListener('click', () => lockDashboard(false));
+    btnRefresh.addEventListener('click', () => loadAdminData());
+
+    // Tab switching
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.style.display = 'none');
+
+        btn.classList.add('active');
+        const target = document.getElementById(btn.getAttribute('data-tab'));
+        if (target) target.style.display = 'block';
+      });
+    });
+
+    // API Calls
+    async function loadAdminData() {
+      btnRefresh.textContent = '⏳ Loading...';
+      try {
+        const res = await fetch('/api/admin', {
+          headers: { 'x-admin-key': ADMIN_KEY }
+        });
+
+        if (!res.ok) {
+          if (res.status === 401) {
+            lockDashboard(true);
+            return;
+          }
+          throw new Error('Failed to fetch data');
+        }
+
+        const data = await res.json();
+        renderDashboard(data);
+      } catch (err) {
+        console.error('Error fetching admin data:', err);
+      } finally {
+        btnRefresh.textContent = '🔄 Refresh';
+      }
+    }
+
+    function renderDashboard(data) {
+      const { visitors = [], messages = [], treats = [], stats = {} } = data;
+
+      // Stats
+      document.getElementById('statTotalVisits').textContent = stats.totalVisitors || visitors.length;
+      document.getElementById('statHearts').textContent = stats.hearts || 108;
+      document.getElementById('statMessages').textContent = `${messages.length} / ${treats.length}`;
+
+      let grantedCount = 0;
+      let trapCount = 0;
+
+      // Render Visitors Table
+      const tableBody = document.getElementById('visitorsTableBody');
+      if (visitors.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="6" class="empty-state">No visitors logged yet.</td></tr>`;
+      } else {
+        tableBody.innerHTML = visitors.map(v => {
+          if (v.status === 'granted') grantedCount++;
+          if (v.status === 'trap') trapCount++;
+
+          let statusClass = 'status-visit';
+          let statusText = 'Page Load 🌐';
+
+          if (v.status === 'granted') {
+            statusClass = 'status-granted';
+            statusText = 'Access Granted 👑';
+          } else if (v.status === 'trap') {
+            statusClass = 'status-trap';
+            statusText = 'Trap Hit ⛔';
+          } else if (v.status === 'denied') {
+            statusClass = 'status-denied';
+            statusText = 'Denied 🔒';
+          }
+
+          const time = v.created_at ? new Date(v.created_at).toLocaleString() : 'Recent';
+
+          return `
+            <tr>
+              <td>#${v.id}</td>
+              <td><span class="ip-badge">${v.ip || 'Unknown'}</span></td>
+              <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+              <td>${v.code_attempted ? `<span class="code-badge">${v.code_attempted}</span>` : '—'}</td>
+              <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${v.user_agent || ''}">${v.user_agent || 'Unknown'}</td>
+              <td style="white-space: nowrap; color: var(--text-muted);">${time}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      document.getElementById('statGranted').textContent = grantedCount;
+      document.getElementById('statTraps').textContent = trapCount;
+
+      // Render Messages
+      const msgList = document.getElementById('messagesList');
+      if (messages.length === 0) {
+        msgList.innerHTML = `<div class="empty-state">No secret messages in mailbox.</div>`;
+      } else {
+        msgList.innerHTML = messages.map(m => `
+          <div class="msg-item">
+            <div>
+              <div class="msg-sender">${escapeHtml(m.sender || 'Anonymous')}</div>
+              <div class="msg-content">${escapeHtml(m.content || '')}</div>
+              <div class="msg-time">${m.created_at ? new Date(m.created_at).toLocaleString() : ''}</div>
+            </div>
+            <button class="btn-delete-small" onclick="deleteMessage(${m.id})">Delete</button>
+          </div>
+        `).join('');
+      }
+
+      // Render Treats
+      const treatsList = document.getElementById('treatsList');
+      if (treats.length === 0) {
+        treatsList.innerHTML = `<div class="empty-state">No snack orders submitted yet.</div>`;
+      } else {
+        treatsList.innerHTML = treats.map(t => `
+          <div class="msg-item">
+            <div>
+              <div class="msg-sender" style="color: var(--gold-light);">Snack: ${escapeHtml(t.snack_choice || '')}</div>
+              <div class="msg-content">${escapeHtml(t.custom_note || 'No custom note')}</div>
+              <div class="msg-time">${t.created_at ? new Date(t.created_at).toLocaleString() : ''}</div>
+            </div>
+            <button class="btn-delete-small" onclick="deleteTreat(${t.id})">Delete</button>
+          </div>
+        `).join('');
+      }
+    }
+
+    async function postAction(action, id = null) {
+      try {
+        const res = await fetch('/api/admin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-key': ADMIN_KEY
+          },
+          body: JSON.stringify({ action, id })
+        });
+        const data = await res.json();
+        if (data.success) {
+          loadAdminData();
+        } else {
+          alert('Action error: ' + (data.error || 'Failed'));
+        }
+      } catch (e) {
+        alert('Network error');
+      }
+    }
+
+    window.deleteMessage = function(id) {
+      if (confirm('Delete this message permanently?')) {
+        postAction('delete_message', id);
+      }
+    };
+
+    window.deleteTreat = function(id) {
+      if (confirm('Delete this snack record?')) {
+        postAction('delete_treat', id);
+      }
+    };
+
+    document.getElementById('btnClearVisitors').addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear all visitor IP logs?')) {
+        postAction('clear_visitors');
+      }
+    });
+
+    document.getElementById('btnClearMessages').addEventListener('click', () => {
+      if (confirm('Clear all messages from the database?')) {
+        postAction('clear_messages');
+      }
+    });
+
+    document.getElementById('btnClearTreats').addEventListener('click', () => {
+      if (confirm('Clear all treat orders?')) {
+        postAction('clear_treats');
+      }
+    });
+
+    document.getElementById('btnResetHearts').addEventListener('click', () => {
+      postAction('reset_hearts');
+    });
+
+    document.getElementById('btnPurgeAll').addEventListener('click', () => {
+      if (confirm('Permanently delete all messages AND treats from Turso?')) {
+        postAction('clear_messages');
+        postAction('clear_treats');
+      }
+    });
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // Check session on load
+    checkActiveSession();
+  </script>
+</body>
+</html>

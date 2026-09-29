@@ -10,5 +10,9 @@
         { "key": "Expires", "value": "0" }
       ]
     }
+  ],
+  "rewrites": [
+    { "source": "/admin/18", "destination": "/admin/18/index.html" },
+    { "source": "/admin/18/", "destination": "/admin/18/index.html" }
   ]
 }
