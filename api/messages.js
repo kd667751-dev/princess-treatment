@@ -4,7 +4,7 @@ let fallbackMessages = [
   {
     id: 1,
     sender: 'Someone Nearby ✨',
-    content: 'Welcome to your private royal domain, Raj Nandani! The world is infinitely brighter with you in it.',
+    content: 'Welcome to your private royal domain, Princess! The world is infinitely brighter with you in it.',
     created_at: new Date().toISOString()
   }
 ];
