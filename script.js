@@ -260,11 +260,6 @@ function triggerFullDecode() {
   }, cipherGlyphs.length * 60 + 100);
 }
 
-// Auto-decode button
-const autoDecodeBtn = document.getElementById('autoDecodeBtn');
-if (autoDecodeBtn) {
-  autoDecodeBtn.addEventListener('click', triggerFullDecode);
-}
 
 // Direct guess input
 function checkGuess() {

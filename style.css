@@ -350,14 +350,6 @@ body {
   font-size: 1.25rem;
 }
 
-/* Quick Actions */
-.cipher-quick-actions {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  max-width: 380px;
-}
-
 /* Direct Guess Input */
 .cipher-guess-box {
   display: flex;
@@ -1425,13 +1417,5 @@ body {
     width: 100%;
     padding: 12px;
     justify-content: center;
-  }
-  .cipher-quick-actions {
-    width: 100%;
-  }
-  .cipher-quick-actions .btn-secondary {
-    width: 100%;
-    justify-content: center;
-    padding: 11px 18px;
   }
 }
