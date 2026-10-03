@@ -2117,7 +2117,7 @@ body.gate-locked {
   color: var(--text-secondary);
 }
 
-/* GAME 4: TIC-TAC-TOE VS YOUR KNIGHT */
+/* GAME 4: TIC-TAC-TOE (CROWNS & HEARTS) */
 .partner-reaction-bubble {
   display: flex;
   align-items: center;
@@ -2181,7 +2181,7 @@ body.gate-locked {
   transform: scale(1.06);
 }
 
-/* GAME 5: ROYAL KNIGHT'S QUIZ */
+/* GAME 5: PRINCESS ROYALTY QUIZ */
 .quiz-container {
   width: 100%;
   max-width: 440px;

@@ -611,7 +611,7 @@ const moodData = {
   sleepy: {
     iconSvg: `<svg class="mood-large-icon-svg" viewBox="0 0 24 24"><path fill="#6366f1" d="M12.3 2a10 10 0 0 0-1.9 20 10 10 0 0 0 9.8-7.7 1 1 0 0 0-1.2-1.2 8 8 0 0 1-6.7-11.1 1 1 0 0 0-1-1z"/></svg>`,
     title: 'Royal Nap Permission Granted!',
-    text: 'Rest your eyes for 5 minutes, Your Highness! If anyone disturbs you, your Knight stands guard and will make a strategic distraction!'
+    text: 'Rest your eyes for 5 minutes, Your Highness! Royal decrees state beauty sleep takes priority over exhausting lectures anytime. Take a gentle rest! 💤✨'
   },
   bored: {
     iconSvg: `<svg class="mood-large-icon-svg" viewBox="0 0 24 24"><path fill="#ec4899" d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29c-.39-.39-1.02-.39-1.41 0L1.29 18.96c-.39.39-.39 1.02 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05c.39-.39.39-1.02 0-1.41l-2.33-2.35z"/></svg>`,
@@ -1232,12 +1232,12 @@ const wheelPrizeTitle = document.getElementById('wheelPrizeTitle');
 const wheelPrizeDesc = document.getElementById('wheelPrizeDesc');
 
 const WHEEL_PRIZES = [
-  { text: "Homework Help 📚", desc: "Full classroom homework assistance by your Knight for a whole week!" },
+  { text: "Zero Stress Pass 🌸", desc: "A royal decree granting complete peace of mind, zero stress, and sweet snacks all week!" },
   { text: "Dairy Milk Silk 🍫", desc: "A special silk chocolate delivered straight to Her Highness at recess!" },
-  { text: "Compliment 👑", desc: "One genuine heartfelt compliment whenever you summon your Knight." },
-  { text: "Pen Forever 🖊️", desc: "Any pen or stationery borrowed from your Knight is officially yours for life." },
+  { text: "Royal Crown Decree 👑", desc: "Official recognition that Her Highness brings the warmest vibes anywhere she goes!" },
+  { text: "Golden Stationery 🖊️", desc: "Unlimited aesthetic pens and pastel notebooks for Her Highness forever!" },
   { text: "VIP Recess Walk 🌸", desc: "Exclusive peaceful recess stroll with your favorite drinks and zero stress." },
-  { text: "Secret Wish 💫", desc: "One custom classroom wish granted with highest royal priority!" }
+  { text: "Royal Wish 💫", desc: "Make any secret wish right now—the universe is listening to Her Highness!" }
 ];
 
 const WHEEL_COLORS = ['#fbcfe8', '#fef08a', '#e9d5ff', '#fed7aa', '#fecdd3', '#ddd6fe'];
@@ -1350,7 +1350,7 @@ if (spinWheelBtn) spinWheelBtn.addEventListener('click', spinWheel);
 
 
 // --------------------------------------------------------
-// GAME 4: TIC-TAC-TOE VS DESK PARTNER
+// GAME 4: TIC-TAC-TOE (CROWNS & HEARTS)
 // --------------------------------------------------------
 const tttBoardEl = document.getElementById('tttBoard');
 const tttPlayerScoreEl = document.getElementById('tttPlayerScore');
@@ -1379,7 +1379,7 @@ function initTicTacToe() {
     cell.textContent = '';
     cell.classList.remove('winning');
   });
-  if (tttSpeechEl) tttSpeechEl.textContent = `"Let's see if Her Highness can defeat her Knight! Your move 👑"`;
+  if (tttSpeechEl) tttSpeechEl.textContent = `"A royal challenge! Make your move, Her Highness 👑"`;
 }
 
 function handleCellClick(index) {
@@ -1401,9 +1401,9 @@ function handleCellClick(index) {
     return;
   }
 
-  // Knight's turn
+  // Palace bot turn
   tttActive = false;
-  if (tttSpeechEl) tttSpeechEl.textContent = `"Hmm... your Knight is calculating a counter move..."`;
+  if (tttSpeechEl) tttSpeechEl.textContent = `"Hmm... calculating the royal defense! 🤔"`;
 
   setTimeout(() => {
     makePartnerMove();
@@ -1458,9 +1458,9 @@ function commitMove(idx) {
 
   tttActive = true;
   const replies = [
-    `"Your turn, Princess! Try to defeat your Knight 😉"`,
-    `"A clever tactic! But your Knight stands ready ⚔️"`,
-    `"Your Knight is watching your strategy closely 👑"`
+    `"Your turn, Princess! Show your royal strategy 👑"`,
+    `"A brilliant tactical move by Her Highness! ✨"`,
+    `"Can Princess find the winning path? 💫"`
   ];
   if (tttSpeechEl) tttSpeechEl.textContent = replies[Math.floor(Math.random() * replies.length)];
 }
@@ -1483,18 +1483,18 @@ function handleGameOver(winner) {
   if (winner === 'player') {
     tttPlayerScore++;
     if (tttPlayerScoreEl) tttPlayerScoreEl.textContent = tttPlayerScore;
-    if (tttSpeechEl) tttSpeechEl.textContent = `"You won! As expected, Her Highness always rules! Your Knight happily surrenders 👑✨"`;
+    if (tttSpeechEl) tttSpeechEl.textContent = `"Her Highness wins! The palace celebrates your royal victory! 👑✨"`;
     burstConfetti();
     playChime([523, 659, 783, 1046]);
   } else if (winner === 'partner') {
     tttPartnerScore++;
     if (tttPartnerScoreEl) tttPartnerScoreEl.textContent = tttPartnerScore;
-    if (tttSpeechEl) tttSpeechEl.textContent = `"Your Knight defended the realm this round! Rematch, Princess? ⚔️😊"`;
+    if (tttSpeechEl) tttSpeechEl.textContent = `"Palace Bot got lucky this round! Rematch, Princess? 😊"`;
     playBoop();
   } else {
     tttTiesScore++;
     if (tttTiesScoreEl) tttTiesScoreEl.textContent = tttTiesScore;
-    if (tttSpeechEl) tttSpeechEl.textContent = `"A royal tie! The Knight and Princess make an invincible team ✨"`;
+    if (tttSpeechEl) tttSpeechEl.textContent = `"A royal draw! A battle of pure elegance! 🤝✨"`;
     playChime([523, 659]);
   }
 }
@@ -1512,32 +1512,32 @@ if (restartTttBtn) restartTttBtn.addEventListener('click', initTicTacToe);
 
 
 // --------------------------------------------------------
-// GAME 5: ROYAL KNIGHT'S QUIZ
+// GAME 5: PRINCESS ROYALTY QUIZ
 // --------------------------------------------------------
 const QUIZ_QUESTIONS = [
   {
-    q: "Who constantly zones out looking at your smile instead of the blackboard?",
-    options: ["The blackboard fan", "Your faithful Knight sitting beside you ✨", "The class monitor", "Nobody"],
+    q: "What is Her Highness Raj Nandani's natural superpower?",
+    options: ["Reading minds", "Effortlessly lighting up the room with her smile ✨", "Flying", "Never getting tired"],
     correct: 1,
-    note: "Obviously! The blackboard has nothing on you."
+    note: "Facts! One smile and the entire vibe changes."
   },
   {
-    q: "What is your official royal privilege in class?",
-    options: ["Doing everyone's homework", "Unlimited snacks & zero stress 👑", "Giving exams twice", "Sitting in the corner"],
+    q: "What is your official royal decree when lectures or homework get exhausting?",
+    options: ["Panic and stress", "Zero stress, favorite chocolates, and royal pampering 🍫👑", "Write 100 pages", "Skip dinner"],
     correct: 1,
-    note: "Decreed by royal law: zero stress, all snacks."
+    note: "Decreed by palace law: maximum peace, zero stress."
   },
   {
-    q: "If you borrow a pen from your Knight, do you need to return it?",
-    options: ["Yes with interest", "Never, it's permanently yours now 🖊️", "Within 5 seconds", "Ask the teacher"],
+    q: "What is the official royal snack of the kingdom?",
+    options: ["Bitter vegetables", "Dairy Milk Silk & crispy KitKat 🍫", "Dry boiled rice", "Plain water"],
     correct: 1,
-    note: "Consider it a royal gift for your pencil box forever."
+    note: "Only the finest sweets for Her Highness!"
   },
   {
-    q: "What's the best seat in the entire classroom?",
-    options: ["First bench under teacher's radar", "The seat right beside your Knight ✨", "Outside the classroom", "Principal's office"],
+    q: "When challenges arise, what should Her Highness remember?",
+    options: ["Doubt yourself", "You are 10x stronger, smarter, and more capable than you think 💖", "Give up early", "Hide away"],
     correct: 1,
-    note: "100% agreed. Best seat in the whole school."
+    note: "Always remember: You are genuinely unstoppable!"
   }
 ];
 
