@@ -502,17 +502,17 @@ if (toggleAlphabetKeyBtn && alphabetKeyModal) {
 // --- 4. THE MIRROR OF TRUTH (POETIC & SUBTLE ADMIRATION) ---
 const compliments = [
   "You carry a calm, effortless aura that turns the most ordinary place into something extraordinary.",
-  "Someone in the room considers your quiet, spontaneous smile the absolute highlight of their day.",
-  "The world can be noisy and chaotic, but your presence brings a sudden, peaceful quiet.",
-  "You don't need a tiara to be seen as royalty by the person watching you with quiet admiration.",
-  "Even the dullest mornings become something to look forward to, just knowing you'll be sitting nearby.",
-  "The focused, cute expression on your face when you're seriously reading or writing is impossible not to notice.",
-  "Your gentle laughter feels like a soothing melody in the middle of a crowded room.",
-  "If grace, warmth, and quiet charm were graded, you would outshine the entire world.",
-  "Out of all the people in the universe, having you right nearby is someone's luckiest secret.",
-  "There is an unspoken elegance in the simplest things you do—you are truly in a league of your own.",
-  "The hours pass by effortlessly when you are in the room.",
-  "You have this quiet magic that makes someone secretly want every hour to last forever."
+  "Your quiet, spontaneous smile has the power to instantly brighten anyone's entire day.",
+  "The world can be noisy and chaotic, but your presence brings a sudden, peaceful warmth.",
+  "You don't need an actual crown—your natural grace, kindness, and beauty make you true royalty.",
+  "Even the dullest mornings become something to look forward to, just seeing your radiant smile.",
+  "The focused, cute expression on your face when you're seriously reading or working is truly adorable.",
+  "Your gentle laughter feels like a soothing melody in the middle of any crowded room.",
+  "If grace, warmth, and charm were graded, you would easily outshine the entire world.",
+  "There is a rare, breathtaking elegance in the simplest things you do—you are truly in a league of your own.",
+  "Your positive energy and quiet confidence effortlessly bring out the best in people around you.",
+  "The room naturally feels brighter, lighter, and happier whenever you are around.",
+  "You possess this rare, quiet magic that makes every moment feel meaningful and special."
 ];
 
 let currentComplimentIdx = 0;
