@@ -1,6 +1,6 @@
 # 👑 Princess Treatment — Dedicated to Raj Nandani ✨
 
-A breathtaking, royal aesthetic web application created specifically for **Princess Raj Nandani** by her school desk partner.
+A breathtaking, royal aesthetic web application created specifically for **Princess Raj Nandani** by her loyal Knight (~Zeno).
 
 Featuring delicate pastel-rose aesthetics, floating fairy dust, procedural chimes, interactive parchment letters, compliment oracle, emergency care kits, a runaway "No" button, and cloud persistence with **Turso DB (libSQL)** deployed on **Vercel**.
 
@@ -10,12 +10,12 @@ Featuring delicate pastel-rose aesthetics, floating fairy dust, procedural chime
 
 - **👑 Royal Crown Ceremony**: Interactive crowning fanfare with confetti shower and real-time love taps.
 - **💌 Wax-Sealed Secret Letter**: Vintage wax seal breaking animation revealing a handwritten parchment letter for Raj Nandani.
-- **🔮 Compliment Oracle**: 14+ sweet, heartwarming compliments written specifically for her desk partner moments.
+- **🔮 Compliment Oracle**: 14+ sweet, heartwarming compliments written specifically for her.
 - **🪄 Princess Emergency Care Kit**: Quick decrees for when she feels sleepy in class, bored in lectures, stressed for tests, or craving treats.
 - **☕ Playful Recess Treat Request**:
   - The "No" button playfully dodges the cursor/touch.
   - "Yes" unlocks a royal snack selection menu (Dairy Milk Silk, KitKat, Cornetto, Cold Coffee) that saves her choice directly to **Turso DB**!
-- **📭 Live Secret Mailbox (Turso DB)**: Real-time message board where Raj Nandani and her desk partner can exchange notes.
+- **📭 Live Secret Mailbox (Turso DB)**: Real-time message board where Raj Nandani and her Knight can exchange notes.
 - **✨ Browser-Synthesized Audio Chimes**: Gentle fairy-tale sounds via Web Audio API (works 100% offline, zero external audio files needed).
 
 ---

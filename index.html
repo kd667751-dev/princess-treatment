@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=3.0" />
+  <link rel="stylesheet" href="style.css?v=3.1" />
 </head>
 <body class="gate-locked">
   <!-- Ambient Sparkles Canvas -->
@@ -385,7 +385,7 @@
         </span>
         <h2>Will Her Highness Do Me The Honor?</h2>
         <p class="invitation-text">
-          Would Her Highness allow her bench partner to treat you to your favorite snack or chocolate during recess?
+          Would Her Highness allow your Knight to treat you to your favorite snack or chocolate during recess?
         </p>
 
         <div class="invitation-buttons" id="invitationArea">
@@ -485,11 +485,11 @@
           </button>
           <button type="button" class="arcade-tab-btn" data-game="tictactoeGame">
             <span class="arcade-tab-icon">❌⭕</span>
-            <span class="arcade-tab-name">Bench Match</span>
+            <span class="arcade-tab-name">Knight Match</span>
           </button>
           <button type="button" class="arcade-tab-btn" data-game="quizGame">
             <span class="arcade-tab-icon">📝</span>
-            <span class="arcade-tab-name">Desk Partner Quiz</span>
+            <span class="arcade-tab-name">Royal Knight's Quiz</span>
           </button>
         </div>
 
@@ -538,7 +538,7 @@
           <div id="memoryWinBanner" class="game-win-banner hidden">
             <span class="win-crown">👑 ✨</span>
             <h4>Royal Match Complete!</h4>
-            <p id="memoryWinText">You found all palace treasures! Just like the best pair sitting together in class.</p>
+            <p id="memoryWinText">You found all palace treasures! Just like the Princess and her loyal Knight.</p>
             <button type="button" id="memoryPlayAgainBtn" class="btn-royal btn-small">Play Again</button>
           </div>
         </div>
@@ -560,23 +560,23 @@
           <div id="wheelPrizeCard" class="wheel-prize-card hidden">
             <span class="prize-tag">👑 Royal Decree Granted 👑</span>
             <h3 id="wheelPrizeTitle">Unlimited Homework Help</h3>
-            <p id="wheelPrizeDesc">Valid starting tomorrow morning at your desk. Show this decree anytime!</p>
+            <p id="wheelPrizeDesc">Valid starting tomorrow morning. Show this decree to your Knight anytime!</p>
           </div>
         </div>
 
-        <!-- GAME 4: TIC-TAC-TOE VS DESK PARTNER -->
+        <!-- GAME 4: TIC-TAC-TOE VS YOUR KNIGHT -->
         <div id="tictactoeGame" class="arcade-game-view" style="display: none;">
           <div class="game-meta-bar">
             <div class="meta-pill">Princess 👑: <b id="tttPlayerScore">0</b></div>
-            <div class="meta-pill">Desk Partner 💖: <b id="tttPartnerScore">0</b></div>
+            <div class="meta-pill">Your Knight ⚔️: <b id="tttPartnerScore">0</b></div>
             <div class="meta-pill">Ties: <b id="tttTiesScore">0</b></div>
             <button type="button" id="restartTttBtn" class="btn-game-control">New Round 🔄</button>
           </div>
 
-          <!-- Desk Partner live reaction bubble -->
+          <!-- Knight live reaction bubble -->
           <div class="partner-reaction-bubble" id="tttReaction">
-            <span class="partner-avatar">👦🏻</span>
-            <span class="partner-speech" id="tttSpeech">"Let's see if Her Highness can defeat me! Your move 👑"</span>
+            <span class="partner-avatar">⚔️</span>
+            <span class="partner-speech" id="tttSpeech">"Let's see if Her Highness can defeat her Knight! Your move 👑"</span>
           </div>
 
           <div class="ttt-board" id="tttBoard">
@@ -592,7 +592,7 @@
           </div>
         </div>
 
-        <!-- GAME 5: DESK PARTNER ROYAL QUIZ -->
+        <!-- GAME 5: ROYAL KNIGHT'S QUIZ -->
         <div id="quizGame" class="arcade-game-view" style="display: none;">
           <div class="quiz-container" id="quizContainer">
             <div class="quiz-progress-bar">
@@ -613,9 +613,9 @@
 
           <div class="quiz-result-card hidden" id="quizResultCard">
             <div class="result-crown">👑</div>
-            <span class="result-tag">Certified Bench Partner Decree</span>
+            <span class="result-tag">Certified Royal Knight's Decree</span>
             <h3 id="quizScoreTitle">100% Royal Compatibility!</h3>
-            <p id="quizScoreDesc">You clearly know your desk partner's unspoken thoughts. The boy sitting next to you officially pledges unending classroom loyalty!</p>
+            <p id="quizScoreDesc">You clearly know your Knight's unspoken thoughts. Your faithful Knight officially pledges unending loyalty and protection to Her Highness!</p>
             <button type="button" id="restartQuizBtn" class="btn-royal btn-small">Retake Royal Quiz</button>
           </div>
         </div>
@@ -629,7 +629,7 @@
           <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
           Secret Whispers
         </span>
-        <h2>Reply Back to Your Desk Partner</h2>
+        <h2>Reply Back to Your Knight</h2>
         <p>Leave a note, reaction, or secret whisper that will be stored in his private vault:</p>
       </div>
 
@@ -661,6 +661,6 @@
     </footer>
   </main>
 
-  <script src="script.js?v=3.0"></script>
+  <script src="script.js?v=3.1"></script>
 </body>
 </html>
