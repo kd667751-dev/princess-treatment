@@ -468,23 +468,23 @@
         <!-- Arcade Game Selector Tabs -->
         <div class="arcade-tabs">
           <button type="button" class="arcade-tab-btn active" data-game="catcherGame">
-            <span class="arcade-tab-icon">✨</span>
+            <span class="arcade-tab-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
             <span class="arcade-tab-name">Crystal Catcher</span>
           </button>
           <button type="button" class="arcade-tab-btn" data-game="memoryGame">
-            <span class="arcade-tab-icon">🎴</span>
+            <span class="arcade-tab-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9h18M9 21V9"/></svg></span>
             <span class="arcade-tab-name">Enchanted Memory</span>
           </button>
           <button type="button" class="arcade-tab-btn" data-game="wheelGame">
-            <span class="arcade-tab-icon">🎡</span>
+            <span class="arcade-tab-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2"/><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/></svg></span>
             <span class="arcade-tab-name">Destiny Wheel</span>
           </button>
           <button type="button" class="arcade-tab-btn" data-game="tictactoeGame">
-            <span class="arcade-tab-icon">⚔️</span>
+            <span class="arcade-tab-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 9.5L21 3m-6.5 6.5L21 16M3 21l7.5-7.5M3 3l18 18"/></svg></span>
             <span class="arcade-tab-name">Royal Tactics</span>
           </button>
           <button type="button" class="arcade-tab-btn" data-game="pianoGame">
-            <span class="arcade-tab-icon">🎹</span>
+            <span class="arcade-tab-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
             <span class="arcade-tab-name">Magic Piano</span>
           </button>
         </div>
@@ -493,8 +493,8 @@
         <div id="catcherGame" class="arcade-game-view active">
           <div class="game-meta-bar">
             <div class="meta-pill">Score: <b id="catcherScore">0</b></div>
-            <div class="meta-pill streak-pill" id="catcherStreak">Combo: x1 🔥</div>
-            <button type="button" id="restartCatcherBtn" class="btn-game-control">Restart 🔄</button>
+            <div class="meta-pill streak-pill" id="catcherStreak">Combo: x1</div>
+            <button type="button" id="restartCatcherBtn" class="btn-game-control">Restart</button>
           </div>
           
           <div class="catcher-canvas-wrapper" style="position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 0 20px rgba(212,175,55,0.2);">
@@ -503,8 +503,8 @@
               <div class="overlay-content" style="background: rgba(30,10,40,0.8); backdrop-filter: blur(8px);">
                 <span class="overlay-crown" style="font-size: 3rem; text-shadow: 0 0 20px gold;">✨</span>
                 <h3 style="color: #ffd700;">Crystal Catcher</h3>
-                <p style="color: #eee;">Catch the falling stars and gems! Avoid the dark clouds! 🌩️</p>
-                <button type="button" id="startCatcherBtn" class="btn-royal btn-small">Start Magic ✨</button>
+                <p style="color: #eee;">Collect the falling crystals and celestial objects. Avoid the anomalies. </p>
+                <button type="button" id="startCatcherBtn" class="btn-royal btn-small">Initiate Sequence</button>
               </div>
             </div>
           </div>
@@ -521,7 +521,7 @@
           <div class="game-meta-bar">
             <div class="meta-pill">Moves: <b id="memoryMoves">0</b></div>
             <div class="meta-pill">Matched: <b id="memoryPairsCount">0 / 8</b></div>
-            <button type="button" id="restartMemoryBtn" class="btn-game-control">Reshuffle 🔄</button>
+            <button type="button" id="restartMemoryBtn" class="btn-game-control">Reshuffle</button>
           </div>
 
           <div class="memory-grid ultra-memory-grid" id="memoryGrid">
@@ -529,7 +529,7 @@
           </div>
 
           <div id="memoryWinBanner" class="game-win-banner hidden" style="background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,105,180,0.2));">
-            <span class="win-crown" style="font-size: 3rem; animation: pulse 1s infinite;">✨👑✨</span>
+            <span class="win-crown" style="font-size: 3rem; animation: pulse 1s infinite;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="gold" stroke-width="1.5"><path d="M2 20h20M4 16l-2-9 5 3 5-7 5 7 5-3-2 9H4z"/></svg></span>
             <h4 style="color: #d4af37;">Memory Mastered!</h4>
             <p>Your mind is as brilliant as a diamond!</p>
             <button type="button" id="memoryPlayAgainBtn" class="btn-royal btn-small">Play Again</button>
@@ -552,7 +552,7 @@
           </div>
 
           <div id="wheelPrizeCard" class="wheel-prize-card hidden" style="transform: scale(1.05); border: 2px solid #d4af37; box-shadow: 0 0 30px rgba(212,175,55,0.3);">
-            <span class="prize-tag" style="background: #d4af37; color: white;">👑 Destiny Granted 👑</span>
+            <span class="prize-tag" style="background: #d4af37; color: white;"> Destiny Granted </span>
             <h3 id="wheelPrizeTitle" style="color: #8b5a2b;">...</h3>
             <p id="wheelPrizeDesc">...</p>
           </div>
@@ -561,13 +561,13 @@
         <!-- GAME 4: ROYAL TACTICS (TIC TAC TOE) -->
         <div id="tictactoeGame" class="arcade-game-view" style="display: none;">
           <div class="game-meta-bar">
-            <div class="meta-pill">Princess 👑: <b id="tttPlayerScore">0</b></div>
-            <div class="meta-pill">Palace AI 🤖: <b id="tttPartnerScore">0</b></div>
-            <button type="button" id="restartTttBtn" class="btn-game-control">New Duel ⚔️</button>
+            <div class="meta-pill">Princess : <b id="tttPlayerScore">0</b></div>
+            <div class="meta-pill">Palace AI : <b id="tttPartnerScore">0</b></div>
+            <button type="button" id="restartTttBtn" class="btn-game-control">New Duel</button>
           </div>
 
           <div class="partner-reaction-bubble ultra-reaction" id="tttReaction">
-            <span class="partner-avatar">🏰</span>
+            <span class="partner-avatar"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-4a2 2 0 012-2h2a2 2 0 012 2v4"/></svg></span>
             <span class="partner-speech" id="tttSpeech">"A strategic duel! I won't go easy on you, Princess!"</span>
           </div>
 
@@ -590,7 +590,7 @@
           <div class="game-meta-bar">
             <div class="meta-pill">Level: <b id="pianoLevel">1</b></div>
             <div class="meta-pill">Status: <b id="pianoStatus">Waiting to Start</b></div>
-            <button type="button" id="startPianoBtn" class="btn-game-control">Start Melody 🎵</button>
+            <button type="button" id="startPianoBtn" class="btn-game-control">Start Melody</button>
           </div>
           
           <div class="piano-container">

@@ -2485,3 +2485,58 @@ body.gate-locked {
   opacity: 1;
   box-shadow: 0 0 20px var(--key-color), 0 0 40px var(--key-color);
 }
+
+/* =====================================================================
+   PREMIUM GLASS & SVG UI 
+   ===================================================================== */
+
+.arcade-tab-icon svg {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.memory-card.ultra .memory-card-front {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 20px rgba(255,255,255,0.05);
+}
+
+.memory-card.ultra .memory-card-back {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.mark-x-svg, .mark-o-svg {
+  width: 70%;
+  height: 70%;
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+.piano-container {
+  perspective: 1000px;
+}
+
+.piano-key {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+  transform-style: preserve-3d;
+}
+
+.piano-key::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--key-color);
+  opacity: 0.8;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 -10px 30px var(--key-color);
+}

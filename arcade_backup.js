@@ -1,7 +1,10 @@
 // ========================================================
-// ROYAL ARCADE (PREMIUM 3D/2D EDITION)
+// ROYAL ARCADE (ULTRA EDITION)
 // ========================================================
 
+// We assume playChime and burstConfetti are available globally from script.js
+
+// --- ARCADE TAB SWITCHER ---
 const arcadeTabBtns = document.querySelectorAll('.arcade-tab-btn');
 const arcadeGameViews = document.querySelectorAll('.arcade-game-view');
 
@@ -30,7 +33,7 @@ arcadeTabBtns.forEach(btn => {
 });
 
 // ========================================================
-// GAME 1: CRYSTAL CATCHER (PREMIUM)
+// GAME 1: CRYSTAL CATCHER (ULTRA)
 // ========================================================
 const catcherCanvas = document.getElementById('catcherCanvas');
 const catcherCtx = catcherCanvas ? catcherCanvas.getContext('2d') : null;
@@ -55,110 +58,32 @@ const catcherPillow = {
   x: 150,
   y: 340,
   width: 100,
-  height: 15,
+  height: 25,
   targetX: 150,
-  speed: 0.2
+  speed: 0.2 // lerp factor
 };
 
-// Canvas drawing helpers for 3D-like gems
-function drawDiamond(ctx, x, y, size, color1, color2) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.beginPath();
-  ctx.moveTo(0, -size);
-  ctx.lineTo(size, 0);
-  ctx.lineTo(0, size);
-  ctx.lineTo(-size, 0);
-  ctx.closePath();
-  
-  const grad = ctx.createLinearGradient(-size, -size, size, size);
-  grad.addColorStop(0, color1);
-  grad.addColorStop(1, color2);
-  
-  ctx.fillStyle = grad;
-  ctx.shadowColor = color1;
-  ctx.shadowBlur = 15;
-  ctx.fill();
-  
-  // Highlight for 3D effect
-  ctx.beginPath();
-  ctx.moveTo(0, -size);
-  ctx.lineTo(size/2, 0);
-  ctx.lineTo(0, size/2);
-  ctx.lineTo(-size/2, 0);
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-  ctx.fill();
-  ctx.restore();
-}
-
-function drawHexGem(ctx, x, y, size, color1, color2) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.beginPath();
-  for (let i = 0; i < 6; i++) {
-    const angle = (Math.PI / 3) * i;
-    const px = Math.cos(angle) * size;
-    const py = Math.sin(angle) * size;
-    if (i === 0) ctx.moveTo(px, py);
-    else ctx.lineTo(px, py);
-  }
-  ctx.closePath();
-  
-  const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, size);
-  grad.addColorStop(0, color1);
-  grad.addColorStop(1, color2);
-  
-  ctx.fillStyle = grad;
-  ctx.shadowColor = color1;
-  ctx.shadowBlur = 15;
-  ctx.fill();
-  ctx.restore();
-}
-
-function drawBomb(ctx, x, y, size) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.beginPath();
-  ctx.arc(0, 0, size, 0, Math.PI * 2);
-  const grad = ctx.createRadialGradient(-size/3, -size/3, size/10, 0, 0, size);
-  grad.addColorStop(0, '#555');
-  grad.addColorStop(1, '#111');
-  ctx.fillStyle = grad;
-  ctx.shadowColor = '#ff3333';
-  ctx.shadowBlur = 20;
-  ctx.fill();
-  
-  ctx.strokeStyle = '#ff3333';
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(0, -size);
-  ctx.lineTo(0, -size - 5);
-  ctx.stroke();
-  ctx.restore();
-}
-
 const ITEM_TYPES = [
-  { type: 'diamond', points: 10, prob: 0.4, color1: '#00f2fe', color2: '#4facfe' },
-  { type: 'hex', points: 20, prob: 0.3, color1: '#fa709a', color2: '#fee140' },
-  { type: 'diamond', points: 15, prob: 0.2, color1: '#c471f5', color2: '#fa71cd' },
-  { type: 'bomb', points: -10, prob: 0.1 }
+  { icon: '💎', points: 10, prob: 0.3, type: 'good' },
+  { icon: '✨', points: 20, prob: 0.2, type: 'good' },
+  { icon: '🌹', points: 15, prob: 0.3, type: 'good' },
+  { icon: '🌩️', points: -10, prob: 0.2, type: 'bad' }
 ];
 
 function initCatcher() {
   if (!catcherCanvas) return;
-  catcherStars = Array.from({length: 60}, () => ({
+  // Initialize background stars
+  catcherStars = Array.from({length: 50}, () => ({
     x: Math.random() * catcherCanvas.width,
     y: Math.random() * catcherCanvas.height,
-    size: Math.random() * 1.5 + 0.5,
-    speed: Math.random() * 0.5 + 0.1,
-    alpha: Math.random()
+    size: Math.random() * 2 + 1,
+    speed: Math.random() * 0.5 + 0.1
   }));
   drawCatcher();
 }
 
 function spawnCatcherItem() {
-  if (Math.random() < 0.04 + (catcherScore/4000)) {
+  if (Math.random() < 0.03 + (catcherScore/5000)) { // Gets faster
     const r = Math.random();
     let cumulative = 0;
     let selectedType = ITEM_TYPES[0];
@@ -170,23 +95,24 @@ function spawnCatcherItem() {
       }
     }
     catcherItems.push({
-      x: Math.random() * (catcherCanvas.width - 40) + 20,
-      y: -20,
-      typeData: selectedType,
-      size: Math.random() * 5 + 12,
-      speed: Math.random() * 2 + 2.5 + (catcherScore/300),
+      x: Math.random() * (catcherCanvas.width - 30) + 15,
+      y: -30,
+      icon: selectedType.icon,
+      points: selectedType.points,
+      type: selectedType.type,
+      speed: Math.random() * 2 + 2 + (catcherScore/300),
       rot: Math.random() * Math.PI * 2,
-      rotSpeed: (Math.random() - 0.5) * 0.05
+      rotSpeed: (Math.random() - 0.5) * 0.1
     });
   }
 }
 
 function spawnParticles(x, y, color) {
-  for(let i=0; i<20; i++) {
+  for(let i=0; i<15; i++) {
     catcherParticles.push({
       x: x, y: y,
-      vx: (Math.random()-0.5)*12,
-      vy: (Math.random()-0.5)*12,
+      vx: (Math.random()-0.5)*10,
+      vy: (Math.random()-0.5)*10,
       life: 1,
       color: color
     });
@@ -196,42 +122,38 @@ function spawnParticles(x, y, color) {
 function updateCatcherLoop() {
   if (!catcherRunning || !catcherCtx) return;
   
-  catcherCtx.fillStyle = '#0a0514';
+  // Clear with semi-transparent black for motion blur
+  catcherCtx.fillStyle = 'rgba(26, 11, 46, 0.3)';
   catcherCtx.fillRect(0, 0, catcherCanvas.width, catcherCanvas.height);
 
+  // Update & Draw Stars
+  catcherCtx.fillStyle = '#ffffff';
   catcherStars.forEach(star => {
     star.y += star.speed;
-    star.alpha += (Math.random() - 0.5) * 0.1;
-    star.alpha = Math.max(0.2, Math.min(1, star.alpha));
     if (star.y > catcherCanvas.height) {
       star.y = 0;
       star.x = Math.random() * catcherCanvas.width;
     }
-    catcherCtx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
     catcherCtx.beginPath();
     catcherCtx.arc(star.x, star.y, star.size, 0, Math.PI*2);
     catcherCtx.fill();
   });
 
+  // Lerp pillow
   catcherPillow.x += (catcherPillow.targetX - catcherPillow.x) * catcherPillow.speed;
 
-  // Premium neon paddle
-  catcherCtx.shadowBlur = 25;
-  catcherCtx.shadowColor = '#00f2fe';
-  catcherCtx.fillStyle = 'linear-gradient(90deg, #4facfe, #00f2fe)';
+  // Draw Pillow (Glowing)
+  catcherCtx.shadowBlur = 20;
+  catcherCtx.shadowColor = '#d4af37';
+  catcherCtx.fillStyle = 'linear-gradient(90deg, #d4af37, #fef08a)';
   catcherCtx.beginPath();
-  catcherCtx.roundRect(catcherPillow.x, catcherPillow.y, catcherPillow.width, catcherPillow.height, 8);
+  catcherCtx.roundRect(catcherPillow.x, catcherPillow.y, catcherPillow.width, catcherPillow.height, 12);
   catcherCtx.fill();
-  
-  // Paddle highlight
-  catcherCtx.fillStyle = 'rgba(255,255,255,0.8)';
   catcherCtx.shadowBlur = 0;
-  catcherCtx.beginPath();
-  catcherCtx.roundRect(catcherPillow.x + 5, catcherPillow.y + 2, catcherPillow.width - 10, 3, 2);
-  catcherCtx.fill();
 
   spawnCatcherItem();
 
+  // Update Items
   for (let i = catcherItems.length - 1; i >= 0; i--) {
     let item = catcherItems[i];
     item.y += item.speed;
@@ -240,40 +162,37 @@ function updateCatcherLoop() {
     catcherCtx.save();
     catcherCtx.translate(item.x, item.y);
     catcherCtx.rotate(item.rot);
-    
-    if (item.typeData.type === 'diamond') {
-      drawDiamond(catcherCtx, 0, 0, item.size, item.typeData.color1, item.typeData.color2);
-    } else if (item.typeData.type === 'hex') {
-      drawHexGem(catcherCtx, 0, 0, item.size, item.typeData.color1, item.typeData.color2);
-    } else if (item.typeData.type === 'bomb') {
-      drawBomb(catcherCtx, 0, 0, item.size);
-    }
-    
+    catcherCtx.font = '24px Arial';
+    catcherCtx.textAlign = 'center';
+    catcherCtx.textBaseline = 'middle';
+    catcherCtx.fillText(item.icon, 0, 0);
     catcherCtx.restore();
 
-    if (item.y + item.size >= catcherPillow.y && item.y - item.size <= catcherPillow.y + catcherPillow.height) {
-      if (item.x + item.size >= catcherPillow.x && item.x - item.size <= catcherPillow.x + catcherPillow.width) {
-        if (item.typeData.type !== 'bomb') {
+    // Collision
+    if (item.y + 12 >= catcherPillow.y && item.y - 12 <= catcherPillow.y + catcherPillow.height) {
+      if (item.x + 12 >= catcherPillow.x && item.x - 12 <= catcherPillow.x + catcherPillow.width) {
+        if (item.type === 'good') {
           catcherStreak++;
           catcherMultiplier = Math.floor(catcherStreak / 5) + 1;
-          catcherScore += item.typeData.points * catcherMultiplier;
-          spawnParticles(item.x, item.y, item.typeData.color1);
-          if (window.playChime) playChime([600 + catcherStreak*15], 'sine', 0.1);
+          catcherScore += item.points * catcherMultiplier;
+          spawnParticles(item.x, item.y, '#ffd700');
+          if (window.playChime) playChime([600 + catcherStreak*20], 'sine', 0.1);
         } else {
           catcherStreak = 0;
           catcherMultiplier = 1;
-          catcherScore = Math.max(0, catcherScore + item.typeData.points);
-          spawnParticles(item.x, item.y, '#ff3333');
-          if (window.playChime) playChime([150], 'sawtooth', 0.3);
+          catcherScore = Math.max(0, catcherScore + item.points);
+          spawnParticles(item.x, item.y, '#ff4444');
+          if (window.playChime) playChime([200], 'sawtooth', 0.2);
           
-          catcherCanvas.style.transform = `translate(${(Math.random()-0.5)*15}px, ${(Math.random()-0.5)*15}px)`;
+          // Screen shake effect
+          catcherCanvas.style.transform = `translate(${(Math.random()-0.5)*10}px, ${(Math.random()-0.5)*10}px)`;
           setTimeout(() => catcherCanvas.style.transform = 'none', 100);
         }
         
         if (catcherScoreEl) catcherScoreEl.textContent = catcherScore;
         if (catcherStreakEl) {
-          catcherStreakEl.textContent = `Combo: x${catcherMultiplier}`;
-          catcherStreakEl.style.color = catcherMultiplier > 2 ? '#fa709a' : 'inherit';
+          catcherStreakEl.textContent = `Combo: x${catcherMultiplier} ${catcherMultiplier > 2 ? '🔥' : '✨'}`;
+          catcherStreakEl.style.color = catcherMultiplier > 2 ? '#ff7b00' : 'inherit';
         }
         catcherItems.splice(i, 1);
         continue;
@@ -281,27 +200,28 @@ function updateCatcherLoop() {
     }
 
     if (item.y > catcherCanvas.height + 30) {
-      if (item.typeData.type !== 'bomb') {
+      if (item.type === 'good') {
         catcherStreak = 0;
         catcherMultiplier = 1;
-        if (catcherStreakEl) catcherStreakEl.textContent = `Combo: x1`;
+        if (catcherStreakEl) catcherStreakEl.textContent = `Combo: x1 ✨`;
       }
       catcherItems.splice(i, 1);
     }
   }
 
+  // Update Particles
   for (let i = catcherParticles.length - 1; i >= 0; i--) {
     let p = catcherParticles[i];
     p.x += p.vx;
     p.y += p.vy;
-    p.life -= 0.04;
+    p.life -= 0.05;
     if (p.life <= 0) {
       catcherParticles.splice(i, 1);
     } else {
       catcherCtx.globalAlpha = p.life;
       catcherCtx.fillStyle = p.color;
       catcherCtx.beginPath();
-      catcherCtx.arc(p.x, p.y, 2.5, 0, Math.PI*2);
+      catcherCtx.arc(p.x, p.y, 3, 0, Math.PI*2);
       catcherCtx.fill();
       catcherCtx.globalAlpha = 1;
     }
@@ -312,7 +232,7 @@ function updateCatcherLoop() {
 
 function drawCatcher() {
   if (!catcherCtx) return;
-  catcherCtx.fillStyle = '#0a0514';
+  catcherCtx.fillStyle = '#1a0b2e';
   catcherCtx.fillRect(0, 0, catcherCanvas.width, catcherCanvas.height);
 }
 
@@ -325,7 +245,7 @@ function startCatcherGame() {
   catcherParticles = [];
   catcherRunning = true;
   if (catcherScoreEl) catcherScoreEl.textContent = '0';
-  if (catcherStreakEl) catcherStreakEl.textContent = 'Combo: x1';
+  if (catcherStreakEl) catcherStreakEl.textContent = 'Combo: x1 ✨';
   
   if (catcherAnimId) cancelAnimationFrame(catcherAnimId);
   catcherAnimId = requestAnimationFrame(updateCatcherLoop);
@@ -354,7 +274,7 @@ if (catcherRightBtn) catcherRightBtn.addEventListener('click', () => catcherPill
 
 
 // ========================================================
-// GAME 2: ENCHANTED MEMORY (PREMIUM)
+// GAME 2: ENCHANTED MEMORY (ULTRA)
 // ========================================================
 const memoryGrid = document.getElementById('memoryGrid');
 const memoryMovesEl = document.getElementById('memoryMoves');
@@ -363,23 +283,13 @@ const memoryWinBanner = document.getElementById('memoryWinBanner');
 const memoryPlayAgainBtn = document.getElementById('memoryPlayAgainBtn');
 const restartMemoryBtn = document.getElementById('restartMemoryBtn');
 
-// Beautiful minimal SVGs for memory game
-const SVG_DIAMOND = `<svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M6 3h12l4 7-10 11L2 10z"/></svg>`;
-const SVG_HEART = `<svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>`;
-const SVG_STAR = `<svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
-const SVG_MOON = `<svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>`;
-const SVG_FLOWER = `<svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/></svg>`;
-const SVG_SUN = `<svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`;
-const SVG_CROWN = `<svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M2 20h20M4 16l-2-9 5 3 5-7 5 7 5-3-2 9H4z"/></svg>`;
-const SVG_FEATHER = `<svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5zM16 8L2 22M17 15H9"/></svg>`;
-
-const MEMORY_ICONS_ULTRA = [SVG_DIAMOND, SVG_HEART, SVG_STAR, SVG_MOON, SVG_FLOWER, SVG_SUN, SVG_CROWN, SVG_FEATHER];
+const MEMORY_ICONS_ULTRA = ['👑', '💎', '🌹', '🪄', '💌', '🌸', '✨', '🦢'];
 let memoryCards = [];
 let flippedCards = [];
 let matchedPairs = 0;
 let memoryMoves = 0;
 let memoryLock = false;
-let memoryChimeBase = 350;
+let memoryChimeBase = 400;
 
 function initMemoryGame() {
   if (!memoryGrid) return;
@@ -387,7 +297,7 @@ function initMemoryGame() {
   matchedPairs = 0;
   flippedCards = [];
   memoryLock = false;
-  memoryChimeBase = 350;
+  memoryChimeBase = 400;
 
   if (memoryMovesEl) memoryMovesEl.textContent = '0';
   if (memoryPairsCountEl) memoryPairsCountEl.textContent = '0 / 8';
@@ -395,21 +305,17 @@ function initMemoryGame() {
 
   const deck = [...MEMORY_ICONS_ULTRA, ...MEMORY_ICONS_ULTRA].sort(() => Math.random() - 0.5);
 
-  memoryGrid.innerHTML = deck.map((svgContent, idx) => `
-    <div class="memory-card ultra" data-index="${idx}" data-icon="${idx}">
-      <div class="memory-card-face memory-card-back"></div>
-      <div class="memory-card-face memory-card-front">${svgContent}</div>
+  memoryGrid.innerHTML = deck.map((icon, idx) => `
+    <div class="memory-card ultra" data-index="${idx}" data-icon="${icon}">
+      <div class="memory-card-face memory-card-back">✨</div>
+      <div class="memory-card-face memory-card-front">${icon}</div>
     </div>
   `).join('');
 
-  // Re-assign data-icon based on the actual SVG string to match them correctly
-  const cards = document.querySelectorAll('.memory-card.ultra');
-  cards.forEach((card, i) => {
-    card.setAttribute('data-icon', deck[i]);
+  memoryCards = document.querySelectorAll('.memory-card');
+  memoryCards.forEach(card => {
     card.addEventListener('click', () => handleMemoryCardClick(card));
   });
-  
-  memoryCards = cards;
 }
 
 function handleMemoryCardClick(card) {
@@ -433,11 +339,15 @@ function handleMemoryCardClick(card) {
       c1.classList.add('matched');
       c2.classList.add('matched');
       
+      // Add glowing effect
+      c1.style.boxShadow = "0 0 20px #d4af37";
+      c2.style.boxShadow = "0 0 20px #d4af37";
+
       flippedCards = [];
       if (memoryPairsCountEl) memoryPairsCountEl.textContent = `${matchedPairs} / 8`;
       
-      memoryChimeBase += 40;
-      if (window.playChime) playChime([memoryChimeBase, memoryChimeBase*1.25, memoryChimeBase*1.5], 'triangle', 0.3);
+      memoryChimeBase += 50; // Pitch goes up with each match
+      if (window.playChime) playChime([memoryChimeBase, memoryChimeBase*1.2, memoryChimeBase*1.5], 'sine', 0.3);
 
       if (matchedPairs === 8) {
         setTimeout(() => {
@@ -453,8 +363,8 @@ function handleMemoryCardClick(card) {
         c2.classList.remove('flipped');
         flippedCards = [];
         memoryLock = false;
-        memoryChimeBase = Math.max(350, memoryChimeBase - 20);
-      }, 700);
+        memoryChimeBase = Math.max(400, memoryChimeBase - 25);
+      }, 800);
     }
   }
 }
@@ -464,7 +374,7 @@ if (memoryPlayAgainBtn) memoryPlayAgainBtn.addEventListener('click', initMemoryG
 
 
 // ========================================================
-// GAME 3: DESTINY WHEEL (PREMIUM)
+// GAME 3: DESTINY WHEEL (ULTRA)
 // ========================================================
 const wheelCanvas = document.getElementById('wheelCanvas');
 const wheelCtx = wheelCanvas ? wheelCanvas.getContext('2d') : null;
@@ -474,16 +384,15 @@ const wheelPrizeTitle = document.getElementById('wheelPrizeTitle');
 const wheelPrizeDesc = document.getElementById('wheelPrizeDesc');
 
 const WHEEL_PRIZES = [
-  { text: "Absolute Peace", desc: "A royal decree granting complete peace of mind, zero stress, and sweet snacks all week!" },
-  { text: "Silk Chocolate", desc: "A special silk chocolate delivered straight to Her Highness at recess!" },
-  { text: "Royal Radiance", desc: "Official recognition that Her Highness brings the warmest vibes anywhere she goes!" },
-  { text: "Golden Wishes", desc: "Make any secret wish right now—the universe is listening to Her Highness!" },
-  { text: "VIP Stroll", desc: "Exclusive peaceful recess stroll with your favorite drinks and zero stress." },
-  { text: "Infinite Smiles", desc: "A charm that guarantees endless reasons to smile today." }
+  { text: "Absolute Peace 🌸", desc: "A royal decree granting complete peace of mind, zero stress, and sweet snacks all week!" },
+  { text: "Silk Chocolate 🍫", desc: "A special silk chocolate delivered straight to Her Highness at recess!" },
+  { text: "Royal Radiance 👑", desc: "Official recognition that Her Highness brings the warmest vibes anywhere she goes!" },
+  { text: "Golden Wishes 💫", desc: "Make any secret wish right now—the universe is listening to Her Highness!" },
+  { text: "VIP Stroll 🌸", desc: "Exclusive peaceful recess stroll with your favorite drinks and zero stress." },
+  { text: "Infinite Smiles ✨", desc: "A charm that guarantees endless reasons to smile today." }
 ];
 
-// Rich gem colors for premium look
-const WHEEL_COLORS = ['#2c3e50', '#8e44ad', '#2980b9', '#16a085', '#c0392b', '#d35400'];
+const WHEEL_COLORS = ['#ff9a9e', '#fecfef', '#a18cd1', '#fbc2eb', '#ffecd2', '#fcb69f'];
 let wheelAngle = 0;
 let isSpinningWheel = false;
 
@@ -501,13 +410,12 @@ function drawWheel() {
   wheelCtx.translate(cx, cy);
   wheelCtx.rotate(wheelAngle);
 
-  // Outer gold rim
+  // Outer glow ring
   wheelCtx.beginPath();
   wheelCtx.arc(0, 0, radius, 0, 2*Math.PI);
-  const grad = wheelCtx.createLinearGradient(-radius, -radius, radius, radius);
-  grad.addColorStop(0, '#bf953f');
-  grad.addColorStop(0.5, '#fcf6ba');
-  grad.addColorStop(1, '#b38728');
+  const grad = wheelCtx.createRadialGradient(0,0, radius-20, 0,0, radius);
+  grad.addColorStop(0, 'transparent');
+  grad.addColorStop(1, '#d4af37');
   wheelCtx.fillStyle = grad;
   wheelCtx.fill();
 
@@ -517,44 +425,37 @@ function drawWheel() {
 
     wheelCtx.beginPath();
     wheelCtx.moveTo(0, 0);
-    wheelCtx.arc(0, 0, radius - 10, startAngle, endAngle);
-    
-    // Rich radial gradient for each slice
-    const sliceGrad = wheelCtx.createRadialGradient(0, 0, 0, 0, 0, radius);
-    sliceGrad.addColorStop(0, '#34495e');
-    sliceGrad.addColorStop(1, WHEEL_COLORS[i]);
-    
-    wheelCtx.fillStyle = sliceGrad;
+    wheelCtx.arc(0, 0, radius - 8, startAngle, endAngle);
+    wheelCtx.fillStyle = WHEEL_COLORS[i % WHEEL_COLORS.length];
     wheelCtx.fill();
-    wheelCtx.lineWidth = 1;
-    wheelCtx.strokeStyle = 'rgba(255,255,255,0.2)';
+    wheelCtx.lineWidth = 3;
+    wheelCtx.strokeStyle = '#fff';
     wheelCtx.stroke();
 
     wheelCtx.save();
     wheelCtx.rotate(startAngle + arc / 2);
     wheelCtx.textAlign = 'right';
-    wheelCtx.fillStyle = '#ffffff';
-    wheelCtx.shadowColor = 'rgba(0,0,0,0.8)';
-    wheelCtx.shadowBlur = 4;
-    wheelCtx.font = '600 14px "Plus Jakarta Sans", sans-serif';
+    wheelCtx.fillStyle = '#3b1d3d';
+    wheelCtx.font = 'bold 14px "Plus Jakarta Sans", sans-serif';
     wheelCtx.fillText(WHEEL_PRIZES[i].text, radius - 30, 5);
     wheelCtx.restore();
   }
 
-  // Center golden jewel
+  // Center golden pin
   wheelCtx.beginPath();
-  wheelCtx.arc(0, 0, 25, 0, 2 * Math.PI);
-  wheelCtx.fillStyle = grad; // use the gold gradient
+  wheelCtx.arc(0, 0, 30, 0, 2 * Math.PI);
+  wheelCtx.fillStyle = '#d4af37';
   wheelCtx.fill();
-  wheelCtx.shadowColor = 'rgba(0,0,0,0.5)';
-  wheelCtx.shadowBlur = 10;
+  wheelCtx.strokeStyle = '#ffffff';
+  wheelCtx.lineWidth = 4;
+  wheelCtx.stroke();
   
-  // Inner jewel
-  wheelCtx.beginPath();
-  wheelCtx.arc(0, 0, 15, 0, 2 * Math.PI);
-  wheelCtx.fillStyle = '#2c3e50';
-  wheelCtx.fill();
-  
+  wheelCtx.fillStyle = '#ffffff';
+  wheelCtx.font = '20px sans-serif';
+  wheelCtx.textAlign = 'center';
+  wheelCtx.textBaseline = 'middle';
+  wheelCtx.fillText('👑', 0, 2);
+
   wheelCtx.restore();
 }
 
@@ -574,9 +475,11 @@ function spinWheel() {
   function animateSpin(now) {
     const elapsed = now - startTime;
     const t = Math.min(1, elapsed / duration);
-    const ease = 1 - Math.pow(1 - t, 4); // easeOutQuart
+    // easeOutQuart
+    const ease = 1 - Math.pow(1 - t, 4);
     wheelAngle = startAngle + (targetAngle - startAngle) * ease;
     
+    // Play tick sound on passing a slice
     const numSlices = WHEEL_PRIZES.length;
     const arc = (2 * Math.PI) / numSlices;
     const currentTick = Math.floor(wheelAngle / arc);
@@ -613,7 +516,7 @@ if (spinWheelBtn) spinWheelBtn.addEventListener('click', spinWheel);
 
 
 // ========================================================
-// GAME 4: ROYAL TACTICS (AI TIC-TAC-TOE PREMIUM)
+// GAME 4: ROYAL TACTICS (AI TIC-TAC-TOE)
 // ========================================================
 const tttBoard = document.getElementById('tttBoard');
 const tttCells = document.querySelectorAll('.ttt-cell');
@@ -630,14 +533,10 @@ let tttScores = { player: 0, bot: 0 };
 let tttInitialized = false;
 
 const TTT_WIN_LINES = [
-  [0,1,2], [3,4,5], [6,7,8], 
-  [0,3,6], [1,4,7], [2,5,8], 
-  [0,4,8], [2,4,6]           
+  [0,1,2], [3,4,5], [6,7,8], // Rows
+  [0,3,6], [1,4,7], [2,5,8], // Cols
+  [0,4,8], [2,4,6]           // Diags
 ];
-
-// Clean SVG marks
-const MARK_X = `<svg class="mark-x-svg" viewBox="0 0 24 24" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" fill="none"><path d="M18 6L6 18M6 6l12 12"/></svg>`;
-const MARK_O = `<svg class="mark-o-svg" viewBox="0 0 24 24" stroke="#fa709a" stroke-width="2" stroke-linecap="round" fill="none"><circle cx="12" cy="12" r="8"/></svg>`;
 
 function initTicTacToe() {
   tttInitialized = true;
@@ -648,13 +547,14 @@ function initTicTacToe() {
   tttCells.forEach(cell => {
     cell.innerHTML = '';
     cell.classList.remove('winner-cell');
+    // We attach listener only once, let's use a flag or just attach it once at script load
   });
   
-  updateTttSpeech("Your move, Player.");
+  updateTttSpeech("Your move, Princess! 👑");
 }
 
 function updateTttSpeech(text) {
-  if (tttSpeech) tttSpeech.textContent = text;
+  if (tttSpeech) tttSpeech.textContent = `"${text}"`;
   if (tttReaction) {
     tttReaction.classList.remove('pulse-animation');
     void tttReaction.offsetWidth;
@@ -664,11 +564,12 @@ function updateTttSpeech(text) {
 
 function handleTttClick(e) {
   if (!tttGameActive) return;
-  const index = e.target.closest('.ttt-cell').getAttribute('data-index');
+  const index = e.target.getAttribute('data-index');
   if (tttState[index] !== '') return;
 
+  // Player move
   tttState[index] = 'X';
-  e.target.closest('.ttt-cell').innerHTML = MARK_X;
+  e.target.innerHTML = '<span class="ttt-mark-x">👑</span>';
   if(window.playChime) playChime([600], 'sine', 0.1);
   
   if (checkTttWin('X')) {
@@ -680,14 +581,17 @@ function handleTttClick(e) {
     return;
   }
 
-  updateTttSpeech("Calculating optimal move...");
+  updateTttSpeech("Hmm, clever move... my turn! 🤔");
   tttGameActive = false;
+  
+  // Bot move (delay for realism)
   setTimeout(makeBotMove, 600);
 }
 
 function makeBotMove() {
-  let move = findBestMove('O');
-  if (move === -1) move = findBestMove('X');
+  // Simple AI: 1. Win if possible, 2. Block if needed, 3. Random
+  let move = findBestMove('O'); // Try to win
+  if (move === -1) move = findBestMove('X'); // Try to block
   if (move === -1) {
     const empty = tttState.map((val, i) => val === '' ? i : -1).filter(i => i !== -1);
     move = empty[Math.floor(Math.random() * empty.length)];
@@ -695,7 +599,7 @@ function makeBotMove() {
 
   if (move !== -1) {
     tttState[move] = 'O';
-    tttCells[move].innerHTML = MARK_O;
+    tttCells[move].innerHTML = '<span class="ttt-mark-o">💖</span>';
     if(window.playChime) playChime([400], 'sine', 0.1);
 
     if (checkTttWin('O')) {
@@ -706,7 +610,7 @@ function makeBotMove() {
       endTttGame('tie');
       return;
     }
-    updateTttSpeech("Your turn.");
+    updateTttSpeech("Your turn, Her Highness! ✨");
     tttGameActive = true;
   }
 }
@@ -746,16 +650,16 @@ function endTttGame(result) {
   if (result === 'player') {
     tttScores.player++;
     if(tttPlayerScoreEl) tttPlayerScoreEl.textContent = tttScores.player;
-    updateTttSpeech("A brilliant victory.");
+    updateTttSpeech("I bow to your supreme intellect, Princess! 🎉");
     if(window.burstConfetti) burstConfetti();
     if(window.playChime) playChime([523, 659, 783, 1046], 'triangle', 0.5);
   } else if (result === 'bot') {
     tttScores.bot++;
     if(tttPartnerScoreEl) tttPartnerScoreEl.textContent = tttScores.bot;
-    updateTttSpeech("Palace AI claims victory.");
+    updateTttSpeech("Ah! Palace AI claims victory this time! 🤖");
     if(window.playChime) playChime([300, 250, 200], 'sawtooth', 0.4);
   } else {
-    updateTttSpeech("A tactical draw.");
+    updateTttSpeech("A perfect royal tie! Truly a match of equals. 🤝");
   }
 }
 
@@ -764,7 +668,7 @@ if (restartTttBtn) restartTttBtn.addEventListener('click', initTicTacToe);
 
 
 // ========================================================
-// GAME 5: MAGIC PIANO (PREMIUM)
+// GAME 5: MAGIC PIANO (SIMON SAYS)
 // ========================================================
 const pianoKeys = document.querySelectorAll('.piano-key');
 const startPianoBtn = document.getElementById('startPianoBtn');
@@ -777,14 +681,14 @@ let pianoLevel = 0;
 let pianoPlaying = false;
 let pianoInitialized = false;
 
-const PIANO_NOTES = [261.63, 329.63, 392.00, 523.25];
+const PIANO_NOTES = [261.63, 329.63, 392.00, 523.25]; // C4, E4, G4, C5
 
 function initPianoGame() {
   pianoInitialized = true;
   pianoKeys.forEach(key => {
     key.addEventListener('click', (e) => {
-      if(pianoPlaying) return; 
-      const noteIdx = parseInt(e.target.closest('.piano-key').getAttribute('data-note'));
+      if(pianoPlaying) return; // Ignore input while playing sequence
+      const noteIdx = parseInt(e.target.getAttribute('data-note'));
       playPianoKey(noteIdx);
       checkPianoInput(noteIdx);
     });
@@ -795,9 +699,9 @@ function playPianoKey(idx) {
   const key = document.querySelector(`.piano-key[data-note="${idx}"]`);
   if(key) {
     key.classList.add('active');
-    setTimeout(() => key.classList.remove('active'), 250);
+    setTimeout(() => key.classList.remove('active'), 200);
   }
-  if(window.playChime) playChime([PIANO_NOTES[idx]], 'sine', 0.4);
+  if(window.playChime) playChime([PIANO_NOTES[idx]], 'sine', 0.3);
 }
 
 function startPianoRound() {
@@ -805,7 +709,7 @@ function startPianoRound() {
   playerSequence = [];
   pianoLevel++;
   if(pianoLevelEl) pianoLevelEl.textContent = pianoLevel;
-  if(pianoStatusEl) pianoStatusEl.textContent = "Listen to the melody...";
+  if(pianoStatusEl) pianoStatusEl.textContent = "Listen to the melody... 🎵";
   
   pianoSequence.push(Math.floor(Math.random() * 4));
   
@@ -814,34 +718,36 @@ function startPianoRound() {
     setTimeout(() => {
       playPianoKey(note);
     }, delay);
-    delay += 700;
+    delay += 600;
   });
   
   setTimeout(() => {
     pianoPlaying = false;
-    if(pianoStatusEl) pianoStatusEl.textContent = "Your turn. Replay the sequence.";
+    if(pianoStatusEl) pianoStatusEl.textContent = "Your turn, Princess! ✨";
   }, delay);
 }
 
 function checkPianoInput(idx) {
-  if(pianoSequence.length === 0) return; 
+  if(pianoSequence.length === 0) return; // Game hasn't started
   playerSequence.push(idx);
   
   const currentMove = playerSequence.length - 1;
   if(playerSequence[currentMove] !== pianoSequence[currentMove]) {
-    if(pianoStatusEl) pianoStatusEl.textContent = "Sequence broken.";
+    // Wrong
+    if(pianoStatusEl) pianoStatusEl.textContent = "Oops! Melody broken. 💔";
     if(window.playChime) playChime([150], 'sawtooth', 0.5);
     pianoSequence = [];
     pianoLevel = 0;
     setTimeout(() => {
-      if(pianoStatusEl) pianoStatusEl.textContent = "Click Start to try again.";
+      if(pianoStatusEl) pianoStatusEl.textContent = "Click Start to try again!";
     }, 2000);
     return;
   }
   
   if(playerSequence.length === pianoSequence.length) {
+    // Round complete
     pianoPlaying = true;
-    if(pianoStatusEl) pianoStatusEl.textContent = "Perfect. Preparing next level...";
+    if(pianoStatusEl) pianoStatusEl.textContent = "Perfect! Get ready... 🌟";
     if(window.playChime) setTimeout(() => playChime([800, 1000], 'sine', 0.2), 300);
     setTimeout(startPianoRound, 1500);
   }
@@ -855,6 +761,7 @@ if(startPianoBtn) {
   });
 }
 
+// Ensure the first active tab initializes correctly if active on load
 document.addEventListener('DOMContentLoaded', () => {
   const activeTab = document.querySelector('.arcade-tab-btn.active');
   if(activeTab) activeTab.click();
