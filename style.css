@@ -1746,3 +1746,597 @@ body.gate-locked {
   20%, 60% { transform: translateX(-9px); }
   40%, 80% { transform: translateX(9px); }
 }
+
+/* ========================================================
+   ROYAL ARCADE - MINI-GAMES FOR HER HIGHNESS
+   ======================================================== */
+.arcade-card {
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.arcade-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.arcade-tab-btn {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.arcade-tab-btn:hover {
+  background: #ffffff;
+  border-color: var(--pink-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(217, 70, 239, 0.2);
+}
+
+.arcade-tab-btn.active {
+  background: linear-gradient(135deg, #f43f5e 0%, #d946ef 100%);
+  color: #ffffff;
+  border-color: #ffffff;
+  box-shadow: 0 4px 16px rgba(217, 70, 239, 0.4);
+  transform: translateY(-1px);
+}
+
+.arcade-game-view {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.35s ease;
+}
+
+.game-meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.meta-pill {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(219, 39, 119, 0.25);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.meta-pill b {
+  color: var(--pink-deep);
+}
+
+.streak-pill {
+  background: linear-gradient(135deg, #fce7f3 0%, #fef3c7 100%);
+  border-color: var(--royal-gold);
+  color: #b45309;
+}
+
+.btn-game-control {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-game-control:hover {
+  background: #ffffff;
+  border-color: var(--royal-gold);
+  transform: translateY(-1px);
+}
+
+/* GAME 1: CROWN CATCHER */
+.catcher-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 340px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(186, 104, 200, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  background: #fdf2f8;
+}
+
+#catcherCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+.game-start-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 240, 245, 0.94);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  transition: opacity 0.3s;
+  z-index: 5;
+}
+
+.game-start-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.overlay-content h3 {
+  font-family: var(--font-royal);
+  font-size: 1.35rem;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.overlay-content p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+  line-height: 1.45;
+}
+
+.overlay-crown {
+  font-size: 2.2rem;
+  display: inline-block;
+  margin-bottom: 8px;
+  animation: pulse 1.8s infinite;
+}
+
+.mobile-catcher-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 12px;
+  gap: 8px;
+}
+
+.catcher-arrow-btn {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(212, 175, 55, 0.6);
+  background: rgba(255, 255, 255, 0.95);
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--pink-deep);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  touch-action: manipulation;
+  user-select: none;
+  transition: all 0.15s;
+}
+
+.catcher-arrow-btn:active {
+  transform: scale(0.95);
+  background: #fdf2f8;
+}
+
+.control-tip {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  text-align: center;
+  flex: 1.5;
+}
+
+/* GAME 2: PALACE MEMORY PAIRS */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+  perspective: 1000px;
+  margin: 0 auto;
+}
+
+.memory-card {
+  height: 82px;
+  border-radius: 16px;
+  cursor: pointer;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.memory-card.flipped,
+.memory-card.matched {
+  transform: rotateY(180deg);
+}
+
+.memory-card.matched {
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.memory-card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.memory-card-back {
+  background: linear-gradient(135deg, #fbcfe8 0%, #e9d5ff 100%);
+  border: 2px solid #ffffff;
+  color: var(--royal-gold);
+  font-size: 1.5rem;
+}
+
+.memory-card-front {
+  background: #ffffff;
+  border: 2px solid var(--royal-gold);
+  transform: rotateY(180deg);
+  font-size: 1.8rem;
+}
+
+.game-win-banner {
+  margin-top: 20px;
+  padding: 20px 24px;
+  border-radius: 18px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.96);
+  border: 2px solid var(--royal-gold);
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.35);
+  animation: fadeIn 0.4s ease;
+  width: 100%;
+  max-width: 420px;
+}
+
+.win-crown {
+  font-size: 2.2rem;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.game-win-banner h4 {
+  font-family: var(--font-royal);
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.game-win-banner p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  line-height: 1.45;
+}
+
+/* GAME 3: PRINCESS FORTUNE WHEEL */
+.wheel-container {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  margin: 0 auto 20px;
+}
+
+.wheel-pointer {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  font-size: 1.9rem;
+  color: #e11d48;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  user-select: none;
+}
+
+#wheelCanvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 10px 35px rgba(186, 104, 200, 0.35), 0 0 0 6px #ffffff;
+  display: block;
+}
+
+.wheel-controls {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.wheel-prize-card {
+  margin-top: 20px;
+  padding: 20px 24px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 2px solid var(--royal-gold);
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+  animation: fadeIn 0.35s ease;
+  width: 100%;
+  max-width: 400px;
+}
+
+.prize-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #b45309;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.wheel-prize-card h3 {
+  font-family: var(--font-royal);
+  font-size: 1.35rem;
+  color: var(--pink-deep);
+  margin-bottom: 6px;
+}
+
+.wheel-prize-card p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+/* GAME 4: TIC-TAC-TOE VS DESK PARTNER */
+.partner-reaction-bubble {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1.5px solid var(--pink-soft);
+  border-radius: 999px;
+  padding: 8px 16px;
+  margin-bottom: 18px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.partner-avatar {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.partner-speech {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+.ttt-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 310px;
+  margin: 0 auto;
+}
+
+.ttt-cell {
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--pink-soft);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  user-select: none;
+}
+
+.ttt-cell:hover {
+  background: #ffffff;
+  border-color: var(--pink-deep);
+  transform: scale(1.04);
+}
+
+.ttt-cell.winning {
+  background: linear-gradient(135deg, #fce7f3 0%, #fef3c7 100%);
+  border-color: var(--royal-gold);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+  transform: scale(1.06);
+}
+
+/* GAME 5: DESK PARTNER ROYAL QUIZ */
+.quiz-container {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  border-radius: 22px;
+  padding: 24px 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+.quiz-progress-bar {
+  height: 6px;
+  width: 100%;
+  background: #fce7f3;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.quiz-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f43f5e, #d946ef);
+  transition: width 0.35s ease;
+}
+
+.quiz-step {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--pink-deep);
+  margin-bottom: 6px;
+}
+
+.quiz-question {
+  font-family: var(--font-royal);
+  font-size: 1.18rem;
+  color: var(--text-primary);
+  line-height: 1.35;
+  margin-bottom: 14px;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-option-btn {
+  padding: 13px 16px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(219, 39, 119, 0.2);
+  background: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quiz-option-btn:hover {
+  border-color: var(--pink-deep);
+  transform: translateX(4px);
+  background: #fdf2f8;
+}
+
+.quiz-option-btn.correct {
+  background: #dcfce7 !important;
+  border-color: #22c55e !important;
+  color: #15803d !important;
+  font-weight: 700;
+}
+
+.quiz-option-btn.wrong {
+  background: #fee2e2 !important;
+  border-color: #ef4444 !important;
+  color: #991b1b !important;
+}
+
+.quiz-feedback {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.quiz-feedback.correct-feedback {
+  background: rgba(220, 252, 231, 0.9);
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.quiz-result-card {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 2px solid var(--royal-gold);
+  border-radius: 22px;
+  padding: 30px 24px;
+  text-align: center;
+  box-shadow: 0 10px 35px rgba(212, 175, 55, 0.35);
+  animation: fadeIn 0.4s ease;
+}
+
+.result-crown {
+  font-size: 2.6rem;
+  margin-bottom: 8px;
+  animation: pulse 1.8s infinite;
+}
+
+.result-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #b45309;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.quiz-result-card h3 {
+  font-family: var(--font-royal);
+  font-size: 1.45rem;
+  color: var(--pink-deep);
+  margin-bottom: 8px;
+}
+
+.quiz-result-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .arcade-tab-btn {
+    padding: 7px 14px;
+    font-size: 0.8rem;
+  }
+  .catcher-canvas-wrapper {
+    height: 300px;
+  }
+  .wheel-container {
+    width: 280px;
+    height: 280px;
+  }
+}
+
