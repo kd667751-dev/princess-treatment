@@ -453,129 +453,125 @@
       </div>
     </section>
 
-    <!-- SECTION: THE ROYAL ARCADE (GAMES FOR HER HIGHNESS) -->
+        <!-- SECTION: THE ROYAL ARCADE (GAMES FOR HER HIGHNESS) -->
     <section class="section-container" id="royalArcadeSection">
       <div class="section-header">
         <span class="section-tag">
           <svg viewBox="0 0 24 24"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
-          Royal Arcade
+          Royal Arcade (Ultra Edition)
         </span>
         <h2>Games Fit For A Princess</h2>
-        <p>A little playground designed exclusively to make you smile when class gets boring:</p>
+        <p>A magical playground designed exclusively to make you smile with ultimate royal polish:</p>
       </div>
 
       <div class="arcade-card glass-panel">
         <!-- Arcade Game Selector Tabs -->
         <div class="arcade-tabs">
           <button type="button" class="arcade-tab-btn active" data-game="catcherGame">
-            <span class="arcade-tab-icon">👑</span>
-            <span class="arcade-tab-name">Crown Catcher</span>
+            <span class="arcade-tab-icon">✨</span>
+            <span class="arcade-tab-name">Crystal Catcher</span>
           </button>
           <button type="button" class="arcade-tab-btn" data-game="memoryGame">
             <span class="arcade-tab-icon">🎴</span>
-            <span class="arcade-tab-name">Palace Pairs</span>
+            <span class="arcade-tab-name">Enchanted Memory</span>
           </button>
           <button type="button" class="arcade-tab-btn" data-game="wheelGame">
             <span class="arcade-tab-icon">🎡</span>
-            <span class="arcade-tab-name">Fortune Wheel</span>
+            <span class="arcade-tab-name">Destiny Wheel</span>
           </button>
           <button type="button" class="arcade-tab-btn" data-game="tictactoeGame">
-            <span class="arcade-tab-icon">❌⭕</span>
-            <span class="arcade-tab-name">Crowns & Hearts</span>
+            <span class="arcade-tab-icon">⚔️</span>
+            <span class="arcade-tab-name">Royal Tactics</span>
           </button>
-          <button type="button" class="arcade-tab-btn" data-game="quizGame">
-            <span class="arcade-tab-icon">👑</span>
-            <span class="arcade-tab-name">Royalty Quiz</span>
+          <button type="button" class="arcade-tab-btn" data-game="pianoGame">
+            <span class="arcade-tab-icon">🎹</span>
+            <span class="arcade-tab-name">Magic Piano</span>
           </button>
         </div>
 
-        <!-- GAME 1: CROWN & HEARTS CATCHER -->
+        <!-- GAME 1: CRYSTAL CATCHER -->
         <div id="catcherGame" class="arcade-game-view active">
           <div class="game-meta-bar">
             <div class="meta-pill">Score: <b id="catcherScore">0</b></div>
-            <div class="meta-pill">High Score: <b id="catcherHighScore">0</b></div>
-            <div class="meta-pill streak-pill" id="catcherStreak">Streak: 0x ✨</div>
+            <div class="meta-pill streak-pill" id="catcherStreak">Combo: x1 🔥</div>
             <button type="button" id="restartCatcherBtn" class="btn-game-control">Restart 🔄</button>
           </div>
           
-          <div class="catcher-canvas-wrapper">
-            <canvas id="catcherCanvas" width="400" height="340"></canvas>
+          <div class="catcher-canvas-wrapper" style="position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 0 20px rgba(212,175,55,0.2);">
+            <canvas id="catcherCanvas" width="400" height="400" style="background: linear-gradient(to bottom, #1a0b2e, #4b2354); display: block;"></canvas>
             <div id="catcherOverlay" class="game-start-overlay">
-              <div class="overlay-content">
-                <span class="overlay-crown">👑</span>
-                <h3>Crown & Hearts Catcher</h3>
-                <p>Catch falling crowns, diamonds, chocolates, and roses with your royal velvet pillow! Avoid boring homework papers 📄!</p>
-                <button type="button" id="startCatcherBtn" class="btn-royal btn-small">Start Playing ✨</button>
+              <div class="overlay-content" style="background: rgba(30,10,40,0.8); backdrop-filter: blur(8px);">
+                <span class="overlay-crown" style="font-size: 3rem; text-shadow: 0 0 20px gold;">✨</span>
+                <h3 style="color: #ffd700;">Crystal Catcher</h3>
+                <p style="color: #eee;">Catch the falling stars and gems! Avoid the dark clouds! 🌩️</p>
+                <button type="button" id="startCatcherBtn" class="btn-royal btn-small">Start Magic ✨</button>
               </div>
             </div>
           </div>
 
-          <!-- Mobile Controls for Catcher -->
           <div class="mobile-catcher-controls">
             <button type="button" id="catcherLeftBtn" class="catcher-arrow-btn">◀ Left</button>
-            <span class="control-tip">Swipe, touch or tap buttons</span>
+            <span class="control-tip">Swipe or touch the cosmos</span>
             <button type="button" id="catcherRightBtn" class="catcher-arrow-btn">Right ▶</button>
           </div>
         </div>
 
-        <!-- GAME 2: PALACE MEMORY PAIRS -->
+        <!-- GAME 2: ENCHANTED MEMORY -->
         <div id="memoryGame" class="arcade-game-view" style="display: none;">
           <div class="game-meta-bar">
             <div class="meta-pill">Moves: <b id="memoryMoves">0</b></div>
-            <div class="meta-pill">Matched: <b id="memoryPairsCount">0 / 6</b></div>
-            <div class="meta-pill">Time: <b id="memoryTimer">00:00</b></div>
-            <button type="button" id="restartMemoryBtn" class="btn-game-control">Shuffle 🔄</button>
+            <div class="meta-pill">Matched: <b id="memoryPairsCount">0 / 8</b></div>
+            <button type="button" id="restartMemoryBtn" class="btn-game-control">Reshuffle 🔄</button>
           </div>
 
-          <div class="memory-grid" id="memoryGrid">
-            <!-- 12 cards generated by JS -->
+          <div class="memory-grid ultra-memory-grid" id="memoryGrid">
+            <!-- 16 cards generated by JS -->
           </div>
 
-          <div id="memoryWinBanner" class="game-win-banner hidden">
-            <span class="win-crown">👑 ✨</span>
-            <h4>Royal Match Complete!</h4>
-            <p id="memoryWinText">You found all palace treasures with true royal grace! Perfectly matched! ✨</p>
+          <div id="memoryWinBanner" class="game-win-banner hidden" style="background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,105,180,0.2));">
+            <span class="win-crown" style="font-size: 3rem; animation: pulse 1s infinite;">✨👑✨</span>
+            <h4 style="color: #d4af37;">Memory Mastered!</h4>
+            <p>Your mind is as brilliant as a diamond!</p>
             <button type="button" id="memoryPlayAgainBtn" class="btn-royal btn-small">Play Again</button>
           </div>
         </div>
 
-        <!-- GAME 3: PRINCESS FORTUNE WHEEL -->
+        <!-- GAME 3: DESTINY WHEEL -->
         <div id="wheelGame" class="arcade-game-view" style="display: none;">
-          <div class="wheel-container">
-            <div class="wheel-pointer">▼</div>
-            <canvas id="wheelCanvas" width="340" height="340"></canvas>
+          <div class="wheel-container ultra-wheel-container">
+            <div class="wheel-pointer" style="text-shadow: 0 0 10px gold;">▼</div>
+            <canvas id="wheelCanvas" width="360" height="360" style="filter: drop-shadow(0 0 15px rgba(255,215,0,0.4));"></canvas>
+            <div id="wheelParticles" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;"></div>
           </div>
 
           <div class="wheel-controls">
             <button type="button" id="spinWheelBtn" class="btn-royal btn-large pulse-animation">
               <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2 7.6.3-5.8 4.8 2 7.7-6.2-4.5-6.2 4.5 2-7.7-5.8-4.8 7.6-.3z"/></svg>
-              <span>Spin for Royal Decree</span>
+              <span>Reveal Destiny</span>
             </button>
           </div>
 
-          <div id="wheelPrizeCard" class="wheel-prize-card hidden">
-            <span class="prize-tag">👑 Royal Decree Granted 👑</span>
-            <h3 id="wheelPrizeTitle">Zero Stress Pass</h3>
-            <p id="wheelPrizeDesc">Valid forever throughout the realm. Enjoy your royal privilege, Her Highness! ✨</p>
+          <div id="wheelPrizeCard" class="wheel-prize-card hidden" style="transform: scale(1.05); border: 2px solid #d4af37; box-shadow: 0 0 30px rgba(212,175,55,0.3);">
+            <span class="prize-tag" style="background: #d4af37; color: white;">👑 Destiny Granted 👑</span>
+            <h3 id="wheelPrizeTitle" style="color: #8b5a2b;">...</h3>
+            <p id="wheelPrizeDesc">...</p>
           </div>
         </div>
 
-        <!-- GAME 4: TIC-TAC-TOE (CROWNS & HEARTS) -->
+        <!-- GAME 4: ROYAL TACTICS (TIC TAC TOE) -->
         <div id="tictactoeGame" class="arcade-game-view" style="display: none;">
           <div class="game-meta-bar">
             <div class="meta-pill">Princess 👑: <b id="tttPlayerScore">0</b></div>
-            <div class="meta-pill">Palace Bot 💖: <b id="tttPartnerScore">0</b></div>
-            <div class="meta-pill">Ties: <b id="tttTiesScore">0</b></div>
-            <button type="button" id="restartTttBtn" class="btn-game-control">New Round 🔄</button>
+            <div class="meta-pill">Palace AI 🤖: <b id="tttPartnerScore">0</b></div>
+            <button type="button" id="restartTttBtn" class="btn-game-control">New Duel ⚔️</button>
           </div>
 
-          <!-- Palace live reaction bubble -->
-          <div class="partner-reaction-bubble" id="tttReaction">
+          <div class="partner-reaction-bubble ultra-reaction" id="tttReaction">
             <span class="partner-avatar">🏰</span>
-            <span class="partner-speech" id="tttSpeech">"A royal challenge! Make your move, Her Highness 👑"</span>
+            <span class="partner-speech" id="tttSpeech">"A strategic duel! I won't go easy on you, Princess!"</span>
           </div>
 
-          <div class="ttt-board" id="tttBoard">
+          <div class="ttt-board ultra-ttt" id="tttBoard">
             <div class="ttt-cell" data-index="0"></div>
             <div class="ttt-cell" data-index="1"></div>
             <div class="ttt-cell" data-index="2"></div>
@@ -585,40 +581,31 @@
             <div class="ttt-cell" data-index="6"></div>
             <div class="ttt-cell" data-index="7"></div>
             <div class="ttt-cell" data-index="8"></div>
+            <div id="tttStrike" class="ttt-strike hidden"></div>
           </div>
         </div>
 
-        <!-- GAME 5: PRINCESS ROYALTY QUIZ -->
-        <div id="quizGame" class="arcade-game-view" style="display: none;">
-          <div class="quiz-container" id="quizContainer">
-            <div class="quiz-progress-bar">
-              <div class="quiz-progress-fill" id="quizProgressFill" style="width: 25%;"></div>
-            </div>
-            
-            <div class="quiz-header">
-              <span class="quiz-step" id="quizStepText">Question 1 of 4</span>
-              <h3 class="quiz-question" id="quizQuestionText">What is Her Highness Raj Nandani's natural superpower?</h3>
-            </div>
-
-            <div class="quiz-options" id="quizOptions">
-              <!-- Rendered dynamically -->
-            </div>
-
-            <div class="quiz-feedback hidden" id="quizFeedback"></div>
+        <!-- GAME 5: MAGIC PIANO -->
+        <div id="pianoGame" class="arcade-game-view" style="display: none;">
+          <div class="game-meta-bar">
+            <div class="meta-pill">Level: <b id="pianoLevel">1</b></div>
+            <div class="meta-pill">Status: <b id="pianoStatus">Waiting to Start</b></div>
+            <button type="button" id="startPianoBtn" class="btn-game-control">Start Melody 🎵</button>
           </div>
-
-          <div class="quiz-result-card hidden" id="quizResultCard">
-            <div class="result-crown">👑</div>
-            <span class="result-tag">Certified Royal Princess Decree</span>
-            <h3 id="quizScoreTitle">100% Sovereign Princess Energy!</h3>
-            <p id="quizScoreDesc">Your kindness, charm, and radiant smile light up every single room. The palace officially decrees that Her Highness deserves uninterrupted royal treatment every day! ✨</p>
-            <button type="button" id="restartQuizBtn" class="btn-royal btn-small">Retake Royal Quiz</button>
+          
+          <div class="piano-container">
+            <div class="piano-key" data-note="0" style="--key-color: #ff9a9e;"></div>
+            <div class="piano-key" data-note="1" style="--key-color: #fecfef;"></div>
+            <div class="piano-key" data-note="2" style="--key-color: #a18cd1;"></div>
+            <div class="piano-key" data-note="3" style="--key-color: #fbc2eb;"></div>
           </div>
+          <p style="text-align:center; margin-top:1rem; font-size:0.9rem; color:var(--text-light);">Repeat the magical sequence to unlock the royal harmony!</p>
         </div>
+
       </div>
     </section>
 
-    <!-- SECTION 5: SECRET WHISPER MAILBOX -->
+<!-- SECTION 5: SECRET WHISPER MAILBOX -->
     <section class="section-container">
       <div class="section-header">
         <span class="section-tag">
@@ -657,6 +644,7 @@
     </footer>
   </main>
 
-  <script src="script.js?v=3.3"></script>
+  <script src="script.js?v=3.4"></script>
+  <script src="arcade.js?v=1.0"></script>
 </body>
 </html>
